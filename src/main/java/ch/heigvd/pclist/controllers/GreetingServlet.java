@@ -15,7 +15,7 @@ public class GreetingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String message = "A First Java EE Web App";
+        String message = "A First Java EE Web App ;)";
         request.setAttribute("message", message);
         request.getRequestDispatcher("WEB-INF/views/home.jsp").forward(request, response);
     }
