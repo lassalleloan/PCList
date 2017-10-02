@@ -1,5 +1,9 @@
 package ch.heigvd.pclist.models;
 
+/**
+ * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ */
 public class Cpu {
 
     private final String brand;

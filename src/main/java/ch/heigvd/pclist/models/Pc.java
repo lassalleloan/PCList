@@ -1,5 +1,9 @@
 package ch.heigvd.pclist.models;
 
+/**
+ * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ */
 public class Pc {
     private final String brand;
     private final double price;

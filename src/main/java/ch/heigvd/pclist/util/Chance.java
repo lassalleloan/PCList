@@ -1,5 +1,9 @@
 package ch.heigvd.pclist.util;
 
+import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Ram;
+
 /**
  * This utility class is used to generate random values.
  *
@@ -8,16 +12,17 @@ package ch.heigvd.pclist.util;
  */
 public class Chance {
 
-    private static final String[] pcBrands = {"Apple", "Dell", "Asus", "Lenovo", "MSI", "HP", "Acer", "Samsung", "Toshiba", "Medion", "Packard Bell"};
+    private static final String[] pcBrands = {"Acer", "Apple", "Asus", "Dell", "HP", "Lenovo", "Medion", "MSI", "Packard Bell", "Samsung", "Toshiba"};
     private static final String[] cpuBrands = {"AMD", "Intel"};
-    private static final String[] cpuNbCores = {"1", "2", "4", "6", "8", "10", "12"};
-    private static final String[] ramBrands = {"G.Skill", "Corsair", "Crucial", "Kingston", "Samsung", "HP", "HyperFx"};
-    private static final String[] gpuBrands = {"NVIDIA", "AMD", "Asus", "ATI", "MSI", "Gigabyte", "XFX", "EVGA"};
+    private static final Integer[] cpuNbCores = {1, 2, 4, 6, 8, 10, 12};
+    private static final String[] ramBrands = {"Corsair", "Crucial", "G.Skill", "HP", "HyperFx", "Kingston", "Samsung"};
+    private static final Integer[] ramSize = {2, 4, 8, 16, 32, 64};
+    private static final String[] gpuBrands = {"AMD", "Asus", "ATI", "EVGA", "Gigabyte", "MSI", "NVIDIA", "XFX"};
 
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random pc brand
      */
     public static String randomPcBrand() {
         return pickRandom(pcBrands);
@@ -26,45 +31,90 @@ public class Chance {
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random pc price
      */
-    public static String randomCpuBrand() {
+    public static double randomPcPrice() {
+        return Math.floor((Math.random() * (5000 - 1000 + 1) + 1000) * 100) / 100;
+    }
+
+    /**
+     * Basic random generator for
+     *
+     * @return a random cpu
+     */
+    public static Cpu randomCpu() {
+        return new Cpu(randomCpuBrand(), randomCpuNbCores(), randomCpuFrequency());
+    }
+
+    /**
+     * Basic random generator for
+     *
+     * @return a random cpu brand
+     */
+    private static String randomCpuBrand() {
         return pickRandom(cpuBrands);
     }
 
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random cpu number cores
      */
-    public static String randomCpuNbCores() {
+    private static int randomCpuNbCores() {
         return pickRandom(cpuNbCores);
     }
 
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random cpu frequency
      */
-    public static double randomCpuFrequency() {
-        return 2 + (4 - 2) * Math.random();
+    private static double randomCpuFrequency() {
+        return Math.floor((Math.random() * (4 - 2 + 1) + 2) * 100) / 100;
     }
 
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random ram
      */
-    public static String randomRamBrands() {
+    public static Ram randomRam() {
+        return new Ram(randomRamBrands(), randomRamSize());
+    }
+
+    /**
+     * Basic random generator for
+     *
+     * @return a random ram brand
+     */
+    private static String randomRamBrands() {
         return pickRandom(ramBrands);
     }
 
     /**
      * Basic random generator for
      *
-     * @return
+     * @return a random ram size
      */
-    public static String randomGpuBrands() {
+    private static int randomRamSize() {
+        return pickRandom(ramSize);
+    }
+
+    /**
+     * Basic random generator for
+     *
+     * @return a random gpu
+     */
+    public static Gpu randomGpu() {
+        return new Gpu(randomGpuBrands());
+    }
+
+    /**
+     * Basic random generator for
+     *
+     * @return a random gpu brands
+     */
+    private static String randomGpuBrands() {
         return pickRandom(gpuBrands);
     }
 
@@ -74,8 +124,7 @@ public class Chance {
      * @param elements the array in which to select a random element
      * @return one element of the array, selected randomly
      */
-    public static String pickRandom(String[] elements) {
+    private static <T> T pickRandom(T[] elements) {
         return elements[(int) (Math.random() * elements.length)];
     }
-
 }

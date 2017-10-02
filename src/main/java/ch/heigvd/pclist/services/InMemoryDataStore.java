@@ -11,17 +11,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ */
 @Singleton
 public class InMemoryDataStore implements InMemoryDataStoreLocal {
+
+    private long pcIdCounter = 0;
+    private long ramIdCounter = 0;
+    private long cpuIdCounter = 0;
+    private long gpuIdCounter = 0;
 
     private final Map<Long, Pc> pcMap = new HashMap<>();
     private final Map<Long, Ram> ramMap = new HashMap<>();
     private final Map<Long, Cpu> cpuMap = new HashMap<>();
     private final Map<Long, Gpu> gpuMap = new HashMap<>();
-    private long pcIdCounter = 0;
-    private long ramIdCounter = 0;
-    private long cpuIdCounter = 0;
-    private long gpuIdCounter = 0;
 
     public long savePc(Pc pc) {
         pcIdCounter++;

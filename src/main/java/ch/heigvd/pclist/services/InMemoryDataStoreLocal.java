@@ -8,6 +8,10 @@ import ch.heigvd.pclist.models.Ram;
 import javax.ejb.Local;
 import java.util.List;
 
+/**
+ * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ */
 @Local
 public interface InMemoryDataStoreLocal {
 
@@ -15,15 +19,15 @@ public interface InMemoryDataStoreLocal {
 
     Pc loadPc(long id);
 
-    long saveCpu(Cpu pc);
+    long saveCpu(Cpu cpu);
 
     Cpu loadCpu(long id);
 
-    long saveRam(Ram pc);
+    long saveRam(Ram ram);
 
     Ram loadRam(long id);
 
-    long saveGpu(Gpu pc);
+    long saveGpu(Gpu gpu);
 
     Gpu loadGpu(long id);
 

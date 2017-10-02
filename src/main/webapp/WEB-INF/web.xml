@@ -2,23 +2,43 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.controllers.HomeServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConfigurationServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.controllers.ConfigurationServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.controllers.EditServlet</servlet-class>
+        <servlet-class>ch.heigvd.pclist.web.controllers.ConfigurationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.controllers.CreateServlet</servlet-class>
+        <servlet-class>ch.heigvd.pclist.web.controllers.CreateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>ch.heigvd.pclist.web.controllers.EditServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>ch.heigvd.pclist.web.controllers.HomeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.controllers.ListServlet</servlet-class>
+        <servlet-class>ch.heigvd.pclist.web.controllers.ListServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>ConfigurationServlet</servlet-name>
+        <url-pattern>/configuration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateServlet</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
 </web-app>
