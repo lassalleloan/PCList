@@ -22,10 +22,6 @@ public class ListServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         testDataService.generateTestData();
         Object model = factoryService.getAllPcs();
