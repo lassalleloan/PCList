@@ -14,5 +14,17 @@ public interface FactoryServiceLocal {
 
     long buildPc(String brand, double price, long cpuId, long ramId, long gpuId);
 
-    List<Pc> getAllPcs();
+    List<Pc> getAllPc();
+
+    List<String> getAllPcBrand();
+
+    List<String> getAllCpuBrand();
+
+    List<Integer> getAllCpuNbCore();
+
+    List<String> getAllRamBrand();
+
+    List<Integer> getAllRamSize();
+
+    List<String> getAllGpuBrand();
 }

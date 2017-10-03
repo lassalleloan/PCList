@@ -24,8 +24,8 @@ public class ListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         testDataService.generateTestData();
-        Object model = factoryService.getAllPcs();
-        request.setAttribute("pcList", model);
+
+        request.setAttribute("pcList", factoryService.getAllPc());
         request.getRequestDispatcher("/WEB-INF/pages/list.jsp").forward(request, response);
     }
 }

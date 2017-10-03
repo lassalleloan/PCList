@@ -4,6 +4,7 @@ import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.util.Chance;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -31,7 +32,37 @@ public class FactoryService implements FactoryServiceLocal {
     }
 
     @Override
-    public List<Pc> getAllPcs() {
+    public List<Pc> getAllPc() {
         return inMemoryDataStore.findAllPcs();
+    }
+
+    @Override
+    public List<String> getAllPcBrand() {
+        return Chance.getPcBrands();
+    }
+
+    @Override
+    public List<String> getAllCpuBrand() {
+        return Chance.getCpuBrands();
+    }
+
+    @Override
+    public List<Integer> getAllCpuNbCore() {
+        return Chance.getCpuNbCores();
+    }
+
+    @Override
+    public List<String> getAllRamBrand() {
+        return Chance.getRamBrands();
+    }
+
+    @Override
+    public List<Integer> getAllRamSize() {
+        return Chance.getRamSize();
+    }
+
+    @Override
+    public List<String> getAllGpuBrand() {
+        return Chance.getGpuBrands();
     }
 }
