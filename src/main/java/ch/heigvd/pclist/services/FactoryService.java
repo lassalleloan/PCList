@@ -17,7 +17,7 @@ import java.util.List;
 @Stateless
 public class FactoryService implements FactoryServiceLocal {
 
-    @EJB
+    @EJB(beanName = "InMemoryDataStore")
     private InMemoryDataStoreLocal inMemoryDataStore;
 
     @Override
@@ -26,9 +26,7 @@ public class FactoryService implements FactoryServiceLocal {
         Ram ram = inMemoryDataStore.loadRam(ramId);
         Gpu gpu = inMemoryDataStore.loadGpu(gpuId);
 
-        Pc pc = new Pc(brand, price, cpu, ram, gpu);
-        long pcId = inMemoryDataStore.savePc(pc);
-        return pcId;
+        return inMemoryDataStore.savePc(new Pc(brand, price, cpu, ram, gpu));
     }
 
     @Override

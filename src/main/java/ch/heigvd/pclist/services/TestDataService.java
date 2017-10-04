@@ -12,10 +12,10 @@ import javax.ejb.Stateless;
 @Stateless
 public class TestDataService implements TestDataServiceLocal {
 
-    @EJB
+    @EJB(beanName = "FactoryService")
     private FactoryServiceLocal factoryService;
 
-    @EJB
+    @EJB(beanName = "InMemoryDataStore")
     private InMemoryDataStoreLocal inMemoryDataStore;
 
     @Override
