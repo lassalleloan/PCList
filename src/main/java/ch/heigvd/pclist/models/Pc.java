@@ -6,25 +6,21 @@ package ch.heigvd.pclist.models;
  */
 public class Pc {
     private final String brand;
-    private final double price;
     private final Cpu cpu;
     private final Ram ram;
     private final Gpu gpu;
+    private final double price;
 
-    public Pc(String brand, double price, Cpu cpu, Ram ram, Gpu gpu) {
+    public Pc(String brand, Cpu cpu, Ram ram, Gpu gpu, double price) {
         this.brand = brand;
-        this.price = price;
         this.cpu = cpu;
         this.ram = ram;
         this.gpu = gpu;
+        this.price = price;
     }
 
     public String getBrand() {
         return brand;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public Cpu getCpu() {
@@ -37,6 +33,10 @@ public class Pc {
 
     public Gpu getGpu() {
         return gpu;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     @Override

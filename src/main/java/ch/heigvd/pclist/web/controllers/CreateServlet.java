@@ -19,12 +19,6 @@ public class CreateServlet extends HttpServlet {
     private FactoryServiceLocal factoryService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("pcBrandList", factoryService.getAllPcBrand());
-        request.setAttribute("cpuBrandList", factoryService.getAllCpuBrand());
-        request.setAttribute("cpuNbCoreList", factoryService.getAllCpuNbCore());
-        request.setAttribute("ramBrandList", factoryService.getAllRamBrand());
-        request.setAttribute("ramSizeList", factoryService.getAllRamSize());
-        request.setAttribute("gpuBrandList", factoryService.getAllGpuBrand());
-        request.getRequestDispatcher("/WEB-INF/pages/create.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(request, response);
     }
 }

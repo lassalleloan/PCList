@@ -13,6 +13,6 @@ import java.io.IOException;
 public class ConfigurationServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/configuration.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/configuration.jsp").forward(request, response);
     }
 }

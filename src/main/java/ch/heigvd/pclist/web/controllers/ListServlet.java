@@ -1,7 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
 import ch.heigvd.pclist.services.FactoryServiceLocal;
-import ch.heigvd.pclist.services.TestDataServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,15 +16,12 @@ import java.io.IOException;
 public class ListServlet extends HttpServlet {
 
     @EJB
-    private TestDataServiceLocal testDataService;
-
-    @EJB
     private FactoryServiceLocal factoryService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        testDataService.generateTestData();
+        response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("cpuList", factoryService.getAllCpu());
 
-        request.setAttribute("pcList", factoryService.getAllPc());
-        request.getRequestDispatcher("/WEB-INF/pages/list.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(request, response);
     }
 }

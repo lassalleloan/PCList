@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.services;
 
-import ch.heigvd.pclist.models.Pc;
+import ch.heigvd.pclist.models.Cpu;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -12,19 +12,5 @@ import java.util.List;
 @Local
 public interface FactoryServiceLocal {
 
-    long buildPc(String brand, double price, long cpuId, long ramId, long gpuId);
-
-    List<Pc> getAllPc();
-
-    List<String> getAllPcBrand();
-
-    List<String> getAllCpuBrand();
-
-    List<Integer> getAllCpuNbCore();
-
-    List<String> getAllRamBrand();
-
-    List<Integer> getAllRamSize();
-
-    List<String> getAllGpuBrand();
+    List<Cpu> getAllCpu();
 }

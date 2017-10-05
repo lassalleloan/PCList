@@ -48,31 +48,16 @@
                             <a class="nav-link" href="/pclist/create">Add</a>
                         </th>
                     </tr>
-                    <c:forEach items="${pcList}" var="pc">
+                    <c:forEach items="${cpuList}" var="cpu">
                         <tr align="center">
                             <td>
-                                    ${pc.brand}
+                                    ${cpu.brand}
                             </td>
                             <td>
-                                    ${pc.cpu.brand}
+                                    ${cpu.nbCores}
                             </td>
                             <td>
-                                    ${pc.cpu.nbCores}
-                            </td>
-                            <td>
-                                    ${pc.cpu.frequency}GHz
-                            </td>
-                            <td>
-                                    ${pc.ram.brand}
-                            </td>
-                            <td>
-                                    ${pc.ram.size}GB
-                            </td>
-                            <td>
-                                    ${pc.gpu.brand}
-                            </td>
-                            <td>
-                                    ${pc.price}.-
+                                    ${cpu.frequency}GHz
                             </td>
                             <td>
                                 <a class="nav-link" href="/pclist/edit">Edit</a>
