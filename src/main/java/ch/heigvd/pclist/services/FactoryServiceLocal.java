@@ -1,6 +1,9 @@
 package ch.heigvd.pclist.services;
 
 import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Pc;
+import ch.heigvd.pclist.models.Ram;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -12,5 +15,11 @@ import java.util.List;
 @Local
 public interface FactoryServiceLocal {
 
+    List<Pc> getAllPc();
+
     List<Cpu> getAllCpu();
+
+    List<Ram> getAllRam();
+
+    List<Gpu> getAllGpu();
 }

@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.services;
 
-import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Ram;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -19,51 +19,49 @@ import java.util.logging.Logger;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class CpuStore implements CpuStoreLocal {
+public class RamStore implements RamStoreLocal {
 
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Cpu getOne(long id) {
-        Cpu cpu = null;
+    public Ram getOne(long id) {
+        Ram ram = null;
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu" +
-                    "WHERE idCpu=" + id);
+                    "FROM ram" +
+                    "WHERE idRam=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
             String brand = resultSet.getString("brand");
-            int cores = resultSet.getInt("cores");
-            double frequency = resultSet.getDouble("frequency");
+            int size = resultSet.getInt("size");
 
-            cpu = new Cpu(brand, cores, frequency);
+            ram = new Ram(brand, size);
 
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return cpu;
+        return ram;
     }
 
-    public List<Cpu> getAll() {
-        List<Cpu> cpuList = new ArrayList<>();
+    public List<Ram> getAll() {
+        List<Ram> ramList = new ArrayList<>();
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu");
+                    "FROM ram");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 String brand = resultSet.getString("brand");
-                int cores = resultSet.getInt("cores");
-                double frequency = resultSet.getDouble("frequency");
+                int size = resultSet.getInt("size");
 
-                cpuList.add(new Cpu(brand, cores, frequency));
+                ramList.add(new Ram(brand, size));
             }
 
             connection.close();
@@ -71,6 +69,6 @@ public class CpuStore implements CpuStoreLocal {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return cpuList;
+        return ramList;
     }
 }

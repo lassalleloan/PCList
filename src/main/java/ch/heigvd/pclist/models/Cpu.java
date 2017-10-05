@@ -7,12 +7,12 @@ package ch.heigvd.pclist.models;
 public class Cpu {
 
     private final String brand;
-    private final int nbCores;
+    private final int cores;
     private final double frequency;
 
-    public Cpu(String brand, int nbCores, double frequency) {
+    public Cpu(String brand, int cores, double frequency) {
         this.brand = brand;
-        this.nbCores = nbCores;
+        this.cores = cores;
         this.frequency = frequency;
     }
 
@@ -20,8 +20,8 @@ public class Cpu {
         return brand;
     }
 
-    public int getNbCores() {
-        return nbCores;
+    public int getCores() {
+        return cores;
     }
 
     public double getFrequency() {
@@ -32,7 +32,7 @@ public class Cpu {
     public String toString() {
         return "Cpu{" +
                 "brand='" + brand + '\'' +
-                ", nbCores=" + nbCores +
+                ", cores=" + cores +
                 ", frequency=" + frequency +
                 '}';
     }

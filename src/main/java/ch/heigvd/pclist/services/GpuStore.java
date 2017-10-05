@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.services;
 
-import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Gpu;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -19,51 +19,48 @@ import java.util.logging.Logger;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class CpuStore implements CpuStoreLocal {
+public class GpuStore implements GpuStoreLocal {
 
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Cpu getOne(long id) {
-        Cpu cpu = null;
+    public Gpu getOne(long id) {
+        Gpu gpu = null;
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu" +
-                    "WHERE idCpu=" + id);
+                    "FROM gpu" +
+                    "WHERE idGpu=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
             String brand = resultSet.getString("brand");
-            int cores = resultSet.getInt("cores");
-            double frequency = resultSet.getDouble("frequency");
 
-            cpu = new Cpu(brand, cores, frequency);
+            gpu = new Gpu(brand);
 
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return cpu;
+        return gpu;
     }
 
-    public List<Cpu> getAll() {
-        List<Cpu> cpuList = new ArrayList<>();
+    public List<Gpu> getAll() {
+        List<Gpu> gpuList = new ArrayList<>();
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu");
+                    "FROM gpu");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 String brand = resultSet.getString("brand");
-                int cores = resultSet.getInt("cores");
-                double frequency = resultSet.getDouble("frequency");
+                int size = resultSet.getInt("size");
 
-                cpuList.add(new Cpu(brand, cores, frequency));
+                gpuList.add(new Gpu(brand));
             }
 
             connection.close();
@@ -71,6 +68,6 @@ public class CpuStore implements CpuStoreLocal {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return cpuList;
+        return gpuList;
     }
 }

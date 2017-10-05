@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.services;
 
-import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Ram;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Local
-public interface CpuStoreLocal {
+public interface RamStoreLocal {
 
-    Cpu getOne(long id);
+    Ram getOne(long id);
 
-    List<Cpu> getAll();
+    List<Ram> getAll();
 }

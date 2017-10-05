@@ -20,7 +20,10 @@ public class ListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("pcList", factoryService.getAllPc());
         request.setAttribute("cpuList", factoryService.getAllCpu());
+        request.setAttribute("ramList", factoryService.getAllRam());
+        request.setAttribute("gpuList", factoryService.getAllGpu());
 
         request.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(request, response);
     }

@@ -24,7 +24,7 @@ USE `pclist` ;
 CREATE TABLE IF NOT EXISTS `pclist`.`cpu` (
   `idCpu` INT NOT NULL AUTO_INCREMENT,
   `brand` VARCHAR(45) NULL,
-  `nbCores` INT UNSIGNED NULL,
+  `cores` INT UNSIGNED NULL,
   `frequency` DOUBLE UNSIGNED NULL,
   PRIMARY KEY (`idCpu`))
 ENGINE = InnoDB;
@@ -92,8 +92,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `pclist`;
-INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `nbCores`, `frequency`) VALUES (DEFAULT, 'intel', 3, 2.3);
-INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `nbCores`, `frequency`) VALUES (DEFAULT, 'amd', 4, 4);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'intel', 3, 2.3);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'amd', 4, 4);
 
 COMMIT;
 
