@@ -22,7 +22,7 @@ public class FactoryService implements FactoryServiceLocal {
     @EJB(beanName = "CpuStore")
     private CpuStoreLocal cpuStore;
 
-    @EJB(beanName = "ramStore")
+    @EJB(beanName = "RamStore")
     private RamStoreLocal ramStore;
 
     @EJB(beanName = "GpuStore")

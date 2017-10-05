@@ -30,7 +30,7 @@ public class GpuStore implements GpuStoreLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM gpu" +
+                    "FROM gpu " +
                     "WHERE idGpu=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -58,7 +58,6 @@ public class GpuStore implements GpuStoreLocal {
 
             while (resultSet.next()) {
                 String brand = resultSet.getString("brand");
-                int size = resultSet.getInt("size");
 
                 gpuList.add(new Gpu(brand));
             }

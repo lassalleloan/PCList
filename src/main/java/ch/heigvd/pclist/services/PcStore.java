@@ -32,17 +32,17 @@ public class PcStore implements PcStoreLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand," +
-                    "c.brand AS cpuBrand," +
-                    "c.cores AS cpuCores," +
-                    "c.frequency AS cpuFrequency," +
-                    "r.brand AS ramBrand," +
-                    "r.size AS ramSize," +
-                    "g.brand AS gpuBrand" +
-                    "FROM pc AS p" +
-                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu" +
-                    "INNER JOIN ram AS r ON p.idRam = r.idRam" +
-                    "INNER JOIN gpu AS g ON p.idGpu = g.idGpu" +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand, " +
+                    "c.brand AS cpuBrand, " +
+                    "c.cores AS cpuCores, " +
+                    "c.frequency AS cpuFrequency, " +
+                    "r.brand AS ramBrand, " +
+                    "r.size AS ramSize, " +
+                    "g.brand AS gpuBrand " +
+                    "FROM pc AS p " +
+                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
+                    "INNER JOIN ram AS r ON p.idRam = r.idRam " +
+                    "INNER JOIN gpu AS g ON p.idGpu = g.idGpu " +
                     "WHERE idPc=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -75,16 +75,17 @@ public class PcStore implements PcStoreLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand " +
-                    "c.brand AS cpuBrand," +
-                    "c.cores AS cpuCores," +
-                    "c.frequency AS cpuFrequency," +
-                    "r.brand AS ramBrand," +
-                    "r.size AS ramSize," +
-                    "g.brand AS gpuBrand" +
-                    "FROM pc AS p" +
-                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu" +
-                    "INNER JOIN ram AS r ON p.idRam = r.idRam" +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand, " +
+                    "c.brand AS cpuBrand, " +
+                    "c.cores AS cpuCores, " +
+                    "c.frequency AS cpuFrequency, " +
+                    "r.brand AS ramBrand, " +
+                    "r.size AS ramSize, " +
+                    "g.brand AS gpuBrand," +
+                    "p.price " +
+                    "FROM pc AS p " +
+                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
+                    "INNER JOIN ram AS r ON p.idRam = r.idRam " +
                     "INNER JOIN gpu AS g ON p.idGpu = g.idGpu");
             ResultSet resultSet = preparedStatement.executeQuery();
 

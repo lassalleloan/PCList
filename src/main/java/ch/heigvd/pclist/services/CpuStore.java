@@ -30,7 +30,7 @@ public class CpuStore implements CpuStoreLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu" +
+                    "FROM cpu " +
                     "WHERE idCpu=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();

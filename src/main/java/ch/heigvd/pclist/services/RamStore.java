@@ -30,7 +30,7 @@ public class RamStore implements RamStoreLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram" +
+                    "FROM ram " +
                     "WHERE idRam=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
