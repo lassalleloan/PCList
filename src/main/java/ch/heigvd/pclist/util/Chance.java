@@ -70,7 +70,7 @@ public class Chance {
      * @return a random cpu
      */
     public static Cpu randomCpu() {
-        return new Cpu(randomCpuBrand(), randomCpuNbCores(), randomCpuFrequency());
+        return new Cpu(0, randomCpuBrand(), randomCpuNbCores(), randomCpuFrequency());
     }
 
     /**
@@ -106,7 +106,7 @@ public class Chance {
      * @return a random ram
      */
     public static Ram randomRam() {
-        return new Ram(randomRamBrands(), randomRamSize());
+        return new Ram(0, randomRamBrands(), randomRamSize());
     }
 
     /**
@@ -133,7 +133,7 @@ public class Chance {
      * @return a random gpu
      */
     public static Gpu randomGpu() {
-        return new Gpu(randomGpuBrands());
+        return new Gpu(0, randomGpuBrands());
     }
 
     /**

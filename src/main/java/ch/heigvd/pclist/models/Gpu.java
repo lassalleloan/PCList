@@ -6,10 +6,16 @@ package ch.heigvd.pclist.models;
  */
 public class Gpu {
 
+    private final long idGpu;
     private final String brand;
 
-    public Gpu(String brand) {
+    public Gpu(long idGpu, String brand) {
+        this.idGpu = idGpu;
         this.brand = brand;
+    }
+
+    public long getIdGpu() {
+        return idGpu;
     }
 
     public String getBrand() {
@@ -19,7 +25,8 @@ public class Gpu {
     @Override
     public String toString() {
         return "Gpu{" +
-                "brand='" + brand + '\'' +
+                "idGpu=" + idGpu +
+                ", brand='" + brand + '\'' +
                 '}';
     }
 }

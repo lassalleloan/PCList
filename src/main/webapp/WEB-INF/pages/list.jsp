@@ -18,8 +18,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <h3>Pc</h3>
                 <table>
+                    <tr>
+                        <td colspan="10">
+                            <h3>PC</h3>
+                        </td>
+                    </tr>
                     <tr>
                         <th>
                             Brand
@@ -46,11 +50,11 @@
                             Price
                         </th>
                         <th colspan="2">
-                            <a class="nav-link" href="/pclist/create">Add</a>
+                            <a class="nav-link" href="/pclist/create?what=pc">Add</a>
                         </th>
                     </tr>
                     <c:forEach items="${pcList}" var="pc">
-                        <tr align="center">
+                        <tr>
                             <td>
                                     ${pc.brand}
                             </td>
@@ -76,19 +80,25 @@
                                     ${pc.price}.-
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Edit</a>
+                                <a class="nav-link" href="/pclist/edit?what=pc&id=${pc.idPc}">Edit</a>
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Delete</a>
+                                <a class="nav-link" href="/pclist/delete?what=pc&id=${pc.idPc}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
-                </table>
-                <br>
-                <br>
-                <br>
-                <h3>Cpu</h3>
-                <table>
+                    <tr>
+                        <td colspan="10">
+                            <br>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <h3>CPU</h3>
+                        </td>
+                    </tr>
                     <tr>
                         <th>
                             Brand
@@ -96,89 +106,101 @@
                         <th>
                             Number of Cores
                         </th>
-                        <th>
+                        <th colspan="6">
                             Frequency
                         </th>
                         <th colspan="2">
-                            <a class="nav-link" href="/pclist/create">Add</a>
+                            <a class="nav-link" href="/pclist/create?what=cpu">Add</a>
                         </th>
                     </tr>
                     <c:forEach items="${cpuList}" var="cpu">
-                        <tr align="center">
+                        <tr>
                             <td>
                                     ${cpu.brand}
                             </td>
                             <td>
                                     ${cpu.cores}
                             </td>
-                            <td>
+                            <td colspan="6">
                                     ${cpu.frequency}GHz
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Edit</a>
+                                <a class="nav-link" href="/pclist/edit?what=cpu&id=${cpu.idCpu}">Edit</a>
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Delete</a>
+                                <a class="nav-link" href="/pclist/delete?what=cpu&id=${cpu.idCpu}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
-                </table>
-                <br>
-                <br>
-                <br>
-                <h3>Ram</h3>
-                <table>
+                    <tr>
+                        <td colspan="10">
+                            <br>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <h3>RAM</h3>
+                        </td>
+                    </tr>
                     <tr>
                         <th>
                             Brand
                         </th>
-                        <th>
+                        <th colspan="7">
                             Size
                         </th>
                         <th colspan="2">
-                            <a class="nav-link" href="/pclist/create">Add</a>
+                            <a class="nav-link" href="/pclist/create?what=ram">Add</a>
                         </th>
                     </tr>
                     <c:forEach items="${ramList}" var="ram">
-                        <tr align="center">
+                        <tr>
                             <td>
                                     ${ram.brand}
                             </td>
-                            <td>
+                            <td colspan="7">
                                     ${ram.size}GB
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Edit</a>
+                                <a class="nav-link" href="/pclist/edit?what=ram&id=${ram.idRam}">Edit</a>
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Delete</a>
+                                <a class="nav-link" href="/pclist/delete?what=ram&id=${ram.idRam}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
-                </table>
-                <br>
-                <br>
-                <br>
-                <h3>Gpu</h3>
-                <table>
                     <tr>
-                        <th>
+                        <td colspan="10">
+                            <br>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <h3>GPU</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="8">
                             Brand
                         </th>
                         <th colspan="2">
-                            <a class="nav-link" href="/pclist/create">Add</a>
+                            <a class="nav-link" href="/pclist/create?what=gpu">Add</a>
                         </th>
                     </tr>
                     <c:forEach items="${gpuList}" var="gpu">
-                        <tr align="center">
-                            <td>
+                        <tr>
+                            <td colspan="8">
                                     ${gpu.brand}
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Edit</a>
+                                <a class="nav-link" href="/pclist/edit?what=gpu&id=${gpu.idGpu}">Edit</a>
                             </td>
                             <td>
-                                <a class="nav-link" href="/pclist/edit">Delete</a>
+                                <a class="nav-link" href="/pclist/delete?what=gpu&id=${gpu.idGpu}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -6,14 +6,20 @@ package ch.heigvd.pclist.models;
  */
 public class Cpu {
 
+    private final long idCpu;
     private final String brand;
     private final int cores;
     private final double frequency;
 
-    public Cpu(String brand, int cores, double frequency) {
+    public Cpu(long idCpu, String brand, int cores, double frequency) {
+        this.idCpu = idCpu;
         this.brand = brand;
         this.cores = cores;
         this.frequency = frequency;
+    }
+
+    public long getIdCpu() {
+        return idCpu;
     }
 
     public String getBrand() {
@@ -31,7 +37,8 @@ public class Cpu {
     @Override
     public String toString() {
         return "Cpu{" +
-                "brand='" + brand + '\'' +
+                "idCpu=" + idCpu +
+                ", brand='" + brand + '\'' +
                 ", cores=" + cores +
                 ", frequency=" + frequency +
                 '}';

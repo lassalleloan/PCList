@@ -39,7 +39,7 @@ public class CpuStore implements CpuStoreLocal {
             int cores = resultSet.getInt("cores");
             double frequency = resultSet.getDouble("frequency");
 
-            cpu = new Cpu(brand, cores, frequency);
+            cpu = new Cpu(id, brand, cores, frequency);
 
             connection.close();
         } catch (SQLException ex) {
@@ -59,11 +59,12 @@ public class CpuStore implements CpuStoreLocal {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                long id = resultSet.getLong("idCpu");
                 String brand = resultSet.getString("brand");
                 int cores = resultSet.getInt("cores");
                 double frequency = resultSet.getDouble("frequency");
 
-                cpuList.add(new Cpu(brand, cores, frequency));
+                cpuList.add(new Cpu(id, brand, cores, frequency));
             }
 
             connection.close();

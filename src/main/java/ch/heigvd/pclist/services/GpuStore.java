@@ -37,7 +37,7 @@ public class GpuStore implements GpuStoreLocal {
 
             String brand = resultSet.getString("brand");
 
-            gpu = new Gpu(brand);
+            gpu = new Gpu(id, brand);
 
             connection.close();
         } catch (SQLException ex) {
@@ -57,9 +57,10 @@ public class GpuStore implements GpuStoreLocal {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                long id = resultSet.getLong("idGpu");
                 String brand = resultSet.getString("brand");
 
-                gpuList.add(new Gpu(brand));
+                gpuList.add(new Gpu(id, brand));
             }
 
             connection.close();

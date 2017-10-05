@@ -15,11 +15,19 @@ import java.util.List;
 @Local
 public interface FactoryServiceLocal {
 
+    Pc getOnePc(long id);
+
     List<Pc> getAllPc();
+
+    Cpu getOneCpu(long id);
 
     List<Cpu> getAllCpu();
 
+    Ram getOneRam(long id);
+
     List<Ram> getAllRam();
+
+    Gpu getOneGpu(long id);
 
     List<Gpu> getAllGpu();
 }

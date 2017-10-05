@@ -38,7 +38,7 @@ public class RamStore implements RamStoreLocal {
             String brand = resultSet.getString("brand");
             int size = resultSet.getInt("size");
 
-            ram = new Ram(brand, size);
+            ram = new Ram(id, brand, size);
 
             connection.close();
         } catch (SQLException ex) {
@@ -58,10 +58,11 @@ public class RamStore implements RamStoreLocal {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                long id = resultSet.getLong("idRam");
                 String brand = resultSet.getString("brand");
                 int size = resultSet.getInt("size");
 
-                ramList.add(new Ram(brand, size));
+                ramList.add(new Ram(id, brand, size));
             }
 
             connection.close();

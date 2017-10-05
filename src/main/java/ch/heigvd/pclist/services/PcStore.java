@@ -33,11 +33,15 @@ public class PcStore implements PcStoreLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand, " +
+                    "p.price, " +
+                    "c.idCpu, " +
                     "c.brand AS cpuBrand, " +
                     "c.cores AS cpuCores, " +
                     "c.frequency AS cpuFrequency, " +
+                    "r.idRam, " +
                     "r.brand AS ramBrand, " +
                     "r.size AS ramSize, " +
+                    "g.idGpu, " +
                     "g.brand AS gpuBrand " +
                     "FROM pc AS p " +
                     "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
@@ -48,19 +52,25 @@ public class PcStore implements PcStoreLocal {
             resultSet.next();
 
             String brand = resultSet.getString("brand");
+            double price = resultSet.getDouble("price");
+
+            long idCpu = resultSet.getLong("idCpu");
             String cpuBrand = resultSet.getString("cpuBrand");
             int cpuCores = resultSet.getInt("cpuCores");
             double cpuFrequency = resultSet.getDouble("cpuFrequency");
+
+            long idRam = resultSet.getLong("idRam");
             String ramBrand = resultSet.getString("ramBrand");
             int ramSize = resultSet.getInt("ramSize");
+
+            long idGpu = resultSet.getLong("idGpu");
             String gpuBrand = resultSet.getString("gpuBrand");
-            double price = resultSet.getDouble("price");
 
-            Cpu cpu = new Cpu(cpuBrand, cpuCores, cpuFrequency);
-            Ram ram = new Ram(ramBrand, ramSize);
-            Gpu gpu = new Gpu(gpuBrand);
+            Cpu cpu = new Cpu(idCpu, cpuBrand, cpuCores, cpuFrequency);
+            Ram ram = new Ram(idRam, ramBrand, ramSize);
+            Gpu gpu = new Gpu(idGpu, gpuBrand);
 
-            pc = new Pc(brand, cpu, ram, gpu, price);
+            pc = new Pc(id, brand, cpu, ram, gpu, price);
 
             connection.close();
         } catch (SQLException ex) {
@@ -75,14 +85,18 @@ public class PcStore implements PcStoreLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand, " +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.idPc, " +
+                    "p.brand, " +
+                    "p.price, " +
+                    "c.idCpu, " +
                     "c.brand AS cpuBrand, " +
                     "c.cores AS cpuCores, " +
                     "c.frequency AS cpuFrequency, " +
+                    "r.idRam, " +
                     "r.brand AS ramBrand, " +
                     "r.size AS ramSize, " +
-                    "g.brand AS gpuBrand," +
-                    "p.price " +
+                    "g.idGpu, " +
+                    "g.brand AS gpuBrand " +
                     "FROM pc AS p " +
                     "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
                     "INNER JOIN ram AS r ON p.idRam = r.idRam " +
@@ -90,20 +104,27 @@ public class PcStore implements PcStoreLocal {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                long idPc = resultSet.getLong("idPc");
                 String brand = resultSet.getString("brand");
+                double price = resultSet.getDouble("price");
+
+                long idCpu = resultSet.getLong("idCpu");
                 String cpuBrand = resultSet.getString("cpuBrand");
                 int cpuCores = resultSet.getInt("cpuCores");
                 double cpuFrequency = resultSet.getDouble("cpuFrequency");
+
+                long idRam = resultSet.getLong("idRam");
                 String ramBrand = resultSet.getString("ramBrand");
                 int ramSize = resultSet.getInt("ramSize");
+
+                long idGpu = resultSet.getLong("idGpu");
                 String gpuBrand = resultSet.getString("gpuBrand");
-                double price = resultSet.getDouble("price");
 
-                Cpu cpu = new Cpu(cpuBrand, cpuCores, cpuFrequency);
-                Ram ram = new Ram(ramBrand, ramSize);
-                Gpu gpu = new Gpu(gpuBrand);
+                Cpu cpu = new Cpu(idCpu, cpuBrand, cpuCores, cpuFrequency);
+                Ram ram = new Ram(idRam, ramBrand, ramSize);
+                Gpu gpu = new Gpu(idGpu, gpuBrand);
 
-                pcList.add(new Pc(brand, cpu, ram, gpu, price));
+                pcList.add(new Pc(idPc, brand, cpu, ram, gpu, price));
             }
 
             connection.close();

@@ -6,12 +6,18 @@ package ch.heigvd.pclist.models;
  */
 public class Ram {
 
+    private final long idRam;
     private final String brand;
     private final int size;
 
-    public Ram(String brand, int size) {
+    public Ram(long idRam, String brand, int size) {
+        this.idRam = idRam;
         this.brand = brand;
         this.size = size;
+    }
+
+    public long getIdRam() {
+        return idRam;
     }
 
     public String getBrand() {
@@ -25,7 +31,8 @@ public class Ram {
     @Override
     public String toString() {
         return "Ram{" +
-                "brand='" + brand + '\'' +
+                "idRam=" + idRam +
+                ", brand='" + brand + '\'' +
                 ", size=" + size +
                 '}';
     }
