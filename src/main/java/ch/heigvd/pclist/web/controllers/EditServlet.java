@@ -22,26 +22,40 @@ public class EditServlet extends HttpServlet {
         String what = request.getParameter("what");
         long id = Long.valueOf(request.getParameter("id"));
 
-        request.setAttribute("titlePage", what.toUpperCase());
+        what = what != null ? what : "";
+
+        String titlePage = "All";
+        Object o;
 
         switch (what) {
             case "pc":
-                request.setAttribute("pc", factoryService.getOnePc(id));
+                titlePage = "Pc";
+                o = factoryService.getOnePc(id);
                 break;
 
             case "cpu":
-                request.setAttribute("cpu", factoryService.getOneCpu(id));
+                titlePage = "Processor";
+                o = factoryService.getOneCpu(id);
                 break;
 
             case "ram":
-                request.setAttribute("ram", factoryService.getOneRam(id));
+                titlePage = "Memory";
+                o = factoryService.getOneRam(id);
                 break;
 
             case "gpu":
-                request.setAttribute("gpu", factoryService.getOneGpu(id));
+                titlePage = "Graphic";
+                o = factoryService.getOneGpu(id);
                 break;
+
+            default:
+                request.setAttribute("titlePage", titlePage);
+                request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
+                return;
         }
 
+        request.setAttribute("titlePage", titlePage);
+        request.setAttribute(what, o);
         request.getRequestDispatcher("WEB-INF/pages/edit.jsp").forward(request, response);
     }
 }
