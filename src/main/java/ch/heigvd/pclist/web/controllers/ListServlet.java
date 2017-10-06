@@ -1,6 +1,7 @@
 package ch.heigvd.pclist.web.controllers;
 
 import ch.heigvd.pclist.services.FactoryServiceLocal;
+import ch.heigvd.pclist.util.Chance;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -35,6 +36,8 @@ public class ListServlet extends HttpServlet {
         }
 
         if (isAllList || what.equals("cpu")) {
+            factoryService.setOneCpu(Chance.randomCpu());
+
             titlePage = "Processor";
             objectMap.put("cpuList", factoryService.getAllCpu());
         }

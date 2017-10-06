@@ -23,6 +23,10 @@ public interface FactoryServiceLocal {
 
     List<Cpu> getAllCpu();
 
+    boolean setOneCpu(Cpu cpu);
+
+    boolean setAllCpu(List<Cpu> cpuList);
+
     Ram getOneRam(long id);
 
     List<Ram> getAllRam();

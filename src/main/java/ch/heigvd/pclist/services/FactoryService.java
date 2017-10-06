@@ -49,6 +49,16 @@ public class FactoryService implements FactoryServiceLocal {
     }
 
     @Override
+    public boolean setOneCpu(Cpu cpu) {
+        return cpuStore.setOne(cpu);
+    }
+
+    @Override
+    public boolean setAllCpu(List<Cpu> cpuList) {
+        return cpuStore.setAll(cpuList);
+    }
+
+    @Override
     public Ram getOneRam(long id) {
         return ramStore.getOne(id);
     }

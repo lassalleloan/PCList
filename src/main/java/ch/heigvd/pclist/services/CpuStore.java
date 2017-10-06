@@ -74,4 +74,50 @@ public class CpuStore implements CpuStoreLocal {
 
         return cpuList;
     }
+
+    public boolean setOne(Cpu cpu) {
+        boolean isSet = false;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO cpu " +
+                    "(`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, ?, ?, ?)");
+
+            preparedStatement.setString(1, cpu.getBrand());
+            preparedStatement.setInt(2, cpu.getCores());
+            preparedStatement.setDouble(3, cpu.getFrequency());
+
+            isSet = preparedStatement.executeUpdate() == 1;
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return isSet;
+    }
+
+    public boolean setAll(List<Cpu> cpuList) {
+        boolean isSet = true;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO cpu " +
+                    "(`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, ?, ?, ?)");
+
+            for (Cpu cpu : cpuList) {
+                preparedStatement.setString(1, cpu.getBrand());
+                preparedStatement.setInt(2, cpu.getCores());
+                preparedStatement.setDouble(3, cpu.getFrequency());
+
+                isSet = preparedStatement.executeUpdate() == 1 && isSet;
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return isSet;
+    }
 }

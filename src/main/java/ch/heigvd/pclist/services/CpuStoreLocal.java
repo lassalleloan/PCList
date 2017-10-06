@@ -15,4 +15,8 @@ public interface CpuStoreLocal {
     Cpu getOne(long id);
 
     List<Cpu> getAll();
+
+    boolean setOne(Cpu cpu);
+
+    boolean setAll(List<Cpu> cpuList);
 }
