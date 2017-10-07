@@ -29,52 +29,82 @@ public class FactoryService implements FactoryServiceLocal {
     private GpuStoreLocal gpuStore;
 
     @Override
-    public Pc getOnePc(long id) {
+    public Pc getPc(long id) {
         return pcStore.getOne(id);
     }
 
     @Override
-    public List<Pc> getAllPc() {
+    public List<Pc> getPc() {
         return pcStore.getAll();
     }
 
     @Override
-    public Cpu getOneCpu(long id) {
-        return cpuStore.getOne(id);
+    public Cpu getCpu(long id) {
+        return cpuStore.get(id);
     }
 
     @Override
-    public List<Cpu> getAllCpu() {
-        return cpuStore.getAll();
+    public List<Cpu> getCpu(List<Long> idList) {
+        return cpuStore.get(idList);
     }
 
     @Override
-    public boolean setOneCpu(Cpu cpu) {
-        return cpuStore.setOne(cpu);
+    public List<Cpu> getCpu() {
+        return cpuStore.get();
     }
 
     @Override
-    public boolean setAllCpu(List<Cpu> cpuList) {
-        return cpuStore.setAll(cpuList);
+    public int setCpu(Cpu cpu) {
+        return cpuStore.set(cpu);
     }
 
     @Override
-    public Ram getOneRam(long id) {
+    public int setCpu(List<Cpu> cpuList) {
+        return cpuStore.set(cpuList);
+    }
+
+    @Override
+    public int updateCpu(Cpu cpu) {
+        return cpuStore.update(cpu);
+    }
+
+    @Override
+    public int updateCpu(List<Cpu> cpuList) {
+        return cpuStore.update(cpuList);
+    }
+
+    @Override
+    public int deleteCpu(long id) {
+        return cpuStore.delete(id);
+    }
+
+    @Override
+    public int deleteCpu(List<Long> idList) {
+        return cpuStore.delete(idList);
+    }
+
+    @Override
+    public int deleteCpu() {
+        return cpuStore.delete();
+    }
+
+    @Override
+    public Ram getRam(long id) {
         return ramStore.getOne(id);
     }
 
     @Override
-    public List<Ram> getAllRam() {
+    public List<Ram> getRam() {
         return ramStore.getAll();
     }
 
     @Override
-    public Gpu getOneGpu(long id) {
+    public Gpu getGpu(long id) {
         return gpuStore.getOne(id);
     }
 
     @Override
-    public List<Gpu> getAllGpu() {
+    public List<Gpu> getGpu() {
         return gpuStore.getAll();
     }
 }

@@ -15,23 +15,35 @@ import java.util.List;
 @Local
 public interface FactoryServiceLocal {
 
-    Pc getOnePc(long id);
+    Pc getPc(long id);
 
-    List<Pc> getAllPc();
+    List<Pc> getPc();
 
-    Cpu getOneCpu(long id);
+    Cpu getCpu(long id);
 
-    List<Cpu> getAllCpu();
+    List<Cpu> getCpu(List<Long> idList);
 
-    boolean setOneCpu(Cpu cpu);
+    List<Cpu> getCpu();
 
-    boolean setAllCpu(List<Cpu> cpuList);
+    int setCpu(Cpu cpu);
 
-    Ram getOneRam(long id);
+    int setCpu(List<Cpu> cpuList);
 
-    List<Ram> getAllRam();
+    int updateCpu(Cpu cpu);
 
-    Gpu getOneGpu(long id);
+    int updateCpu(List<Cpu> cpuList);
 
-    List<Gpu> getAllGpu();
+    int deleteCpu(long id);
+
+    int deleteCpu(List<Long> idList);
+
+    int deleteCpu();
+
+    Ram getRam(long id);
+
+    List<Ram> getRam();
+
+    Gpu getGpu(long id);
+
+    List<Gpu> getGpu();
 }

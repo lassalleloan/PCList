@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
@@ -22,7 +23,7 @@ public class EditServlet extends HttpServlet {
         String what = request.getParameter("what");
         long id = Long.valueOf(request.getParameter("id"));
 
-        what = what != null ? what : "";
+        what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
 
         String titlePage = "All";
         Object o;
@@ -30,22 +31,22 @@ public class EditServlet extends HttpServlet {
         switch (what) {
             case "pc":
                 titlePage = "Pc";
-                o = factoryService.getOnePc(id);
+                o = factoryService.getPc(id);
                 break;
 
             case "cpu":
                 titlePage = "Processor";
-                o = factoryService.getOneCpu(id);
+                o = factoryService.getCpu(id);
                 break;
 
             case "ram":
                 titlePage = "Memory";
-                o = factoryService.getOneRam(id);
+                o = factoryService.getRam(id);
                 break;
 
             case "gpu":
                 titlePage = "Graphic";
-                o = factoryService.getOneGpu(id);
+                o = factoryService.getGpu(id);
                 break;
 
             default:

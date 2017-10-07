@@ -28,6 +28,13 @@
                             <a class="nav-link" style="display: inline" href="/pclist/list?what=gpu">Graphic</a>
                         </td>
                     </tr>
+                    <c:if test="${rowsAffected != null && what != null}">
+                        <tr>
+                            <td colspan="10">
+                                    ${rowsAffected} ${what} was deleted
+                            </td>
+                        </tr>
+                    </c:if>
                     <c:if test="${allList || pcList != null}">
                         <tr>
                             <td colspan="10">

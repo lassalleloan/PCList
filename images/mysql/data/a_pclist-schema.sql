@@ -68,17 +68,17 @@ CREATE TABLE IF NOT EXISTS `pclist`.`pc` (
   CONSTRAINT `fk_Pc_Cpu`
     FOREIGN KEY (`idCpu`)
     REFERENCES `pclist`.`cpu` (`idCpu`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pc_Gpu1`
     FOREIGN KEY (`idGpu`)
     REFERENCES `pclist`.`gpu` (`idGpu`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pc_Ram1`
     FOREIGN KEY (`idRam`)
     REFERENCES `pclist`.`ram` (`idRam`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

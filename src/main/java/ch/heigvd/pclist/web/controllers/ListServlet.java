@@ -32,24 +32,24 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList || what.equals("pc")) {
             titlePage = "PC";
-            objectMap.put("pcList", factoryService.getAllPc());
+            objectMap.put("pcList", factoryService.getPc());
         }
 
         if (isAllList || what.equals("cpu")) {
-            factoryService.setOneCpu(Chance.randomCpu());
+            factoryService.setCpu(Chance.randomCpu());
 
             titlePage = "Processor";
-            objectMap.put("cpuList", factoryService.getAllCpu());
+            objectMap.put("cpuList", factoryService.getCpu());
         }
 
         if (isAllList || what.equals("ram")) {
             titlePage = "Memory";
-            objectMap.put("ramList", factoryService.getAllRam());
+            objectMap.put("ramList", factoryService.getRam());
         }
 
         if (isAllList || what.equals("gpu")) {
             titlePage = "Graphic";
-            objectMap.put("gpuList", factoryService.getAllGpu());
+            objectMap.put("gpuList", factoryService.getGpu());
         }
 
         if (isAllList) {

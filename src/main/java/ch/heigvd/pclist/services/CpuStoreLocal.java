@@ -12,11 +12,23 @@ import java.util.List;
 @Local
 public interface CpuStoreLocal {
 
-    Cpu getOne(long id);
+    Cpu get(long id);
 
-    List<Cpu> getAll();
+    List<Cpu> get(List<Long> idList);
 
-    boolean setOne(Cpu cpu);
+    List<Cpu> get();
 
-    boolean setAll(List<Cpu> cpuList);
+    int set(Cpu cpu);
+
+    int set(List<Cpu> cpuList);
+
+    int update(Cpu cpu);
+
+    int update(List<Cpu> cpuList);
+
+    int delete(long id);
+
+    int delete(List<Long> idList);
+
+    int delete();
 }
