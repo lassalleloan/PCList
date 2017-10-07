@@ -22,8 +22,8 @@ public class CreateServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product = request.getParameter("product");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
 
         product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
 
@@ -32,11 +32,11 @@ public class CreateServlet extends HttpServlet {
         if (product != null) {
             switch (product) {
                 case "pc":
-                    String pcBrand = request.getParameter("pcBrand");
-                    String pcPrice = request.getParameter("pcPrice");
-                    String idCpu = request.getParameter("idCpu");
-                    String idRam = request.getParameter("idRam");
-                    String idGpu = request.getParameter("idGpu");
+                    String pcBrand = req.getParameter("pcBrand");
+                    String pcPrice = req.getParameter("pcPrice");
+                    String idCpu = req.getParameter("idCpu");
+                    String idRam = req.getParameter("idRam");
+                    String idGpu = req.getParameter("idGpu");
 
                     if (pcBrand != null && pcPrice != null && idCpu != null && idRam != null && idGpu != null) {
                         Cpu cpu = factoryService.getCpu(Long.valueOf(idCpu));
@@ -54,9 +54,9 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "cpu":
-                    String cpuBrand = request.getParameter("cpuBrand");
-                    String cpuCores = request.getParameter("cpuCores");
-                    String cpuFrequency = request.getParameter("cpuFrequency");
+                    String cpuBrand = req.getParameter("cpuBrand");
+                    String cpuCores = req.getParameter("cpuCores");
+                    String cpuFrequency = req.getParameter("cpuFrequency");
 
                     if (cpuBrand != null && cpuCores != null && cpuFrequency != null) {
                         url += "?product=" + product +
@@ -67,8 +67,8 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "ram":
-                    String ramBrand = request.getParameter("ramBrand");
-                    String ramSize = request.getParameter("ramSize");
+                    String ramBrand = req.getParameter("ramBrand");
+                    String ramSize = req.getParameter("ramSize");
 
                     if (ramBrand != null && ramSize != null) {
                         // TODO: 07.10.2017 create action for ram
@@ -80,7 +80,7 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "gpu":
-                    String gpuBrand = request.getParameter("gpuBrand");
+                    String gpuBrand = req.getParameter("gpuBrand");
 
                     if (gpuBrand != null) {
                         // TODO: 07.10.2017 create action for gpu
@@ -93,11 +93,11 @@ public class CreateServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect(url);
+        resp.sendRedirect(url);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product = request.getParameter("product");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
 
         product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
 
@@ -105,40 +105,40 @@ public class CreateServlet extends HttpServlet {
         String titlePage = "";
 
         if (product == null) {
-            response.sendRedirect(url);
+            resp.sendRedirect(url);
         } else {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 create action for pc
 //                    titlePage = "PC";
-//                    request.setAttribute("pcBrandList", factoryService.getPcBrand());
-//                    request.setAttribute("cpuList", factoryService.getCpu());
-//                    request.setAttribute("ramList", factoryService.getRam());
-//                    request.setAttribute("gpuList", factoryService.getGpu());
+//                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
+//                    req.setAttribute("cpuList", factoryService.getCpu());
+//                    req.setAttribute("ramList", factoryService.getRam());
+//                    req.setAttribute("gpuList", factoryService.getGpu());
                     break;
 
                 case "cpu":
                     titlePage = "Processor";
-                    request.setAttribute("cpuBrandList", factoryService.getCpuBrand());
+                    req.setAttribute("cpuBrandList", factoryService.getCpuBrand());
                     break;
 
                 case "ram":
                     // TODO: 07.10.2017 create action for ram
 //                    titlePage = "Memory";
-//                    request.setAttribute("ramBrandList", factoryService.getRamBrand());
+//                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 create action for gpu
 //                    titlePage = "Processor";
-//                    request.setAttribute("gpuBrandList", factoryService.getGpuBrand());
+//                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
                     break;
             }
 
-            request.setAttribute("titlePage", titlePage);
-            request.setAttribute("product", product);
+            req.setAttribute("titlePage", titlePage);
+            req.setAttribute("product", product);
 
-            request.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(request, response);
+            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
         }
     }
 }

@@ -180,7 +180,7 @@ public class CpuStore implements CpuStoreLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE FROM cpu " +
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cpu " +
                     "SET brand=?, " +
                     "cores=?, " +
                     "frequency=? " +
@@ -206,7 +206,7 @@ public class CpuStore implements CpuStoreLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE FROM cpu " +
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cpu " +
                     "SET brand=?, " +
                     "cores=?, " +
                     "frequency=? " +

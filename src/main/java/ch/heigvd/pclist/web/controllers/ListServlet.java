@@ -21,10 +21,10 @@ public class ListServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product = request.getParameter("product");
-        String action = request.getParameter("action");
-        String rowsAffectedString = request.getParameter("rowsAffected");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
+        String action = req.getParameter("action");
+        String rowsAffectedString = req.getParameter("rowsAffected");
 
         product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
         action = action != null && Arrays.asList("created", "edited", "deleted").contains(action) ? action : null;
@@ -58,19 +58,19 @@ public class ListServlet extends HttpServlet {
             titlePage = "All";
         }
 
-        request.setAttribute("titlePage", titlePage);
-        request.setAttribute("allList", isAllList);
+        req.setAttribute("titlePage", titlePage);
+        req.setAttribute("allList", isAllList);
 
         if (rowsAffected > 0) {
-            request.setAttribute("product", titlePage);
-            request.setAttribute("action", action);
-            request.setAttribute("rowsAffected", rowsAffected);
+            req.setAttribute("product", titlePage);
+            req.setAttribute("action", action);
+            req.setAttribute("rowsAffected", rowsAffected);
         }
 
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-            request.setAttribute(entry.getKey(), entry.getValue());
+            req.setAttribute(entry.getKey(), entry.getValue());
         }
 
-        request.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(request, response);
+        req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
     }
 }

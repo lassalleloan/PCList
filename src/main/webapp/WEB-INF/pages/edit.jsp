@@ -21,8 +21,8 @@
                 <table align="center" style="text-align: center">
                     <tr>
                         <td colspan="2">
-                            <a class="nav-link" href="/pclist/list?what=cpu">
-                                <h3>Processor</h3>
+                            <a class="nav-link" href="/pclist/list?product=cpu">
+                                <h3>${titlePage}</h3>
                             </a>
                         </td>
                     </tr>
@@ -31,11 +31,13 @@
                             Brand
                         </th>
                         <td>
-                            <input type="text" list="cpuBrandList">
+                            <label>
+                                <input type="text" list="cpuBrandList" name="cpuBrand" minlength="1" maxlength="45"
+                                       value="${cpu.brand}">
+                            </label>
                             <datalist id="cpuBrandList">
                                 <c:forEach items="${cpuBrandList}" var="cpuBrand">
-                                    <option value="${cpuBrand}" <c:if
-                                            test="${cpu.brand.equals(cpuBrand)}"> selected </c:if> >
+                                    <option value="${cpuBrand}">
                                             ${cpuBrand}
                                     </option>
                                 </c:forEach>
@@ -48,7 +50,7 @@
                         </th>
                         <td>
                             <label>
-                                <input type="number" step="1" min="1" value="${cpu.cores}" required>
+                                <input type="number" step="1" min="1" value="${cpu.cores}" name="cpuCores" required>
                             </label>
                         </td>
                     </tr>
@@ -58,7 +60,8 @@
                         </th>
                         <td>
                             <label>
-                                <input type="number" step="0.01" min="0" value="${cpu.frequency}" required>GHz
+                                <input type="number" step="0.01" min="0" value="${cpu.frequency}" name="cpuFrequency"
+                                       required>GHz
                             </label>
                         </td>
                     </tr>

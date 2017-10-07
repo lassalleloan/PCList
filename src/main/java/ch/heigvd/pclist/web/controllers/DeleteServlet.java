@@ -19,9 +19,9 @@ public class DeleteServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product = request.getParameter("product");
-        String idString = request.getParameter("id");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
+        String idString = req.getParameter("id");
 
         product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
         long id = idString != null ? Long.valueOf(idString) : 0;
@@ -53,6 +53,6 @@ public class DeleteServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect(url);
+        resp.sendRedirect(url);
     }
 }

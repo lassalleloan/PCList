@@ -1,5 +1,8 @@
 package ch.heigvd.pclist.web.controllers;
 
+import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Ram;
 import ch.heigvd.pclist.services.FactoryServiceLocal;
 
 import javax.ejb.EJB;
@@ -19,44 +22,132 @@ public class EditServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String what = request.getParameter("what");
-        long id = Long.valueOf(request.getParameter("id"));
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
+        String idString = req.getParameter("id");
 
-        what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
+        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
+        long id = idString != null ? Long.valueOf(idString) : 0;
 
-        String titlePage = "All";
-        Object o;
+        String url = "/pclist/list";
 
-        switch (what) {
-            case "pc":
-                titlePage = "Pc";
-                o = factoryService.getPc(id);
-                break;
+        if (product != null) {
+            switch (product) {
+                case "pc":
+                    String pcBrand = req.getParameter("pcBrand");
+                    String pcPrice = req.getParameter("pcPrice");
+                    String idCpu = req.getParameter("idCpu");
+                    String idRam = req.getParameter("idRam");
+                    String idGpu = req.getParameter("idGpu");
 
-            case "cpu":
-                titlePage = "Processor";
-                o = factoryService.getCpu(id);
-                break;
+                    if (pcBrand != null && pcPrice != null && idCpu != null && idRam != null && idGpu != null) {
+                        Cpu cpu = factoryService.getCpu(Long.valueOf(idCpu));
+                        Ram ram = factoryService.getRam(Long.valueOf(idRam));
+                        Gpu gpu = factoryService.getGpu(Long.valueOf(idGpu));
 
-            case "ram":
-                titlePage = "Memory";
-                o = factoryService.getRam(id);
-                break;
+                        if (cpu != null && ram != null && gpu != null) {
+                            // TODO: 07.10.2017 edit action for pc
+//                          url += "?product=" + product +
+//                                  "&action=edited" +
+//                                  "&rowsAffected=" +
+//                                  factoryService.updatePc(new Pc(id, pcBrand, Double.valueOf(pcPrice), cpu, ram, gpu));
+                        }
+                    }
+                    break;
 
-            case "gpu":
-                titlePage = "Graphic";
-                o = factoryService.getGpu(id);
-                break;
+                case "cpu":
+                    String cpuBrand = req.getParameter("cpuBrand");
+                    String cpuCores = req.getParameter("cpuCores");
+                    String cpuFrequency = req.getParameter("cpuFrequency");
 
-            default:
-                request.setAttribute("titlePage", titlePage);
-                request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
-                return;
+                    if (cpuBrand != null && cpuCores != null && cpuFrequency != null) {
+                        url += "?product=" + product +
+                                "&action=edited" +
+                                "&rowsAffected=" +
+                                factoryService.updateCpu(new Cpu(id, cpuBrand, Integer.valueOf(cpuCores), Double.valueOf(cpuFrequency)));
+                    }
+                    break;
+
+                case "ram":
+                    String ramBrand = req.getParameter("ramBrand");
+                    String ramSize = req.getParameter("ramSize");
+
+                    if (ramBrand != null && ramSize != null) {
+                        // TODO: 07.10.2017 edit action for ram
+//                    url += "?product=" + product +
+//                            "&action=edited" +
+//                            "&rowsAffected=" +
+//                            factoryService.updateRam(new Ram(id, ramBrand, Integer.valueOf(ramSize)));
+                    }
+                    break;
+
+                case "gpu":
+                    String gpuBrand = req.getParameter("gpuBrand");
+
+                    if (gpuBrand != null) {
+                        // TODO: 07.10.2017 edit action for gpu
+//                    url += "?product=" + product +
+//                            "&action=edited" +
+//                            "&rowsAffected=" +
+//                            factoryService.updateGpu(new Gpu(id, gpuBrand));
+                    }
+                    break;
+            }
         }
 
-        request.setAttribute("titlePage", titlePage);
-        request.setAttribute(what, o);
-        request.getRequestDispatcher("WEB-INF/pages/edit.jsp").forward(request, response);
+        resp.sendRedirect(url);
+    }
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String product = req.getParameter("product");
+        String idString = req.getParameter("id");
+
+        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
+        long id = idString != null ? Long.valueOf(idString) : 0;
+
+        String url = "/pclist/list";
+        String titlePage = "";
+
+        if (product == null || id <= 0) {
+            resp.sendRedirect(url);
+        } else {
+            switch (product) {
+                case "pc":
+                    // TODO: 07.10.2017 edit action for pc
+//                    titlePage = "PC";
+//                    req.setAttribute("pc", factoryService.getPC(id));
+//                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
+//                    req.setAttribute("cpuList", factoryService.getCpu());
+//                    req.setAttribute("ramList", factoryService.getRam());
+//                    req.setAttribute("gpuList", factoryService.getGpu());
+                    break;
+
+                case "cpu":
+                    titlePage = "Processor";
+                    req.setAttribute("cpu", factoryService.getCpu(id));
+                    req.setAttribute("cpuBrandList", factoryService.getCpuBrand());
+                    break;
+
+                case "ram":
+                    // TODO: 07.10.2017 edit action for ram
+//                    titlePage = "Memory";
+//                    req.setAttribute("ram", factoryService.getRam(id));
+//                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
+                    break;
+
+                case "gpu":
+                    // TODO: 07.10.2017 edit action for gpu
+//                    titlePage = "Graphic";
+//                    req.setAttribute("gpu", factoryService.getGpu(id));
+//                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
+                    break;
+            }
+
+            req.setAttribute("titlePage", titlePage);
+            req.setAttribute("product", product);
+
+            req.getRequestDispatcher("WEB-INF/pages/edit.jsp").forward(req, resp);
+        }
     }
 }
