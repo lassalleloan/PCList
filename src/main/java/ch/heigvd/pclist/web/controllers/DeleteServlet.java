@@ -20,18 +20,36 @@ public class DeleteServlet extends HttpServlet {
     private FactoryServiceLocal factoryService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String what = request.getParameter("what");
+        String product = request.getParameter("product");
         String idString = request.getParameter("id");
 
-        what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
+        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
         long id = idString != null ? Long.valueOf(idString) : 0;
+
         String url = "/pclist/list";
 
-        if (what != null && id > 0) {
-            url += "?what=" + what;
+        if (product != null && id > 0) {
+            url += "?product=" + product + "&action=deleted";
 
-            if (what.equals("cpu")) {
-                url += "&rowsAffected=" + factoryService.deleteCpu(id);
+            switch (product) {
+                case "pc":
+                    // TODO: 07.10.2017 delete action for pc
+//                    url += "&rowsAffected=" + factoryService.deletePc(id);
+                    break;
+
+                case "cpu":
+                    url += "&rowsAffected=" + factoryService.deleteCpu(id);
+                    break;
+
+                case "ram":
+                    // TODO: 07.10.2017 delete action for ram
+//                    url += "&rowsAffected=" + factoryService.deleteRam(id);
+                    break;
+
+                case "gpu":
+                    // TODO: 07.10.2017 delete action for gpu
+//                    url += "&rowsAffected=" + factoryService.deleteGpu(id);
+                    break;
             }
         }
 

@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `pclist`.`gpu` (
 -- Table `pclist`.`pc`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `pclist`.`pc` (
-  `idPc`  INT          NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(45)  NOT NULL,
-  `price` INT UNSIGNED NOT NULL,
-  `idCpu` INT          NOT NULL,
-  `idGpu` INT          NOT NULL,
-  `idRam` INT          NOT NULL,
+  `idPc`  INT             NOT NULL AUTO_INCREMENT,
+  `brand` VARCHAR(45)     NOT NULL,
+  `price` DOUBLE UNSIGNED NOT NULL,
+  `idCpu` INT             NOT NULL,
+  `idGpu` INT             NOT NULL,
+  `idRam` INT             NOT NULL,
   PRIMARY KEY (`idPc`),
   INDEX `fk_Pc_Cpu_idx` (`idCpu` ASC),
   INDEX `fk_Pc_Gpu1_idx` (`idGpu` ASC),
@@ -125,8 +125,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `pclist`;
-INSERT INTO `pclist`.`pc` (`idPc`, `brand`, `price`, `idCpu`, `idGpu`, `idRam`) VALUES (DEFAULT, 'Dell', 3000, 1, 1, 1);
-INSERT INTO `pclist`.`pc` (`idPc`, `brand`, `price`, `idCpu`, `idGpu`, `idRam`) VALUES (DEFAULT, 'Asus', 1000, 2, 2, 2);
+INSERT INTO `pclist`.`pc` (`idPc`, `brand`, `price`, `idCpu`, `idGpu`, `idRam`)
+VALUES (DEFAULT, 'Dell', 3000.99, 1, 1, 1);
+INSERT INTO `pclist`.`pc` (`idPc`, `brand`, `price`, `idCpu`, `idGpu`, `idRam`)
+VALUES (DEFAULT, 'Asus', 1000.99, 2, 2, 2);
 
 COMMIT;
 

@@ -39,6 +39,11 @@ public class FactoryService implements FactoryServiceLocal {
     }
 
     @Override
+    public List<String> getCpuBrand() {
+        return cpuStore.getBrand();
+    }
+
+    @Override
     public Cpu getCpu(long id) {
         return cpuStore.get(id);
     }

@@ -70,7 +70,7 @@ public class PcStore implements PcStoreLocal {
             Ram ram = new Ram(idRam, ramBrand, ramSize);
             Gpu gpu = new Gpu(idGpu, gpuBrand);
 
-            pc = new Pc(id, brand, cpu, ram, gpu, price);
+            pc = new Pc(id, brand, price, cpu, ram, gpu);
 
             connection.close();
         } catch (SQLException ex) {
@@ -124,7 +124,7 @@ public class PcStore implements PcStoreLocal {
                 Ram ram = new Ram(idRam, ramBrand, ramSize);
                 Gpu gpu = new Gpu(idGpu, gpuBrand);
 
-                pcList.add(new Pc(idPc, brand, cpu, ram, gpu, price));
+                pcList.add(new Pc(idPc, brand, price, cpu, ram, gpu));
             }
 
             connection.close();

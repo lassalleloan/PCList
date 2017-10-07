@@ -18,6 +18,8 @@ public interface CpuStoreLocal {
 
     List<Cpu> get();
 
+    List<String> getBrand();
+
     int set(Cpu cpu);
 
     int set(List<Cpu> cpuList);

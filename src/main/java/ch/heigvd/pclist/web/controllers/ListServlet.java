@@ -1,7 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
 import ch.heigvd.pclist.services.FactoryServiceLocal;
-import ch.heigvd.pclist.util.Chance;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,34 +22,34 @@ public class ListServlet extends HttpServlet {
     private FactoryServiceLocal factoryService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String what = request.getParameter("what");
+        String product = request.getParameter("product");
+        String action = request.getParameter("action");
         String rowsAffectedString = request.getParameter("rowsAffected");
 
-        what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
+        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
+        action = action != null && Arrays.asList("created", "edited", "deleted").contains(action) ? action : null;
         long rowsAffected = rowsAffectedString != null ? Long.valueOf(rowsAffectedString) : 0;
 
-        boolean isAllList = what == null;
+        boolean isAllList = product == null;
         String titlePage = "";
         Map<String, Object> objectMap = new HashMap<>();
 
-        if (isAllList || what.equals("pc")) {
+        if (isAllList || product.equals("pc")) {
             titlePage = "PC";
             objectMap.put("pcList", factoryService.getPc());
         }
 
-        if (isAllList || what.equals("cpu")) {
-            factoryService.setCpu(Chance.randomCpu());
-
+        if (isAllList || product.equals("cpu")) {
             titlePage = "Processor";
             objectMap.put("cpuList", factoryService.getCpu());
         }
 
-        if (isAllList || what.equals("ram")) {
+        if (isAllList || product.equals("ram")) {
             titlePage = "Memory";
             objectMap.put("ramList", factoryService.getRam());
         }
 
-        if (isAllList || what.equals("gpu")) {
+        if (isAllList || product.equals("gpu")) {
             titlePage = "Graphic";
             objectMap.put("gpuList", factoryService.getGpu());
         }
@@ -63,8 +62,9 @@ public class ListServlet extends HttpServlet {
         request.setAttribute("allList", isAllList);
 
         if (rowsAffected > 0) {
+            request.setAttribute("product", titlePage);
+            request.setAttribute("action", action);
             request.setAttribute("rowsAffected", rowsAffected);
-            request.setAttribute("what", rowsAffected > 1 ? titlePage + "s" : titlePage);
         }
 
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {

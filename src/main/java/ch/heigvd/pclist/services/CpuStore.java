@@ -108,6 +108,27 @@ public class CpuStore implements CpuStoreLocal {
         return cpuList;
     }
 
+    public List<String> getBrand() {
+        List<String> brandList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT brand " +
+                    "FROM cpu;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                brandList.add(resultSet.getString("brand"));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return brandList;
+    }
+
     public int set(Cpu cpu) {
         int rowsAffected = 0;
 

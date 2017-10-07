@@ -22,13 +22,13 @@
                     <tr>
                         <td colspan="10">
                             <a class="nav-link" style="display: inline" href="/pclist/list">All</a>
-                            <a class="nav-link" style="display: inline" href="/pclist/list?what=pc">Pc</a>
-                            <a class="nav-link" style="display: inline" href="/pclist/list?what=cpu">Processor</a>
-                            <a class="nav-link" style="display: inline" href="/pclist/list?what=ram">Memory</a>
-                            <a class="nav-link" style="display: inline" href="/pclist/list?what=gpu">Graphic</a>
+                            <a class="nav-link" style="display: inline" href="/pclist/list?product=pc">Pc</a>
+                            <a class="nav-link" style="display: inline" href="/pclist/list?product=cpu">Processor</a>
+                            <a class="nav-link" style="display: inline" href="/pclist/list?product=ram">Memory</a>
+                            <a class="nav-link" style="display: inline" href="/pclist/list?product=gpu">Graphic</a>
                         </td>
                     </tr>
-                    <c:if test="${rowsAffected > 0 && what != null}">
+                    <c:if test="${rowsAffected > 0 && product != null && action != null}">
                         <tr>
                             <td colspan="10">
                                 <br>
@@ -38,7 +38,13 @@
                         </tr>
                         <tr>
                             <td colspan="10">
-                                    ${rowsAffected} ${what} was deleted
+                                    ${rowsAffected}
+                                    ${product}
+                                    <c:choose>
+                                    <c:when test="${rowsAffected == 1}"> was</c:when>
+                                <c:otherwise>s were</c:otherwise>
+                            </c:choose>
+                                    ${action}
                             </td>
                         </tr>
                     </c:if>
@@ -52,7 +58,7 @@
                         </tr>
                         <tr>
                             <td colspan="10">
-                                <a class="nav-link" href="/pclist/list?what=pc">
+                                <a class="nav-link" href="/pclist/list?product=pc">
                                     <h3>PC</h3>
                                 </a>
                             </td>
@@ -84,7 +90,7 @@
                             </th>
                             <c:if test="${!allList && pcList != null}">
                                 <th colspan="2">
-                                    <a class="nav-link" href="/pclist/create?what=pc">Add</a>
+                                    <a class="nav-link" href="/pclist/create?product=pc">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -116,10 +122,10 @@
                                 </td>
                                 <c:if test="${!allList && pcList != null}">
                                     <td>
-                                        <a class="nav-link" href="/pclist/edit?what=pc&id=${pc.idPc}">Edit</a>
+                                        <a class="nav-link" href="/pclist/edit?product=pc&id=${pc.idPc}">Edit</a>
                                     </td>
                                     <td>
-                                        <a class="nav-link" href="/pclist/delete?what=pc&id=${pc.idPc}">Delete</a>
+                                        <a class="nav-link" href="/pclist/delete?product=pc&id=${pc.idPc}">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -135,7 +141,7 @@
                         </tr>
                         <tr>
                             <td colspan="10">
-                                <a class="nav-link" href="/pclist/list?what=cpu">
+                                <a class="nav-link" href="/pclist/list?product=cpu">
                                     <h3>Processor</h3>
                                 </a>
                             </td>
@@ -152,7 +158,7 @@
                             </th>
                             <c:if test="${!allList && cpuList != null}">
                                 <th colspan="2">
-                                    <a class="nav-link" href="/pclist/create?what=cpu">Add</a>
+                                    <a class="nav-link" href="/pclist/create?product=cpu">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -169,10 +175,10 @@
                                 </td>
                                 <c:if test="${!allList && cpuList != null}">
                                     <td>
-                                        <a class="nav-link" href="/pclist/edit?what=cpu&id=${cpu.idCpu}">Edit</a>
+                                        <a class="nav-link" href="/pclist/edit?product=cpu&id=${cpu.idCpu}">Edit</a>
                                     </td>
                                     <td>
-                                        <a class="nav-link" href="/pclist/delete?what=cpu&id=${cpu.idCpu}">Delete</a>
+                                        <a class="nav-link" href="/pclist/delete?product=cpu&id=${cpu.idCpu}">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -188,7 +194,7 @@
                         </tr>
                         <tr>
                             <td colspan="10">
-                                <a class="nav-link" href="/pclist/list?what=ram">
+                                <a class="nav-link" href="/pclist/list?product=ram">
                                     <h3>Memory</h3>
                                 </a>
                             </td>
@@ -202,7 +208,7 @@
                             </th>
                             <c:if test="${!allList && ramList != null}">
                                 <th colspan="2">
-                                    <a class="nav-link" href="/pclist/create?what=ram">Add</a>
+                                    <a class="nav-link" href="/pclist/create?product=ram">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -216,10 +222,10 @@
                                 </td>
                                 <c:if test="${!allList && ramList != null}">
                                     <td>
-                                        <a class="nav-link" href="/pclist/edit?what=ram&id=${ram.idRam}">Edit</a>
+                                        <a class="nav-link" href="/pclist/edit?product=ram&id=${ram.idRam}">Edit</a>
                                     </td>
                                     <td>
-                                        <a class="nav-link" href="/pclist/delete?what=ram&id=${ram.idRam}">Delete</a>
+                                        <a class="nav-link" href="/pclist/delete?product=ram&id=${ram.idRam}">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -235,7 +241,7 @@
                         </tr>
                         <tr>
                             <td colspan="10">
-                                <a class="nav-link" href="/pclist/list?what=gpu">
+                                <a class="nav-link" href="/pclist/list?product=gpu">
                                     <h3>Graphic</h3>
                                 </a>
                             </td>
@@ -246,7 +252,7 @@
                             </th>
                             <c:if test="${!allList && gpuList != null}">
                                 <th colspan="2">
-                                    <a class="nav-link" href="/pclist/create?what=gpu">Add</a>
+                                    <a class="nav-link" href="/pclist/create?product=gpu">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -257,10 +263,10 @@
                                 </td>
                                 <c:if test="${!allList && gpuList != null}">
                                     <td>
-                                        <a class="nav-link" href="/pclist/edit?what=gpu&id=${gpu.idGpu}">Edit</a>
+                                        <a class="nav-link" href="/pclist/edit?product=gpu&id=${gpu.idGpu}">Edit</a>
                                     </td>
                                     <td>
-                                        <a class="nav-link" href="/pclist/delete?what=gpu&id=${gpu.idGpu}">Delete</a>
+                                        <a class="nav-link" href="/pclist/delete?product=gpu&id=${gpu.idGpu}">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>

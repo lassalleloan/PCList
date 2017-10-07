@@ -13,13 +13,13 @@ public class Pc {
     private final Gpu gpu;
     private final double price;
 
-    public Pc(long idPc, String brand, Cpu cpu, Ram ram, Gpu gpu, double price) {
+    public Pc(long idPc, String brand, double price, Cpu cpu, Ram ram, Gpu gpu) {
         this.idPc = idPc;
         this.brand = brand;
+        this.price = price;
         this.cpu = cpu;
         this.ram = ram;
         this.gpu = gpu;
-        this.price = price;
     }
 
     public long getIdPc() {

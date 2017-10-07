@@ -25,6 +25,8 @@ public interface FactoryServiceLocal {
 
     List<Cpu> getCpu();
 
+    List<String> getCpuBrand();
+
     int setCpu(Cpu cpu);
 
     int setCpu(List<Cpu> cpuList);
