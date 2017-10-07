@@ -25,16 +25,16 @@ public class DeleteServlet extends HttpServlet {
 
         what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
         long id = idString != null ? Long.valueOf(idString) : 0;
+        String url = "/pclist/list";
 
         if (what != null && id > 0) {
+            url += "?what=" + what;
 
             if (what.equals("cpu")) {
-                request.setAttribute("rowsAffected", factoryService.deleteCpu(id));
-                request.setAttribute("what", "Processors");
+                url += "&rowsAffected=" + factoryService.deleteCpu(id);
             }
         }
 
-        //response.sendRedirect("/pclist/list");
-        request.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(request, response);
+        response.sendRedirect(url);
     }
 }

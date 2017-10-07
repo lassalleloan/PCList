@@ -24,7 +24,10 @@ public class ListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String what = request.getParameter("what");
+        String rowsAffectedString = request.getParameter("rowsAffected");
+
         what = what != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(what) ? what : null;
+        long rowsAffected = rowsAffectedString != null ? Long.valueOf(rowsAffectedString) : 0;
 
         boolean isAllList = what == null;
         String titlePage = "";
@@ -58,6 +61,11 @@ public class ListServlet extends HttpServlet {
 
         request.setAttribute("titlePage", titlePage);
         request.setAttribute("allList", isAllList);
+
+        if (rowsAffected > 0) {
+            request.setAttribute("rowsAffected", rowsAffected);
+            request.setAttribute("what", rowsAffected > 1 ? titlePage + "s" : titlePage);
+        }
 
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
             request.setAttribute(entry.getKey(), entry.getValue());

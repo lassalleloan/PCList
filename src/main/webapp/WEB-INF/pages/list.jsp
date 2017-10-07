@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <table>
+                <table align="center" style="text-align: center">
                     <tr>
                         <td colspan="10">
                             <a class="nav-link" style="display: inline" href="/pclist/list">All</a>
@@ -28,7 +28,14 @@
                             <a class="nav-link" style="display: inline" href="/pclist/list?what=gpu">Graphic</a>
                         </td>
                     </tr>
-                    <c:if test="${rowsAffected != null && what != null}">
+                    <c:if test="${rowsAffected > 0 && what != null}">
+                        <tr>
+                            <td colspan="10">
+                                <br>
+                                <br>
+                                <br>
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="10">
                                     ${rowsAffected} ${what} was deleted
@@ -75,9 +82,11 @@
                             <th>
                                 Price
                             </th>
-                            <th colspan="2">
-                                <a class="nav-link" href="/pclist/create?what=pc">Add</a>
-                            </th>
+                            <c:if test="${!allList && pcList != null}">
+                                <th colspan="2">
+                                    <a class="nav-link" href="/pclist/create?what=pc">Add</a>
+                                </th>
+                            </c:if>
                         </tr>
                         <c:forEach items="${pcList}" var="pc">
                             <tr>
@@ -105,12 +114,14 @@
                                 <td>
                                         ${pc.price}.-
                                 </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/edit?what=pc&id=${pc.idPc}">Edit</a>
-                                </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/delete?what=pc&id=${pc.idPc}">Delete</a>
-                                </td>
+                                <c:if test="${!allList && pcList != null}">
+                                    <td>
+                                        <a class="nav-link" href="/pclist/edit?what=pc&id=${pc.idPc}">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="nav-link" href="/pclist/delete?what=pc&id=${pc.idPc}">Delete</a>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -139,9 +150,11 @@
                             <th colspan="6">
                                 Frequency
                             </th>
-                            <th colspan="2">
-                                <a class="nav-link" href="/pclist/create?what=cpu">Add</a>
-                            </th>
+                            <c:if test="${!allList && cpuList != null}">
+                                <th colspan="2">
+                                    <a class="nav-link" href="/pclist/create?what=cpu">Add</a>
+                                </th>
+                            </c:if>
                         </tr>
                         <c:forEach items="${cpuList}" var="cpu">
                             <tr>
@@ -154,12 +167,14 @@
                                 <td colspan="6">
                                         ${cpu.frequency}GHz
                                 </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/edit?what=cpu&id=${cpu.idCpu}">Edit</a>
-                                </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/delete?what=cpu&id=${cpu.idCpu}">Delete</a>
-                                </td>
+                                <c:if test="${!allList && cpuList != null}">
+                                    <td>
+                                        <a class="nav-link" href="/pclist/edit?what=cpu&id=${cpu.idCpu}">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="nav-link" href="/pclist/delete?what=cpu&id=${cpu.idCpu}">Delete</a>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -185,9 +200,11 @@
                             <th colspan="7">
                                 Size
                             </th>
-                            <th colspan="2">
-                                <a class="nav-link" href="/pclist/create?what=ram">Add</a>
-                            </th>
+                            <c:if test="${!allList && ramList != null}">
+                                <th colspan="2">
+                                    <a class="nav-link" href="/pclist/create?what=ram">Add</a>
+                                </th>
+                            </c:if>
                         </tr>
                         <c:forEach items="${ramList}" var="ram">
                             <tr>
@@ -197,12 +214,14 @@
                                 <td colspan="7">
                                         ${ram.size}GB
                                 </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/edit?what=ram&id=${ram.idRam}">Edit</a>
-                                </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/delete?what=ram&id=${ram.idRam}">Delete</a>
-                                </td>
+                                <c:if test="${!allList && ramList != null}">
+                                    <td>
+                                        <a class="nav-link" href="/pclist/edit?what=ram&id=${ram.idRam}">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="nav-link" href="/pclist/delete?what=ram&id=${ram.idRam}">Delete</a>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -225,21 +244,25 @@
                             <th colspan="8">
                                 Brand
                             </th>
-                            <th colspan="2">
-                                <a class="nav-link" href="/pclist/create?what=gpu">Add</a>
-                            </th>
+                            <c:if test="${!allList && gpuList != null}">
+                                <th colspan="2">
+                                    <a class="nav-link" href="/pclist/create?what=gpu">Add</a>
+                                </th>
+                            </c:if>
                         </tr>
                         <c:forEach items="${gpuList}" var="gpu">
                             <tr>
                                 <td colspan="8">
                                         ${gpu.brand}
                                 </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/edit?what=gpu&id=${gpu.idGpu}">Edit</a>
-                                </td>
-                                <td>
-                                    <a class="nav-link" href="/pclist/delete?what=gpu&id=${gpu.idGpu}">Delete</a>
-                                </td>
+                                <c:if test="${!allList && gpuList != null}">
+                                    <td>
+                                        <a class="nav-link" href="/pclist/edit?what=gpu&id=${gpu.idGpu}">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a class="nav-link" href="/pclist/delete?what=gpu&id=${gpu.idGpu}">Delete</a>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>
