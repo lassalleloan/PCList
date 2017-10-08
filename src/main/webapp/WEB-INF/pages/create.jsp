@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>Create a ${titlePage}</h1>
+                    <h1>Create a ${pageTitle}</h1>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                     <tr>
                         <td colspan="2">
                             <a class="nav-link" href="/pclist/list?product=${product}">
-                                <h3>${titlePage}</h3>
+                                <h3>${pageTitle}</h3>
                             </a>
                         </td>
                     </tr>

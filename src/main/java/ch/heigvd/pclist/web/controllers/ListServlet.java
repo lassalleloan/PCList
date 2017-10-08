@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
-import ch.heigvd.pclist.services.FactoryServiceLocal;
+import ch.heigvd.pclist.services.factory.FactoryServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -31,38 +31,38 @@ public class ListServlet extends HttpServlet {
         long rowsAffected = rowsAffectedString != null ? Long.valueOf(rowsAffectedString) : 0;
 
         boolean isAllList = product == null;
-        String titlePage = "";
+        String pageTitle = "";
         Map<String, Object> objectMap = new HashMap<>();
 
         if (isAllList || product.equals("pc")) {
-            titlePage = "PC";
+            pageTitle = "PC";
             objectMap.put("pcList", factoryService.getPc());
         }
 
         if (isAllList || product.equals("cpu")) {
-            titlePage = "Processor";
+            pageTitle = "Processor";
             objectMap.put("cpuList", factoryService.getCpu());
         }
 
         if (isAllList || product.equals("ram")) {
-            titlePage = "Memory";
+            pageTitle = "Memory";
             objectMap.put("ramList", factoryService.getRam());
         }
 
         if (isAllList || product.equals("gpu")) {
-            titlePage = "Graphic";
+            pageTitle = "Graphic";
             objectMap.put("gpuList", factoryService.getGpu());
         }
 
         if (isAllList) {
-            titlePage = "All";
+            pageTitle = "All";
         }
 
-        req.setAttribute("titlePage", titlePage);
+        req.setAttribute("pageTitle", pageTitle);
         req.setAttribute("allList", isAllList);
 
         if (rowsAffected > 0) {
-            req.setAttribute("product", titlePage);
+            req.setAttribute("product", pageTitle);
             req.setAttribute("action", action);
             req.setAttribute("rowsAffected", rowsAffected);
         }

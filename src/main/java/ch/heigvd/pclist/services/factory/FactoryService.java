@@ -1,9 +1,13 @@
-package ch.heigvd.pclist.services;
+package ch.heigvd.pclist.services.factory;
 
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.services.dao.CpuDAOLocal;
+import ch.heigvd.pclist.services.dao.GpuDAOLocal;
+import ch.heigvd.pclist.services.dao.PcDAOLocal;
+import ch.heigvd.pclist.services.dao.RamDAOLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -16,17 +20,17 @@ import java.util.List;
 @Stateless
 public class FactoryService implements FactoryServiceLocal {
 
-    @EJB(beanName = "PcStore")
-    private PcStoreLocal pcStore;
+    @EJB(beanName = "PcDAO")
+    private PcDAOLocal pcStore;
 
-    @EJB(beanName = "CpuStore")
-    private CpuStoreLocal cpuStore;
+    @EJB(beanName = "CpuDAO")
+    private CpuDAOLocal cpuStore;
 
-    @EJB(beanName = "RamStore")
-    private RamStoreLocal ramStore;
+    @EJB(beanName = "RamDAO")
+    private RamDAOLocal ramStore;
 
-    @EJB(beanName = "GpuStore")
-    private GpuStoreLocal gpuStore;
+    @EJB(beanName = "GpuDAO")
+    private GpuDAOLocal gpuStore;
 
     @Override
     public Pc getPc(long id) {

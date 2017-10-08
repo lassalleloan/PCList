@@ -1,6 +1,7 @@
-package ch.heigvd.pclist.services;
+package ch.heigvd.pclist.services.dao;
 
-import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.services.factory.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -19,50 +20,48 @@ import java.util.logging.Logger;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class RamStore implements RamStoreLocal {
+public class GpuDAO implements GpuDAOLocal {
 
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Ram getOne(long id) {
-        Ram ram = null;
+    public Gpu getOne(long id) {
+        Gpu gpu = null;
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram " +
-                    "WHERE idRam=" + id);
+                    "FROM gpu " +
+                    "WHERE idGpu=" + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
             String brand = resultSet.getString("brand");
-            int size = resultSet.getInt("size");
 
-            ram = new Ram(id, brand, size);
+            gpu = new Gpu(id, brand);
 
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return ram;
+        return gpu;
     }
 
-    public List<Ram> getAll() {
-        List<Ram> ramList = new ArrayList<>();
+    public List<Gpu> getAll() {
+        List<Gpu> gpuList = new ArrayList<>();
 
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram");
+                    "FROM gpu");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                long id = resultSet.getLong("idRam");
+                long id = resultSet.getLong("idGpu");
                 String brand = resultSet.getString("brand");
-                int size = resultSet.getInt("size");
 
-                ramList.add(new Ram(id, brand, size));
+                gpuList.add(new Gpu(id, brand));
             }
 
             connection.close();
@@ -70,6 +69,6 @@ public class RamStore implements RamStoreLocal {
             Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return ramList;
+        return gpuList;
     }
 }

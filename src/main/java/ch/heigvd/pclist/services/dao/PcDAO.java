@@ -1,9 +1,10 @@
-package ch.heigvd.pclist.services;
+package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.services.factory.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class PcStore implements PcStoreLocal {
+public class PcDAO implements PcDAOLocal {
 
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;

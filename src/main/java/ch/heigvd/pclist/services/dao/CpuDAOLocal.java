@@ -1,4 +1,4 @@
-package ch.heigvd.pclist.services;
+package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Cpu;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Local
-public interface CpuStoreLocal {
+public interface CpuDAOLocal {
 
     Cpu get(long id);
 

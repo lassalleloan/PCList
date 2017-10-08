@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
-import ch.heigvd.pclist.services.FactoryServiceLocal;
+import ch.heigvd.pclist.services.factory.FactoryServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

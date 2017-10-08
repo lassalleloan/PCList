@@ -3,7 +3,7 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.FactoryServiceLocal;
+import ch.heigvd.pclist.services.factory.FactoryServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -102,7 +102,7 @@ public class CreateServlet extends HttpServlet {
         product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
 
         String url = "/pclist/list";
-        String titlePage = "";
+        String pageTitle = "";
 
         if (product == null) {
             resp.sendRedirect(url);
@@ -110,7 +110,7 @@ public class CreateServlet extends HttpServlet {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 create action for pc
-//                    titlePage = "PC";
+//                    pageTitle = "PC";
 //                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
 //                    req.setAttribute("cpuList", factoryService.getCpu());
 //                    req.setAttribute("ramList", factoryService.getRam());
@@ -118,24 +118,24 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "cpu":
-                    titlePage = "Processor";
+                    pageTitle = "Processor";
                     req.setAttribute("cpuBrandList", factoryService.getCpuBrand());
                     break;
 
                 case "ram":
                     // TODO: 07.10.2017 create action for ram
-//                    titlePage = "Memory";
+//                    pageTitle = "Memory";
 //                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 create action for gpu
-//                    titlePage = "Processor";
+//                    pageTitle = "Processor";
 //                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
                     break;
             }
 
-            req.setAttribute("titlePage", titlePage);
+            req.setAttribute("pageTitle", pageTitle);
             req.setAttribute("product", product);
 
             req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);

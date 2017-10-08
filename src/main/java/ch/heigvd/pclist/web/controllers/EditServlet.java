@@ -3,7 +3,7 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.FactoryServiceLocal;
+import ch.heigvd.pclist.services.factory.FactoryServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -107,7 +107,7 @@ public class EditServlet extends HttpServlet {
         long id = idString != null ? Long.valueOf(idString) : 0;
 
         String url = "/pclist/list";
-        String titlePage = "";
+        String pageTitle = "";
 
         if (product == null || id <= 0) {
             resp.sendRedirect(url);
@@ -115,7 +115,7 @@ public class EditServlet extends HttpServlet {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 edit action for pc
-//                    titlePage = "PC";
+//                    pageTitle = "PC";
 //                    req.setAttribute("pc", factoryService.getPC(id));
 //                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
 //                    req.setAttribute("cpuList", factoryService.getCpu());
@@ -124,27 +124,27 @@ public class EditServlet extends HttpServlet {
                     break;
 
                 case "cpu":
-                    titlePage = "Processor";
+                    pageTitle = "Processor";
                     req.setAttribute("cpu", factoryService.getCpu(id));
                     req.setAttribute("cpuBrandList", factoryService.getCpuBrand());
                     break;
 
                 case "ram":
                     // TODO: 07.10.2017 edit action for ram
-//                    titlePage = "Memory";
+//                    pageTitle = "Memory";
 //                    req.setAttribute("ram", factoryService.getRam(id));
 //                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 edit action for gpu
-//                    titlePage = "Graphic";
+//                    pageTitle = "Graphic";
 //                    req.setAttribute("gpu", factoryService.getGpu(id));
 //                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
                     break;
             }
 
-            req.setAttribute("titlePage", titlePage);
+            req.setAttribute("pageTitle", pageTitle);
             req.setAttribute("product", product);
 
             req.getRequestDispatcher("WEB-INF/pages/edit.jsp").forward(req, resp);

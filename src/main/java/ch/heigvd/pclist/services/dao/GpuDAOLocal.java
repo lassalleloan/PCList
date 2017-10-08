@@ -1,6 +1,6 @@
-package ch.heigvd.pclist.services;
+package ch.heigvd.pclist.services.dao;
 
-import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.models.Gpu;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Local
-public interface RamStoreLocal {
+public interface GpuDAOLocal {
 
-    Ram getOne(long id);
+    Gpu getOne(long id);
 
-    List<Ram> getAll();
+    List<Gpu> getAll();
 }
