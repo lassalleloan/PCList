@@ -17,144 +17,145 @@
 <article class="text-center">
 
     <div class="container">
-    <div class="row">
-        <div class="mx-auto">
-            <a class="nav-link" href="/pclist/list?product=${product}"><h3>${pageTitle}</h3></a>
-            <form method="post">
-                <table class="table">
+        <div class="row">
+            <div class="mx-auto">
+                <a class="nav-link" href="/pclist/list?product=${product}"><h3>${pageTitle}</h3></a>
+                <form method="post">
+                    <table class="table">
 
-                    <c:if test="${pc != null && pcBrandList != null&& cpuList != null&& ramList != null&& gpuList != null}">
-                        <thead class="tab-header-area">
-                        <tr>
-                            <th>Brand</th>
-                            <th>Processor</th>
-                            <th>Number of Cores</th>
-                            <th>Frequency</th>
-                            <th>Memory</th>
-                            <th>Memory Size</th>
-                            <th>Graphic</th>
-                            <th>Price</th>
-                        </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <label><input type="text" list="pcBrandList" name="pcBrand" minlength="1" maxlength="45"
-                                              value="${pc.brand}"></label>
-                                <datalist id="pcBrandList">
-                                    <c:forEach items="${pcBrandList}" var="pcBrand">
-                                        <option value="${pcBrand}">${pcBrand}</option>
-                                    </c:forEach>
-                                </datalist>
-                            </td>
-                            <td>
-                                <label>
-                                    <select name="idCpu">
-                                        <c:forEach items="${cpuList}" var="cpu">
-                                            <option value="${cpu.idCpu}" <c:if
-                                                    test="${pc.idCpu == cpu.idCpu}"> selected </c:if>> ${cpu.brand} ${cpu.cores} ${cpu.frequency}GHz
-                                            </option>
+                        <c:if test="${pc != null && pcBrandList != null&& cpuList != null&& ramList != null&& gpuList != null}">
+                            <thead class="tab-header-area">
+                            <tr>
+                                <th>Brand</th>
+                                <th>Processor</th>
+                                <th>Number of Cores</th>
+                                <th>Frequency</th>
+                                <th>Memory</th>
+                                <th>Memory Size</th>
+                                <th>Graphic</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <label><input type="text" list="pcBrandList" name="pcBrand" minlength="1"
+                                                  maxlength="45"
+                                                  value="${pc.brand}"></label>
+                                    <datalist id="pcBrandList">
+                                        <c:forEach items="${pcBrandList}" var="pcBrand">
+                                            <option value="${pcBrand}">${pcBrand}</option>
                                         </c:forEach>
-                                    </select>
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <select name="idRam">
-                                        <c:forEach items="${ramList}" var="ram">
-                                            <option value="${ram.idRam}" <c:if
-                                                    test="${pc.idRam == ram.idRam}"> selected </c:if>> ${ram.brand} ${ram.size}GB
-                                            </option>
+                                    </datalist>
+                                </td>
+                                <td>
+                                    <label>
+                                        <select name="idCpu">
+                                            <c:forEach items="${cpuList}" var="cpu">
+                                                <option value="${cpu.idCpu}" <c:if
+                                                        test="${pc.idCpu == cpu.idCpu}"> selected </c:if>> ${cpu.brand} ${cpu.cores} ${cpu.frequency}GHz
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>
+                                        <select name="idRam">
+                                            <c:forEach items="${ramList}" var="ram">
+                                                <option value="${ram.idRam}" <c:if
+                                                        test="${pc.idRam == ram.idRam}"> selected </c:if>> ${ram.brand} ${ram.size}GB
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>
+                                        <select name="idGpu">
+                                            <c:forEach items="${gpuList}" var="gpu">
+                                                <option value="${gpu.idGpu}" <c:if
+                                                        test="${pc.idGpu == gpu.idGpu}"> selected </c:if>> ${gpu.brand}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                        </c:if>
+
+                        <c:if test="${cpu != null && cpuBrandList != null}">
+                            <thead class="tab-header-area">
+                            <tr>
+                                <th>Brand</th>
+                                <th>Number of Cores</th>
+                                <th>Frequency</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <label><input type="text" list="cpuBrandList" name="cpuBrand" minlength="1"
+                                                  maxlength="45" value="${cpu.brand}"></label>
+                                    <datalist id="cpuBrandList">
+                                        <c:forEach items="${cpuBrandList}" var="cpuBrand">
+                                            <option value="${cpuBrand}">${cpuBrand}</option>
                                         </c:forEach>
-                                    </select>
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <select name="idGpu">
-                                        <c:forEach items="${gpuList}" var="gpu">
-                                            <option value="${gpu.idGpu}" <c:if
-                                                    test="${pc.idGpu == gpu.idGpu}"> selected </c:if>> ${gpu.brand}</option>
+                                    </datalist>
+                                </td>
+                                <td><label><input type="number" step="1" min="1" value="${cpu.cores}" name="cpuCores"
+                                                  required></label></td>
+                                <td><label><input type="number" step="0.01" min="0" value="${cpu.frequency}"
+                                                  name="cpuFrequency" required>GHz</label></td>
+                            </tr>
+                        </c:if>
+
+                        <c:if test="${ram != null && ramBrandList != null}">
+                            <thead class="tab-header-area">
+                            <tr>
+                                <th>Brand</th>
+                                <th>Size</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <label><input type="text" list="ramBrandList" name="ramBrand" minlength="1"
+                                                  maxlength="45" value="${ram.brand}"></label>
+                                    <datalist id="ramBrandList">
+                                        <c:forEach items="${ramBrandList}" var="ramBrand">
+                                            <option value="${ramBrand}">${ramBrand}</option>
                                         </c:forEach>
-                                    </select>
-                                </label>
-                            </td>
-                        </tr>
-                    </c:if>
+                                    </datalist>
+                                </td>
+                                <td><label><input type="number" step="1" min="1" value="${ram.size}" name="cpuCores"
+                                                  required>GB</label></td>
+                            </tr>
+                        </c:if>
 
-                    <c:if test="${cpu != null && cpuBrandList != null}">
-                        <thead class="tab-header-area">
-                        <tr>
-                            <th>Brand</th>
-                            <th>Number of Cores</th>
-                            <th>Frequency</th>
-                        </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <label><input type="text" list="cpuBrandList" name="cpuBrand" minlength="1"
-                                              maxlength="45" value="${cpu.brand}"></label>
-                                <datalist id="cpuBrandList">
-                                    <c:forEach items="${cpuBrandList}" var="cpuBrand">
-                                        <option value="${cpuBrand}">${cpuBrand}</option>
-                                    </c:forEach>
-                                </datalist>
-                            </td>
-                            <td><label><input type="number" step="1" min="1" value="${cpu.cores}" name="cpuCores"
-                                              required></label></td>
-                            <td><label><input type="number" step="0.01" min="0" value="${cpu.frequency}"
-                                              name="cpuFrequency" required>GHz</label></td>
-                        </tr>
-                    </c:if>
+                        <c:if test="${gpu != null && gpuBrandList != null}">
+                            <thead class="tab-header-area">
+                            <tr>
+                                <th>Brand</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <label><input type="text" list="gpuBrandList" name="gpuBrand" minlength="1"
+                                                  maxlength="45" value="${gpu.brand}"></label>
+                                    <datalist id="gpuBrandList">
+                                        <c:forEach items="${gpuBrandList}" var="gpuBrand">
+                                            <option value="${gpuBrand}">${gpuBrand}</option>
+                                        </c:forEach>
+                                    </datalist>
+                                </td>
+                            </tr>
+                        </c:if>
 
-                    <c:if test="${ram != null && ramBrandList != null}">
-                        <thead class="tab-header-area">
                         <tr>
-                            <th>Brand</th>
-                            <th>Size</th>
+                            <td colspan="8"><input type="submit" value="Edit"></td>
                         </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <label><input type="text" list="ramBrandList" name="ramBrand" minlength="1"
-                                              maxlength="45" value="${ram.brand}"></label>
-                                <datalist id="ramBrandList">
-                                    <c:forEach items="${ramBrandList}" var="ramBrand">
-                                        <option value="${ramBrand}">${ramBrand}</option>
-                                    </c:forEach>
-                                </datalist>
-                            </td>
-                            <td><label><input type="number" step="1" min="1" value="${ram.size}" name="cpuCores"
-                                              required>GB</label></td>
-                        </tr>
-                    </c:if>
-
-                    <c:if test="${gpu != null && gpuBrandList != null}">
-                        <thead class="tab-header-area">
-                        <tr>
-                            <th>Brand</th>
-                        </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <label><input type="text" list="gpuBrandList" name="gpuBrand" minlength="1"
-                                              maxlength="45" value="${gpu.brand}"></label>
-                                <datalist id="gpuBrandList">
-                                    <c:forEach items="${gpuBrandList}" var="gpuBrand">
-                                        <option value="${gpuBrand}">${gpuBrand}</option>
-                                    </c:forEach>
-                                </datalist>
-                            </td>
-                        </tr>
-                    </c:if>
-
-                    <tr>
-                        <td colspan="8"><input type="submit" value="Edit"></td>
-                    </tr>
-                </table>
-            </form>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 </article>
 

@@ -3,20 +3,21 @@
 -- Model: PcList    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
+SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
+SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
 -- Schema pclist
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `pclist` ;
+DROP SCHEMA IF EXISTS `pclist`;
 
 -- -----------------------------------------------------
 -- Schema pclist
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `pclist` DEFAULT CHARACTER SET utf8 ;
-USE `pclist` ;
+CREATE SCHEMA IF NOT EXISTS `pclist`
+  DEFAULT CHARACTER SET utf8;
+USE `pclist`;
 
 -- -----------------------------------------------------
 -- Table `pclist`.`cpu`
@@ -26,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `pclist`.`cpu` (
   `brand`     VARCHAR(45)     NOT NULL,
   `cores`     INT UNSIGNED    NOT NULL,
   `frequency` DOUBLE UNSIGNED NOT NULL,
-  PRIMARY KEY (`idCpu`))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (`idCpu`)
+)
+  ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `pclist`.`ram`
@@ -37,8 +38,9 @@ CREATE TABLE IF NOT EXISTS `pclist`.`ram` (
   `idRam` INT          NOT NULL AUTO_INCREMENT,
   `brand` VARCHAR(45)  NOT NULL,
   `size`  INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`idRam`))
-ENGINE = InnoDB;
+  PRIMARY KEY (`idRam`)
+)
+  ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `pclist`.`gpu`
@@ -49,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `pclist`.`gpu` (
   PRIMARY KEY (`idGpu`)
 )
   ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `pclist`.`pc`
@@ -66,26 +67,27 @@ CREATE TABLE IF NOT EXISTS `pclist`.`pc` (
   INDEX `fk_Pc_Gpu1_idx` (`idGpu` ASC),
   INDEX `fk_Pc_Ram1_idx` (`idRam` ASC),
   CONSTRAINT `fk_Pc_Cpu`
-    FOREIGN KEY (`idCpu`)
-    REFERENCES `pclist`.`cpu` (`idCpu`)
+  FOREIGN KEY (`idCpu`)
+  REFERENCES `pclist`.`cpu` (`idCpu`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pc_Gpu1`
-    FOREIGN KEY (`idGpu`)
-    REFERENCES `pclist`.`gpu` (`idGpu`)
+  FOREIGN KEY (`idGpu`)
+  REFERENCES `pclist`.`gpu` (`idGpu`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pc_Ram1`
-    FOREIGN KEY (`idRam`)
-    REFERENCES `pclist`.`ram` (`idRam`)
+  FOREIGN KEY (`idRam`)
+  REFERENCES `pclist`.`ram` (`idRam`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+)
+  ENGINE = InnoDB;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET SQL_MODE = @OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
 -- Data for table `pclist`.`cpu`
@@ -97,7 +99,6 @@ INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFA
 
 COMMIT;
 
-
 -- -----------------------------------------------------
 -- Data for table `pclist`.`ram`
 -- -----------------------------------------------------
@@ -108,7 +109,6 @@ INSERT INTO `pclist`.`ram` (`idRam`, `brand`, `size`) VALUES (DEFAULT, 'Fury', 8
 
 COMMIT;
 
-
 -- -----------------------------------------------------
 -- Data for table `pclist`.`gpu`
 -- -----------------------------------------------------
@@ -118,7 +118,6 @@ INSERT INTO `pclist`.`gpu` (`idGpu`, `brand`) VALUES (DEFAULT, 'NVIDIA');
 INSERT INTO `pclist`.`gpu` (`idGpu`, `brand`) VALUES (DEFAULT, 'AMD');
 
 COMMIT;
-
 
 -- -----------------------------------------------------
 -- Data for table `pclist`.`pc`
