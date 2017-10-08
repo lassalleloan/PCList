@@ -115,7 +115,7 @@ public class EditServlet extends HttpServlet {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 edit action for pc
-//                    pageTitle = "PC";
+                    pageTitle = "PC";
 //                    req.setAttribute("pc", factoryService.getPC(id));
 //                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
 //                    req.setAttribute("cpuList", factoryService.getCpu());
@@ -131,14 +131,14 @@ public class EditServlet extends HttpServlet {
 
                 case "ram":
                     // TODO: 07.10.2017 edit action for ram
-//                    pageTitle = "Memory";
+                    pageTitle = "Memory";
 //                    req.setAttribute("ram", factoryService.getRam(id));
 //                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 edit action for gpu
-//                    pageTitle = "Graphic";
+                    pageTitle = "Graphic";
 //                    req.setAttribute("gpu", factoryService.getGpu(id));
 //                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
                     break;

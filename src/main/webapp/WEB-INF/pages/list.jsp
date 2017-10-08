@@ -1,11 +1,11 @@
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('static/img/list-bg.jpg')">
+<header class="masthead text-center" style="background-image: url('static/img/list-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading text-md-center">
+                <div class="page-heading">
                     <h1>List of ${pageTitle}</h1>
                 </div>
             </div>

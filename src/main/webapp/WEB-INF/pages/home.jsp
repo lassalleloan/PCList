@@ -1,7 +1,7 @@
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('static/img/home-bg.jpg')">
+<header class="masthead text-center" style="background-image: url('static/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
@@ -15,12 +15,24 @@
 </header>
 
 <!-- Home Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+<article class="text-center">
+
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pclist/list">Manage things</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pclist/configuration?product=pc">Configuration</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+
+</article>
 
 <hr>
 

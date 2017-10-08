@@ -130,7 +130,7 @@ public class CreateServlet extends HttpServlet {
 
                 case "gpu":
                     // TODO: 07.10.2017 create action for gpu
-//                    pageTitle = "Processor";
+//                    pageTitle = "Graphic";
 //                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
                     break;
             }
