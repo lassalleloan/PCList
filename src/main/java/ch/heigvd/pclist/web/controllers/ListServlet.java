@@ -41,7 +41,12 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList || product.equals("cpu")) {
             pageTitle = "Processor";
+            objectMap.put("cpuCreateUrl", "/create?product=cpu");
+            objectMap.put("cpuEditUrl", "/edit?product=cpu&id=");
+            objectMap.put("cpuDeleteUrl", "/delete?product=cpu&id=");
             objectMap.put("cpuList", factoryService.getCpu());
+            objectMap.put("cpuBegin", 0);
+            objectMap.put("cpuEnd", 9);
         }
 
         if (isAllList || product.equals("ram")) {
@@ -56,15 +61,18 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList) {
             pageTitle = "All";
+            objectMap.put("cpuBegin", 0);
+            objectMap.put("cpuEnd", 3);
         }
 
-        req.setAttribute("pageTitle", pageTitle);
-        req.setAttribute("allList", isAllList);
+        objectMap.put("pageTitle", pageTitle);
+        objectMap.put("allList", isAllList);
+        objectMap.put("cpuListUrl", "/list?product=cpu");
 
         if (rowsAffected > 0) {
-            req.setAttribute("product", pageTitle);
-            req.setAttribute("action", action);
-            req.setAttribute("rowsAffected", rowsAffected);
+            objectMap.put("product", pageTitle);
+            objectMap.put("action", action);
+            objectMap.put("rowsAffected", rowsAffected);
         }
 
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {

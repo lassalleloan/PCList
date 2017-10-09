@@ -42,12 +42,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/pclist/list">Manage things</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pclist/configuration">Configuration</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="/pclist/list">Manage things</a></li>
+                <li class="nav-item"><a class="nav-link" href="/pclist/configuration">Configuration</a></li>
             </ul>
         </div>
     </div>

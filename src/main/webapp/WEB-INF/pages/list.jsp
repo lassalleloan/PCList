@@ -22,12 +22,12 @@
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/list">All</a></th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/list?product=pc">Pc</a></th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/list?product=cpu">Processor</a>
+                        <th><a class="nav-link" href="/pclist/list">All</a></th>
+                        <th><a class="nav-link" href="/pclist/list?product=pc">Pc</a></th>
+                        <th><a class="nav-link" href="<c:url value="${cpuListUrl}"/>">Processor</a>
                         </th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/list?product=ram">Memory</a></th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/list?product=gpu">Graphic</a></th>
+                        <th><a class="nav-link" href="/pclist/list?product=ram">Memory</a></th>
+                        <th><a class="nav-link" href="/pclist/list?product=gpu">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
@@ -96,7 +96,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
+                    <a class="nav-link" href="<c:url value="${cpuListUrl}"/>"><h3>Processor</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -105,19 +105,20 @@
                             <th>Number of Cores</th>
                             <th>Frequency</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=cpu">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="<c:url value="${cpuCreateUrl}"/>">Add</a></th>
                             </c:if>
                         </tr>
                         </thead>
-                        <c:forEach items="${cpuList}" var="cpu">
+                        <c:forEach items="${cpuList}" begin="${cpuBegin}" end="${cpuEnd}" var="cpu">
                             <tr>
                                 <td>${cpu.brand}</td>
                                 <td>${cpu.cores}</td>
                                 <td>${cpu.frequency}GHz</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="/pclist/edit?product=cpu&id=${cpu.idCpu}">Edit</a>
+                                    <td><a class="nav-link" href="<c:url value="${cpuEditUrl}${cpu.idCpu}"/>">Edit</a>
                                     </td>
-                                    <td><a class="nav-link" href="/pclist/delete?product=cpu&id=${cpu.idCpu}">Delete</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="${cpuDeleteUrl}${cpu.idCpu}"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -192,6 +193,24 @@
                         </c:forEach>
                     </table>
                     <br>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${!allList}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <br>
+                    <table>
+                        <tr>
+                            <td><a class="nav-link" href="<c:url value="${firstPageLink}"/>">Page 1</a></td>
+                            <td><a class="nav-link" href="<c:url value="${previousPageLink}"/>">Previous page</a></td>
+                            <td><a class="nav-link" href="<c:url value="${nextPageLink}"/>">Next page</a></td>
+                            <td><a class="nav-link" href="<c:url value="${lastPageLink}"/>">Page ${pageCount}</a></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

@@ -94,8 +94,16 @@ SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `pclist`;
-INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 3, 2.3);
-INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 4, 4);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 1, 1.1);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 1, 1.2);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 2, 2.1);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 2, 2.2);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 3, 3.1);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 3, 3.2);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 4, 4.1);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 4, 4.2);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'Intel', 5, 5.1);
+INSERT INTO `pclist`.`cpu` (`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, 'AMD', 5, 5.2);
 
 COMMIT;
 
