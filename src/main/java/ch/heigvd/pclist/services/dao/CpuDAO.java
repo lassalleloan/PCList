@@ -1,7 +1,7 @@
 package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Cpu;
-import ch.heigvd.pclist.services.factory.FactoryService;
+import ch.heigvd.pclist.services.business.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;

@@ -6,8 +6,8 @@ package ch.heigvd.pclist.models;
  */
 public class Gpu {
 
-    private final long idGpu;
-    private final String brand;
+    private long idGpu;
+    private String brand;
 
     public Gpu(long idGpu, String brand) {
         this.idGpu = idGpu;
@@ -18,8 +18,16 @@ public class Gpu {
         return idGpu;
     }
 
+    public void setIdGpu(long idGpu) {
+        this.idGpu = idGpu;
+    }
+
     public String getBrand() {
         return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     @Override

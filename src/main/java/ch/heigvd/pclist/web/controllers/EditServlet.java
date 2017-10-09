@@ -3,7 +3,7 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.factory.FactoryServiceLocal;
+import ch.heigvd.pclist.services.business.FactoryServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

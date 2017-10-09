@@ -1,4 +1,4 @@
-package ch.heigvd.pclist.services.factory;
+package ch.heigvd.pclist.services.business;
 
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;

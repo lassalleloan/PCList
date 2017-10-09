@@ -6,9 +6,9 @@ package ch.heigvd.pclist.models;
  */
 public class Ram {
 
-    private final long idRam;
-    private final String brand;
-    private final int size;
+    private long idRam;
+    private String brand;
+    private int size;
 
     public Ram(long idRam, String brand, int size) {
         this.idRam = idRam;
@@ -20,12 +20,24 @@ public class Ram {
         return idRam;
     }
 
+    public void setIdRam(long idRam) {
+        this.idRam = idRam;
+    }
+
     public String getBrand() {
         return brand;
     }
 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public int getSize() {
         return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override

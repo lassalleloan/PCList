@@ -6,12 +6,12 @@ package ch.heigvd.pclist.models;
  */
 public class Pc {
 
-    private final long idPc;
-    private final String brand;
-    private final Cpu cpu;
-    private final Ram ram;
-    private final Gpu gpu;
-    private final double price;
+    private long idPc;
+    private String brand;
+    private double price;
+    private Cpu cpu;
+    private Ram ram;
+    private Gpu gpu;
 
     public Pc(long idPc, String brand, double price, Cpu cpu, Ram ram, Gpu gpu) {
         this.idPc = idPc;
@@ -26,24 +26,48 @@ public class Pc {
         return idPc;
     }
 
+    public void setIdPc(long idPc) {
+        this.idPc = idPc;
+    }
+
     public String getBrand() {
         return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Cpu getCpu() {
         return cpu;
     }
 
+    public void setCpu(Cpu cpu) {
+        this.cpu = cpu;
+    }
+
     public Ram getRam() {
         return ram;
+    }
+
+    public void setRam(Ram ram) {
+        this.ram = ram;
     }
 
     public Gpu getGpu() {
         return gpu;
     }
 
-    public double getPrice() {
-        return price;
+    public void setGpu(Gpu gpu) {
+        this.gpu = gpu;
     }
 
     @Override
@@ -51,10 +75,10 @@ public class Pc {
         return "Pc{" +
                 "idPc=" + idPc +
                 ", brand='" + brand + '\'' +
+                ", price=" + price +
                 ", cpu=" + cpu +
                 ", ram=" + ram +
                 ", gpu=" + gpu +
-                ", price=" + price +
                 '}';
     }
 }

@@ -6,10 +6,10 @@ package ch.heigvd.pclist.models;
  */
 public class Cpu {
 
-    private final long idCpu;
-    private final String brand;
-    private final int cores;
-    private final double frequency;
+    private long idCpu;
+    private String brand;
+    private int cores;
+    private double frequency;
 
     public Cpu(long idCpu, String brand, int cores, double frequency) {
         this.idCpu = idCpu;
@@ -22,16 +22,32 @@ public class Cpu {
         return idCpu;
     }
 
+    public void setIdCpu(long idCpu) {
+        this.idCpu = idCpu;
+    }
+
     public String getBrand() {
         return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public int getCores() {
         return cores;
     }
 
+    public void setCores(int cores) {
+        this.cores = cores;
+    }
+
     public double getFrequency() {
         return frequency;
+    }
+
+    public void setFrequency(double frequency) {
+        this.frequency = frequency;
     }
 
     @Override
