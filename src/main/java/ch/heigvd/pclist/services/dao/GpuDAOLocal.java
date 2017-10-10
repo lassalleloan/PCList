@@ -12,7 +12,7 @@ import java.util.List;
 @Local
 public interface GpuDAOLocal {
 
-    Gpu getOne(long id);
+    Gpu get(long id);
 
-    List<Gpu> getAll();
+    List<Gpu> get();
 }

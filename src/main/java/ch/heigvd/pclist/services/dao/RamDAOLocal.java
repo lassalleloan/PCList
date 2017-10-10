@@ -12,7 +12,7 @@ import java.util.List;
 @Local
 public interface RamDAOLocal {
 
-    Ram getOne(long id);
+    Ram get(long id);
 
-    List<Ram> getAll();
+    List<Ram> get();
 }

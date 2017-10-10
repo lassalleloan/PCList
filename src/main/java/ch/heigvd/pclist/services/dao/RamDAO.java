@@ -25,7 +25,7 @@ public class RamDAO implements RamDAOLocal {
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Ram getOne(long id) {
+    public Ram get(long id) {
         Ram ram = null;
 
         try {
@@ -49,7 +49,7 @@ public class RamDAO implements RamDAOLocal {
         return ram;
     }
 
-    public List<Ram> getAll() {
+    public List<Ram> get() {
         List<Ram> ramList = new ArrayList<>();
 
         try {

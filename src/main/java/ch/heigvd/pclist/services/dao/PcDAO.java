@@ -28,7 +28,7 @@ public class PcDAO implements PcDAOLocal {
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Pc getOne(long id) {
+    public Pc get(long id) {
         Pc pc = null;
 
         try {
@@ -81,7 +81,7 @@ public class PcDAO implements PcDAOLocal {
         return pc;
     }
 
-    public List<Pc> getAll() {
+    public List<Pc> get() {
         List<Pc> pcList = new ArrayList<>();
 
         try {

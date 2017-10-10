@@ -48,7 +48,7 @@ public class GpuDAO implements GpuDAOLocal {
         return gpu;
     }
 
-    public List<Gpu> getAll() {
+    public List<Gpu> get() {
         List<Gpu> gpuList = new ArrayList<>();
 
         try {

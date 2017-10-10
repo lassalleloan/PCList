@@ -12,7 +12,7 @@ import java.util.List;
 @Local
 public interface PcDAOLocal {
 
-    Pc getOne(long id);
+    Pc get(long id);
 
-    List<Pc> getAll();
+    List<Pc> get();
 }
