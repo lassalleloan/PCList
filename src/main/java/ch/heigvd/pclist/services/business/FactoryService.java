@@ -34,12 +34,12 @@ public class FactoryService implements FactoryServiceLocal {
 
     @Override
     public Pc getPc(long id) {
-        return pcStore.getOne(id);
+        return pcStore.get(id);
     }
 
     @Override
     public List<Pc> getPc() {
-        return pcStore.getAll();
+        return pcStore.get();
     }
 
     @Override
@@ -109,21 +109,21 @@ public class FactoryService implements FactoryServiceLocal {
 
     @Override
     public Ram getRam(long id) {
-        return ramStore.getOne(id);
+        return ramStore.get(id);
     }
 
     @Override
     public List<Ram> getRam() {
-        return ramStore.getAll();
+        return ramStore.get();
     }
 
     @Override
     public Gpu getGpu(long id) {
-        return gpuStore.getOne(id);
+        return gpuStore.get(id);
     }
 
     @Override
     public List<Gpu> getGpu() {
-        return gpuStore.getAll();
+        return gpuStore.get();
     }
 }
