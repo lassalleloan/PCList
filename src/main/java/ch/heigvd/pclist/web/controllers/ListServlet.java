@@ -1,6 +1,9 @@
 package ch.heigvd.pclist.web.controllers;
 
-import ch.heigvd.pclist.services.business.FactoryServiceLocal;
+import ch.heigvd.pclist.services.dao.CpuDAOLocal;
+import ch.heigvd.pclist.services.dao.GpuDAOLocal;
+import ch.heigvd.pclist.services.dao.PcDAOLocal;
+import ch.heigvd.pclist.services.dao.RamDAOLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -13,16 +16,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Handles requests coming from /list
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 public class ListServlet extends HttpServlet {
 
     @EJB
-    private FactoryServiceLocal factoryService;
+    private PcDAOLocal pcDAO;
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    @EJB
+    private CpuDAOLocal cpuDAO;
+
+    @EJB
+    private RamDAOLocal ramDAO;
+
+    @EJB
+    private GpuDAOLocal gpuDAO;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String product = req.getParameter("product");
         String action = req.getParameter("action");
         String rowsAffectedString = req.getParameter("rowsAffected");
@@ -35,14 +57,14 @@ public class ListServlet extends HttpServlet {
         String pageTitle = "";
         Map<String, Object> objectMap = new HashMap<>();
 
-        int pageSize = 0;
+        int pageSize;
         try {
             pageSize = Integer.parseInt(req.getParameter("pageSize"));
         } catch (NumberFormatException e) {
             pageSize = isAllList ? 2 : 2;
         }
 
-        int pageIndex = 0;
+        int pageIndex;
         try {
             pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
         } catch (NumberFormatException e) {
@@ -53,23 +75,23 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList || product.equals("pc")) {
             pageTitle = "PC";
-            objectMap.put("pcList", factoryService.getPc());
+            objectMap.put("pcList", pcDAO.get());
         }
 
         if (isAllList || product.equals("cpu")) {
             pageTitle = "Processor";
-            objectMap.put("cpuList", factoryService.getCpu(pageSize, pageIndex));
-            numberOfPages = (factoryService.countCpu() + pageSize - 1) / pageSize;
+            objectMap.put("cpuList", cpuDAO.get(pageSize, pageIndex));
+            numberOfPages = (cpuDAO.count() + pageSize - 1) / pageSize;
         }
 
         if (isAllList || product.equals("ram")) {
             pageTitle = "Memory";
-            objectMap.put("ramList", factoryService.getRam());
+            objectMap.put("ramList", ramDAO.get());
         }
 
         if (isAllList || product.equals("gpu")) {
             pageTitle = "Graphic";
-            objectMap.put("gpuList", factoryService.getGpu());
+            objectMap.put("gpuList", gpuDAO.get());
         }
 
         if (isAllList) {
@@ -96,9 +118,17 @@ public class ListServlet extends HttpServlet {
         }
 
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
-
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }

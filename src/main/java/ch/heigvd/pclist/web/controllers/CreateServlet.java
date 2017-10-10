@@ -3,7 +3,10 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.business.FactoryServiceLocal;
+import ch.heigvd.pclist.services.dao.CpuDAOLocal;
+import ch.heigvd.pclist.services.dao.GpuDAOLocal;
+import ch.heigvd.pclist.services.dao.PcDAOLocal;
+import ch.heigvd.pclist.services.dao.RamDAOLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,14 +17,47 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
+ * Handles requests coming from /create
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 public class CreateServlet extends HttpServlet {
 
     @EJB
-    private FactoryServiceLocal factoryService;
+    private PcDAOLocal pcDAO;
 
+    @EJB
+    private CpuDAOLocal cpuDAO;
+
+    @EJB
+    private RamDAOLocal ramDAO;
+
+    @EJB
+    private GpuDAOLocal gpuDAO;
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String product = req.getParameter("product");
 
@@ -39,16 +75,16 @@ public class CreateServlet extends HttpServlet {
                     String idGpu = req.getParameter("idGpu");
 
                     if (pcBrand != null && pcPrice != null && idCpu != null && idRam != null && idGpu != null) {
-                        Cpu cpu = factoryService.getCpu(Long.valueOf(idCpu));
-                        Ram ram = factoryService.getRam(Long.valueOf(idRam));
-                        Gpu gpu = factoryService.getGpu(Long.valueOf(idGpu));
+                        Cpu cpu = cpuDAO.get(Long.valueOf(idCpu));
+                        Ram ram = ramDAO.get(Long.valueOf(idRam));
+                        Gpu gpu = gpuDAO.get(Long.valueOf(idGpu));
 
                         if (cpu != null && ram != null && gpu != null) {
                             // TODO: 07.10.2017 create action for pc
 //                          url += "?product=" + product +
 //                                  "&action=created" +
 //                                  "&rowsAffected=" +
-//                                  factoryService.setPc(new Pc(0, pcBrand, Double.valueOf(pcPrice), cpu, ram, gpu));
+//                                  pcDAO.setPc(new Pc(0, pcBrand, Double.valueOf(pcPrice), cpu, ram, gpu));
                         }
                     }
                     break;
@@ -62,7 +98,7 @@ public class CreateServlet extends HttpServlet {
                         url += "?product=" + product +
                                 "&action=created" +
                                 "&rowsAffected=" +
-                                factoryService.setCpu(new Cpu(0, cpuBrand, Integer.valueOf(cpuCores), Double.valueOf(cpuFrequency)));
+                                cpuDAO.set(new Cpu(0, cpuBrand, Integer.valueOf(cpuCores), Double.valueOf(cpuFrequency)));
                     }
                     break;
 
@@ -75,7 +111,7 @@ public class CreateServlet extends HttpServlet {
 //                    url += "?product=" + product +
 //                            "&action=created" +
 //                            "&rowsAffected=" +
-//                            factoryService.setRam(new Ram(0, ramBrand, Integer.valueOf(ramSize)));
+//                            ramDAO.set(new Ram(0, ramBrand, Integer.valueOf(ramSize)));
                     }
                     break;
 
@@ -87,7 +123,7 @@ public class CreateServlet extends HttpServlet {
 //                    url += "?product=" + product +
 //                            "&action=created" +
 //                            "&rowsAffected=" +
-//                            factoryService.setGpu(new Gpu(0, gpuBrand));
+//                            gpuDAO.set(new Gpu(0, gpuBrand));
                     }
                     break;
             }
@@ -96,6 +132,15 @@ public class CreateServlet extends HttpServlet {
         resp.sendRedirect(url);
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String product = req.getParameter("product");
 
@@ -111,27 +156,27 @@ public class CreateServlet extends HttpServlet {
                 case "pc":
                     // TODO: 07.10.2017 create action for pc
 //                    pageTitle = "PC";
-//                    req.setAttribute("pcBrandList", factoryService.getPcBrand());
-//                    req.setAttribute("cpuList", factoryService.getCpu());
-//                    req.setAttribute("ramList", factoryService.getRam());
-//                    req.setAttribute("gpuList", factoryService.getGpu());
+//                    req.setAttribute("pcBrandList", pcDAO.getBrand());
+//                    req.setAttribute("cpuList", cpuDAO.get());
+//                    req.setAttribute("ramList", ramDAO.get());
+//                    req.setAttribute("gpuList", gpuDAO.get());
                     break;
 
                 case "cpu":
                     pageTitle = "Processor";
-                    req.setAttribute("cpuBrandList", factoryService.getCpuBrand());
+                    req.setAttribute("cpuBrandList", cpuDAO.getBrand());
                     break;
 
                 case "ram":
                     // TODO: 07.10.2017 create action for ram
 //                    pageTitle = "Memory";
-//                    req.setAttribute("ramBrandList", factoryService.getRamBrand());
+//                    req.setAttribute("ramBrandList", ramDAO.getBrand());
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 create action for gpu
 //                    pageTitle = "Graphic";
-//                    req.setAttribute("gpuBrandList", factoryService.getGpuBrand());
+//                    req.setAttribute("gpuBrandList", gpuDAO.getBrand());
                     break;
             }
 

@@ -7,13 +7,37 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Handles requests coming from /home
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 public class HomeServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>GET</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(req, resp);
+    }
+
+    /**
+     * Handles the HTTP <code>GET</code> method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 }
 
