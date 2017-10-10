@@ -1,3 +1,7 @@
+<%--
+ - @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ - @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ --%>
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
@@ -16,20 +20,17 @@
 <!-- Configuration Content -->
 <article class="text-center">
 
+    <!-- Links for all things -->
     <div class="container">
         <div class="row">
             <div class="mx-auto">
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/configuration?product=pc">Pc</a>
-                        </th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/configuration?product=cpu">Processor</a>
-                        </th>
-                        <th><a class="nav-link" style="display: inline"
-                               href="/pclist/configuration?product=ram">Memory</a></th>
-                        <th><a class="nav-link" style="display: inline"
-                               href="/pclist/configuration?product=gpu">Graphic</a></th>
+                        <th><a class="nav-link" href="/pclist/configuration?product=pc">PC</a></th>
+                        <th><a class="nav-link" href="/pclist/configuration?product=cpu">Processor</a></th>
+                        <th><a class="nav-link" href="/pclist/configuration?product=ram">Memory</a></th>
+                        <th><a class="nav-link" href="/pclist/configuration?product=gpu">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
@@ -38,6 +39,7 @@
         </div>
     </div>
 
+    <!-- Form for generate things -->
     <div class="container">
         <div class="row">
             <div class="mx-auto">
@@ -49,7 +51,8 @@
                         </tr>
                         </thead>
                         <tr>
-                            <td><input type="number" step="1" value="1000000" min="1" required></td>
+                            <td><input name="numberGenerate" type="number" step="1" value="1000000" min="1" required>
+                            </td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Generate random"></td>

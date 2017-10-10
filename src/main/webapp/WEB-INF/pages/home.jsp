@@ -1,3 +1,7 @@
+<%--
+ - @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ - @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ --%>
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
@@ -21,11 +25,8 @@
         <div class="row">
             <div class="mx-auto">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pclist/list">Manage things</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pclist/configuration?product=pc">Configuration</a>
+                    <li class="nav-item"><a class="nav-link" href="/pclist/list">Manage things</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/pclist/configuration?product=pc">Configuration</a>
                     </li>
                 </ul>
             </div>

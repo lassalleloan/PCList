@@ -1,3 +1,7 @@
+<%--
+ - @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ - @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ --%>
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
@@ -16,6 +20,7 @@
 <!-- List Content -->
 <article class="text-center">
 
+    <!-- Links for all things -->
     <div class="container">
         <div class="row">
             <div class="mx-auto">
@@ -23,9 +28,8 @@
                     <thead class="tab-header-area">
                     <tr>
                         <th><a class="nav-link" href="/pclist/list">All</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=pc">Pc</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=cpu">Processor</a>
-                        </th>
+                        <th><a class="nav-link" href="/pclist/list?product=pc">PC</a></th>
+                        <th><a class="nav-link" href="/pclist/list?product=cpu">Processor</a></th>
                         <th><a class="nav-link" href="/pclist/list?product=ram">Memory</a></th>
                         <th><a class="nav-link" href="/pclist/list?product=gpu">Graphic</a></th>
                     </tr>
@@ -36,6 +40,7 @@
         </div>
     </div>
 
+    <!-- Information message during an action -->
     <c:if test="${rowsAffected > 0 && product != null && action != null}">
         <div class="container">
             <div class="row">
@@ -46,11 +51,12 @@
         </div>
     </c:if>
 
+    <!-- List of pc -->
     <c:if test="${allList || pcList != null}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=pc"><h3>Pc</h3></a>
+                    <a class="nav-link" href="/pclist/list?product=pc"><h3>PC</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -85,6 +91,11 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
+                        <c:if test="${allList}">
+                            <tr>
+                                <td colspan="8"><a class="nav-link" href="/pclist/list?product=pc">...</a></td>
+                            </tr>
+                        </c:if>
                     </table>
                     <br>
                 </div>
@@ -92,6 +103,7 @@
         </div>
     </c:if>
 
+    <!-- List of cpu -->
     <c:if test="${allList || cpuList != null}">
         <div class="container">
             <div class="row">
@@ -123,6 +135,11 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
+                        <c:if test="${allList}">
+                            <tr>
+                                <td colspan="3"><a class="nav-link" href="/pclist/list?product=cpu">...</a></td>
+                            </tr>
+                        </c:if>
                     </table>
                     <br>
                 </div>
@@ -130,6 +147,7 @@
         </div>
     </c:if>
 
+    <!-- List of ram -->
     <c:if test="${allList || ramList != null}">
         <div class="container">
             <div class="row">
@@ -158,6 +176,11 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
+                        <c:if test="${allList}">
+                            <tr>
+                                <td colspan="2"><a class="nav-link" href="/pclist/list?product=ram">...</a></td>
+                            </tr>
+                        </c:if>
                     </table>
                     <br>
                 </div>
@@ -165,6 +188,7 @@
         </div>
     </c:if>
 
+    <!-- List of gpu -->
     <c:if test="${allList || gpuList != null}">
         <div class="container">
             <div class="row">
@@ -191,6 +215,11 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
+                        <c:if test="${allList}">
+                            <tr>
+                                <td><a class="nav-link" href="/pclist/list?product=gpu">...</a></td>
+                            </tr>
+                        </c:if>
                     </table>
                     <br>
                 </div>
@@ -198,6 +227,7 @@
         </div>
     </c:if>
 
+    <!-- Links for others pages -->
     <c:if test="${!allList}">
         <div class="container">
             <div class="row">

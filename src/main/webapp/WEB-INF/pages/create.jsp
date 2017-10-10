@@ -1,3 +1,7 @@
+<%--
+ - @author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ - @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ --%>
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
@@ -16,19 +20,17 @@
 <!-- List Content -->
 <article class="text-center">
 
+    <!-- Links for all things -->
     <div class="container">
         <div class="row">
             <div class="mx-auto">
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/create?product=pc">Pc</a></th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/create?product=cpu">Processor</a>
-                        </th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/create?product=ram">Memory</a>
-                        </th>
-                        <th><a class="nav-link" style="display: inline" href="/pclist/create?product=gpu">Graphic</a>
-                        </th>
+                        <th><a class="nav-link" href="/pclist/create?product=pc">PC</a></th>
+                        <th><a class="nav-link" href="/pclist/create?product=cpu">Processor</a></th>
+                        <th><a class="nav-link" href="/pclist/create?product=ram">Memory</a></th>
+                        <th><a class="nav-link" href="/pclist/create?product=gpu">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
@@ -37,13 +39,14 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto">
-                <a class="nav-link" href="/pclist/list?product=${product}"><h3>${pageTitle}</h3></a>
-                <form method="post" action="/pclist/create?product=${product}">
-                    <table class="table">
-                        <c:if test="${pcBrandList != null && cpuList != null && ramList != null && gpuList != null}">
+    <!-- Form for create pc -->
+    <c:if test="${pcBrandList != null && cpuList != null && ramList != null && gpuList != null}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <a class="nav-link" href="/pclist/list?product=pc"><h3>PC</h3></a>
+                    <form method="post">
+                        <table class="table">
                             <thead class="tab-header-area">
                             <tr>
                                 <th>Brand</th>
@@ -58,7 +61,7 @@
                             </thead>
                             <tr>
                                 <td>
-                                    <label><input type="text" list="pcBrandList" name="pcBrand" minlength="1"
+                                    <label><input name="pcBrand" type="text" list="pcBrandList" minlength="1"
                                                   maxlength="45"></label>
                                     <datalist id="pcBrandList">
                                         <c:forEach items="${pcBrandList}" var="pcBrand">
@@ -94,9 +97,24 @@
                                     </label>
                                 </td>
                             </tr>
-                        </c:if>
+                            <tr>
+                                <td colspan="8"><input type="submit" value="Create"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
-                        <c:if test="${cpuBrandList != null}">
+    <!-- Form for create cpu -->
+    <c:if test="${cpuBrandList != null}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
+                    <form method="post">
+                        <table class="table">
                             <thead class="tab-header-area">
                             <tr>
                                 <th>Brand</th>
@@ -106,7 +124,7 @@
                             </thead>
                             <tr>
                                 <td>
-                                    <label><input type="text" list="cpuBrandList" name="cpuBrand" minlength="1"
+                                    <label><input name="cpuBrand" type="text" list="cpuBrandList" minlength="1"
                                                   maxlength="45"></label>
                                     <datalist id="cpuBrandList">
                                         <c:forEach items="${cpuBrandList}" var="cpuBrand">
@@ -114,14 +132,29 @@
                                         </c:forEach>
                                     </datalist>
                                 </td>
-                                <td><label><input type="number" step="1" min="1" value="1" name="cpuCores"
+                                <td><label><input name="cpuCores" type="number" step="1" min="1" value="1"
                                                   required></label></td>
-                                <td><label><input type="number" step="0.01" min="0.01" value="1.00" name="cpuFrequency"
+                                <td><label><input name="cpuFrequency" type="number" step="0.01" min="0.01" value="1.00"
                                                   required>GHz</label></td>
                             </tr>
-                        </c:if>
+                            <tr>
+                                <td colspan="3"><input type="submit" value="Create"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
-                        <c:if test="${ramBrandList != null}">
+    <!-- Form for create ram -->
+    <c:if test="${ramBrandList != null}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <a class="nav-link" href="/pclist/list?product=ram"><h3>Memory</h3></a>
+                    <form method="post">
+                        <table class="table">
                             <thead class="tab-header-area">
                             <tr>
                                 <th>Brand</th>
@@ -130,7 +163,7 @@
                             </thead>
                             <tr>
                                 <td>
-                                    <label><input type="text" list="ramBrandList" name="ramBrand" minlength="1"
+                                    <label><input name="ramBrand" type="text" list="ramBrandList" minlength="1"
                                                   maxlength="45"></label>
                                     <datalist id="ramBrandList">
                                         <c:forEach items="${ramBrandList}" var="ramBrand">
@@ -138,12 +171,27 @@
                                         </c:forEach>
                                     </datalist>
                                 </td>
-                                <td><label><input type="number" step="1" min="1" value="1" name="ramSize"
+                                <td><label><input name="ramSize" type="number" step="1" min="1" value="1"
                                                   required>GB</label></td>
                             </tr>
-                        </c:if>
+                            <tr>
+                                <td colspan="2"><input type="submit" value="Create"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
-                        <c:if test="${gpuBrandList != null}">
+    <!-- Form for create gpu -->
+    <c:if test="${gpuBrandList != null}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <a class="nav-link" href="/pclist/list?product=gpu"><h3>Graphic</h3></a>
+                    <form method="post">
+                        <table class="table">
                             <thead class="tab-header-area">
                             <tr>
                                 <th>Brand</th>
@@ -151,7 +199,7 @@
                             </thead>
                             <tr>
                                 <td>
-                                    <label><input type="text" list="gpuBrandList" name="gpuBrand" minlength="1"
+                                    <label><input name="gpuBrand" type="text" list="gpuBrandList" minlength="1"
                                                   maxlength="45"></label>
                                     <datalist id="gpuBrandList">
                                         <c:forEach items="${gpuBrandList}" var="gpuBrand">
@@ -160,16 +208,15 @@
                                     </datalist>
                                 </td>
                             </tr>
-                        </c:if>
-
-                        <tr>
-                            <td colspan="8"><input type="submit" value="Create"></td>
-                        </tr>
-                    </table>
-                </form>
+                            <tr>
+                                <td><input type="submit" value="Create"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    </c:if>
 
 </article>
 
