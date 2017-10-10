@@ -1,7 +1,6 @@
 package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.business.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -43,7 +42,7 @@ public class RamDAO implements RamDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return ram;
@@ -68,7 +67,7 @@ public class RamDAO implements RamDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return ramList;

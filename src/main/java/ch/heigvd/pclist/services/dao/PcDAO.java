@@ -4,7 +4,6 @@ import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
-import ch.heigvd.pclist.services.business.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -75,7 +74,7 @@ public class PcDAO implements PcDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pc;
@@ -130,7 +129,7 @@ public class PcDAO implements PcDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pcList;

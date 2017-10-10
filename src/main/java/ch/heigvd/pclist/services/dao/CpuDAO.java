@@ -1,7 +1,6 @@
 package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Cpu;
-import ch.heigvd.pclist.services.business.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -47,7 +46,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return cpu;
@@ -77,7 +76,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return cpuList;
@@ -107,7 +106,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return cpuList;
@@ -133,7 +132,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return cpuList;
@@ -154,7 +153,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return brandList;
@@ -174,7 +173,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return numberCpu;
@@ -196,7 +195,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -220,7 +219,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -246,7 +245,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -274,7 +273,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -294,7 +293,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -316,7 +315,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;
@@ -333,7 +332,7 @@ public class CpuDAO implements CpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rowsAffected;

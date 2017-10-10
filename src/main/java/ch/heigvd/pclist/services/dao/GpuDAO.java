@@ -1,7 +1,6 @@
 package ch.heigvd.pclist.services.dao;
 
 import ch.heigvd.pclist.models.Gpu;
-import ch.heigvd.pclist.services.business.FactoryService;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -42,7 +41,7 @@ public class GpuDAO implements GpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return gpu;
@@ -66,7 +65,7 @@ public class GpuDAO implements GpuDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GpuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return gpuList;
