@@ -25,7 +25,7 @@ public class GpuDAO implements GpuDAOLocal {
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
-    public Gpu getOne(long id) {
+    public Gpu get(long id) {
         Gpu gpu = null;
 
         try {
