@@ -21,7 +21,8 @@ public class ListServlet extends HttpServlet {
     @EJB
     private FactoryServiceLocal factoryService;
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         String product = req.getParameter("product");
         String action = req.getParameter("action");
         String rowsAffectedString = req.getParameter("rowsAffected");
@@ -34,6 +35,22 @@ public class ListServlet extends HttpServlet {
         String pageTitle = "";
         Map<String, Object> objectMap = new HashMap<>();
 
+        int pageSize = 0;
+        try {
+            pageSize = Integer.parseInt(req.getParameter("pageSize"));
+        } catch (NumberFormatException e) {
+            pageSize = isAllList ? 2 : 2;
+        }
+
+        int pageIndex = 0;
+        try {
+            pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
+        } catch (NumberFormatException e) {
+            pageIndex = 0;
+        }
+
+        long numberOfPages = 0;
+
         if (isAllList || product.equals("pc")) {
             pageTitle = "PC";
             objectMap.put("pcList", factoryService.getPc());
@@ -41,12 +58,8 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList || product.equals("cpu")) {
             pageTitle = "Processor";
-            objectMap.put("cpuCreateUrl", "/create?product=cpu");
-            objectMap.put("cpuEditUrl", "/edit?product=cpu&id=");
-            objectMap.put("cpuDeleteUrl", "/delete?product=cpu&id=");
-            objectMap.put("cpuList", factoryService.getCpu());
-            objectMap.put("cpuBegin", 0);
-            objectMap.put("cpuEnd", 9);
+            objectMap.put("cpuList", factoryService.getCpu(pageSize, pageIndex));
+            numberOfPages = (factoryService.countCpu() + pageSize - 1) / pageSize;
         }
 
         if (isAllList || product.equals("ram")) {
@@ -61,13 +74,10 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList) {
             pageTitle = "All";
-            objectMap.put("cpuBegin", 0);
-            objectMap.put("cpuEnd", 3);
         }
 
         objectMap.put("pageTitle", pageTitle);
         objectMap.put("allList", isAllList);
-        objectMap.put("cpuListUrl", "/list?product=cpu");
 
         if (rowsAffected > 0) {
             objectMap.put("product", pageTitle);
@@ -75,10 +85,21 @@ public class ListServlet extends HttpServlet {
             objectMap.put("rowsAffected", rowsAffected);
         }
 
+        objectMap.put("firstPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=0");
+        objectMap.put("previousPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + Math.max(0, pageIndex - 1));
+        objectMap.put("nextPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + Math.min(pageIndex + 1, numberOfPages - 1));
+        objectMap.put("lastPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + (numberOfPages - 1));
+        objectMap.put("pageCount", numberOfPages);
+
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
             req.setAttribute(entry.getKey(), entry.getValue());
         }
 
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
+
+    }
+
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 }

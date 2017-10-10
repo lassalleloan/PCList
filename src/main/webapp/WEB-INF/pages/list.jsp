@@ -24,7 +24,7 @@
                     <tr>
                         <th><a class="nav-link" href="/pclist/list">All</a></th>
                         <th><a class="nav-link" href="/pclist/list?product=pc">Pc</a></th>
-                        <th><a class="nav-link" href="<c:url value="${cpuListUrl}"/>">Processor</a>
+                        <th><a class="nav-link" href="/pclist/list?product=cpu">Processor</a>
                         </th>
                         <th><a class="nav-link" href="/pclist/list?product=ram">Memory</a></th>
                         <th><a class="nav-link" href="/pclist/list?product=gpu">Graphic</a></th>
@@ -96,7 +96,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="<c:url value="${cpuListUrl}"/>"><h3>Processor</h3></a>
+                    <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -105,20 +105,20 @@
                             <th>Number of Cores</th>
                             <th>Frequency</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="<c:url value="${cpuCreateUrl}"/>">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=cpu">Add</a></th>
                             </c:if>
                         </tr>
                         </thead>
-                        <c:forEach items="${cpuList}" begin="${cpuBegin}" end="${cpuEnd}" var="cpu">
+                        <c:forEach items="${cpuList}" var="cpu">
                             <tr>
                                 <td>${cpu.brand}</td>
                                 <td>${cpu.cores}</td>
                                 <td>${cpu.frequency}GHz</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="<c:url value="${cpuEditUrl}${cpu.idCpu}"/>">Edit</a>
+                                    <td><a class="nav-link" href="/pclist/edit?product=cpu&id=${cpu.idCpu}">Edit</a>
                                     </td>
                                     <td><a class="nav-link"
-                                           href="<c:url value="${cpuDeleteUrl}${cpu.idCpu}"/>">Delete</a>
+                                           href="/pclist/delete?product=cpu&id=${cpu.idCpu}">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>

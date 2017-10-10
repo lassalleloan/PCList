@@ -16,9 +16,13 @@ public interface CpuDAOLocal {
 
     List<Cpu> get(List<Long> idList);
 
+    List<Cpu> get(int pageSize, int pageIndex);
+
     List<Cpu> get();
 
     List<String> getBrand();
+
+    long count();
 
     int set(Cpu cpu);
 

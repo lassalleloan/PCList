@@ -83,6 +83,36 @@ public class CpuDAO implements CpuDAOLocal {
         return cpuList;
     }
 
+    public List<Cpu> get(int pageSize, int pageIndex) {
+        List<Cpu> cpuList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
+                    "FROM cpu " +
+                    "LIMIT ? OFFSET ?;");
+
+            preparedStatement.setInt(1, pageSize);
+            preparedStatement.setInt(2, pageSize * pageIndex);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                long id = resultSet.getLong("idCpu");
+                String brand = resultSet.getString("brand");
+                int cores = resultSet.getInt("cores");
+                double frequency = resultSet.getDouble("frequency");
+
+                cpuList.add(new Cpu(id, brand, cores, frequency));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return cpuList;
+    }
+
     public List<Cpu> get() {
         List<Cpu> cpuList = new ArrayList<>();
 
@@ -128,6 +158,26 @@ public class CpuDAO implements CpuDAOLocal {
         }
 
         return brandList;
+    }
+
+    public long count() {
+        long numberCpu = 0;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) " +
+                    "FROM cpu;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            numberCpu = resultSet.getLong("COUNT(*)");
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FactoryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return numberCpu;
     }
 
     public int set(Cpu cpu) {

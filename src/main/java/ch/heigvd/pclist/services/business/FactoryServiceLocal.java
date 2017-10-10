@@ -23,9 +23,13 @@ public interface FactoryServiceLocal {
 
     List<Cpu> getCpu(List<Long> idList);
 
+    List<Cpu> getCpu(int pageSize, int pageIndex);
+
     List<Cpu> getCpu();
 
     List<String> getCpuBrand();
+
+    long countCpu();
 
     int setCpu(Cpu cpu);
 
