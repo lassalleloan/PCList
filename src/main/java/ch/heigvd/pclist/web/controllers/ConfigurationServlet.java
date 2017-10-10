@@ -63,7 +63,7 @@ public class ConfigurationServlet extends HttpServlet {
                 // TODO: 07.10.2017 configuration action for pc
                 pageTitle = "PC";
 
-                for (long i = 0; i > numberGenerate; ++i) {
+                for (long i = 0; i < numberGenerate; ++i) {
 //                    pcDAO.set(Chance.randomPc());
                 }
                 break;
@@ -71,7 +71,7 @@ public class ConfigurationServlet extends HttpServlet {
             case "cpu":
                 pageTitle = "Processor";
 
-                for (long i = 0; i > numberGenerate; ++i) {
+                for (long i = 0; i < numberGenerate; ++i) {
                     cpuDAO.set(Chance.randomCpu());
                 }
                 break;
@@ -80,7 +80,7 @@ public class ConfigurationServlet extends HttpServlet {
                 // TODO: 07.10.2017 configuration action for ram
                 pageTitle = "Memory";
 
-                for (long i = 0; i > numberGenerate; ++i) {
+                for (long i = 0; i < numberGenerate; ++i) {
 //                    ramDAO.set(Chance.randomRam());
                 }
                 break;
@@ -89,7 +89,7 @@ public class ConfigurationServlet extends HttpServlet {
                 // TODO: 07.10.2017 configuration action for gpu
                 pageTitle = "Graphic";
 
-                for (long i = 0; i > numberGenerate; ++i) {
+                for (long i = 0; i < numberGenerate; ++i) {
 //                    gpuDAO.set(Chance.randomGpu());
                 }
                 break;

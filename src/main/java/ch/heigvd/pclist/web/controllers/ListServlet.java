@@ -61,7 +61,7 @@ public class ListServlet extends HttpServlet {
         try {
             pageSize = Integer.parseInt(req.getParameter("pageSize"));
         } catch (NumberFormatException e) {
-            pageSize = isAllList ? 2 : 2;
+            pageSize = isAllList ? 2 : 10;
         }
 
         int pageIndex;
