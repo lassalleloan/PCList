@@ -2,13 +2,14 @@ package ch.heigvd.pclist.util;
 
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * This utility class is used to generate random values.
+ * Used to generate random values
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
@@ -22,50 +23,35 @@ public class Chance {
     private static final List<Integer> ramSize = Arrays.asList(2, 4, 8, 16, 32, 64);
     private static final List<String> gpuBrands = Arrays.asList("AMD", "Asus", "ATI", "EVGA", "Gigabyte", "MSI", "NVIDIA", "XFX");
 
-    public static List<String> getPcBrands() {
-        return pcBrands;
-    }
-
-    public static List<String> getCpuBrands() {
-        return cpuBrands;
-    }
-
-    public static List<Integer> getCpuNbCores() {
-        return cpuNbCores;
-    }
-
-    public static List<String> getRamBrands() {
-        return ramBrands;
-    }
-
-    public static List<Integer> getRamSize() {
-        return ramSize;
-    }
-
-    public static List<String> getGpuBrands() {
-        return gpuBrands;
+    /**
+     * Basic random generator for pc
+     *
+     * @return a random pc
+     */
+    public static Pc randomPc() {
+        return new Pc(0, randomPcBrand(), randomPcPrice(), randomCpu(), randomRam(), randomGpu());
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for pc brand
      *
      * @return a random pc brand
      */
-    public static String randomPcBrand() {
+    private static String randomPcBrand() {
         return pickRandom(pcBrands);
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for pc size
      *
      * @return a random pc price
      */
-    public static double randomPcPrice() {
+    private static double randomPcPrice() {
         return Math.floor((Math.random() * (5000 - 1000 + 1) + 1000) * 100) / 100;
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for cpu
      *
      * @return a random cpu
      */
@@ -74,7 +60,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for cpu brand
      *
      * @return a random cpu brand
      */
@@ -83,7 +69,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for cpu number cores
      *
      * @return a random cpu number cores
      */
@@ -92,7 +78,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for cpu frequency
      *
      * @return a random cpu frequency
      */
@@ -101,7 +87,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for ram
      *
      * @return a random ram
      */
@@ -110,7 +96,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for ram brand
      *
      * @return a random ram brand
      */
@@ -119,7 +105,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for ram size
      *
      * @return a random ram size
      */
@@ -128,7 +114,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for gpu
      *
      * @return a random gpu
      */
@@ -137,7 +123,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for
+     * Basic random generator for gpu brands
      *
      * @return a random gpu brands
      */
