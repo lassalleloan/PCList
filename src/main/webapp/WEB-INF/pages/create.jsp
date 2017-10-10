@@ -1,6 +1,6 @@
 <%--
- - @author Loan Lassalle (loan.lassalle@heig-vd.ch)
- - @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ - author Loan Lassalle (loan.lassalle@heig-vd.ch)
+ - author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  --%>
 <%@include file="includes/header.jsp" %>
 

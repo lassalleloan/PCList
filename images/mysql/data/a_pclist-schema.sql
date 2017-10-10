@@ -2,6 +2,8 @@
 -- jeu 05 oct 2017 14:49:35 CEST
 -- Model: PcList    Version: 1.0
 -- MySQL Workbench Forward Engineering
+-- author: Loan Lassalle
+-- author: Jérémie Zanone
 
 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
