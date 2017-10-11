@@ -51,7 +51,7 @@
                         </tr>
                         </thead>
                         <tr>
-                            <td><input name="numberGenerate" type="number" step="1" value="1000000" min="1" required>
+                            <td><input name="productGenerated" type="number" step="1" value="1000000" min="1" required>
                             </td>
                         </tr>
                         <tr>

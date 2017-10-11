@@ -237,6 +237,7 @@ public class RamDAO implements RamDAOLocal {
 
             preparedStatement.setString(1, ram.getBrand());
             preparedStatement.setInt(2, ram.getSize());
+            preparedStatement.setLong(3, ram.getIdRam());
 
             rowsAffected = preparedStatement.executeUpdate();
 

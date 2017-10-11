@@ -157,7 +157,7 @@
                                         </c:forEach>
                                     </datalist>
                                 </td>
-                                <td><label><input name="cpuCores" type="number" step="1" min="1" value="${ram.size}"
+                                <td><label><input name="ramSize" type="number" step="1" min="1" value="${ram.size}"
                                                   required>GB</label></td>
                             </tr>
                             <tr>
