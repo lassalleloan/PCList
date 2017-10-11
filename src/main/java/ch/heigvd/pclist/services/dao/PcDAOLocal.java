@@ -14,5 +14,11 @@ public interface PcDAOLocal {
 
     Pc get(long id);
 
+    List<Pc> get(List<Long> idList);
+
+    List<Pc> get(long pageSize, long pageIndex);
+
     List<Pc> get();
+
+    long count();
 }

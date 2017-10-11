@@ -47,7 +47,9 @@ public class PcDAO implements PcDAOLocal {
                     "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
                     "INNER JOIN ram AS r ON p.idRam = r.idRam " +
                     "INNER JOIN gpu AS g ON p.idGpu = g.idGpu " +
-                    "WHERE idPc=" + id);
+                    "WHERE idPc=?");
+            preparedStatement.setLong(1, id);
+
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -78,6 +80,123 @@ public class PcDAO implements PcDAOLocal {
         }
 
         return pc;
+    }
+
+    public List<Pc> get(List<Long> idList) {
+        List<Pc> pcList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.brand, " +
+                    "p.price, " +
+                    "c.idCpu, " +
+                    "c.brand AS cpuBrand, " +
+                    "c.cores AS cpuCores, " +
+                    "c.frequency AS cpuFrequency, " +
+                    "r.idRam, " +
+                    "r.brand AS ramBrand, " +
+                    "r.size AS ramSize, " +
+                    "g.idGpu, " +
+                    "g.brand AS gpuBrand " +
+                    "FROM pc AS p " +
+                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
+                    "INNER JOIN ram AS r ON p.idRam = r.idRam " +
+                    "INNER JOIN gpu AS g ON p.idGpu = g.idGpu " +
+                    "WHERE idPc=?");
+
+            for (long id : idList) {
+                preparedStatement.setLong(1, id);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                resultSet.next();
+
+                String brand = resultSet.getString("brand");
+                double price = resultSet.getDouble("price");
+
+                long idCpu = resultSet.getLong("idCpu");
+                String cpuBrand = resultSet.getString("cpuBrand");
+                int cpuCores = resultSet.getInt("cpuCores");
+                double cpuFrequency = resultSet.getDouble("cpuFrequency");
+
+                long idRam = resultSet.getLong("idRam");
+                String ramBrand = resultSet.getString("ramBrand");
+                int ramSize = resultSet.getInt("ramSize");
+
+                long idGpu = resultSet.getLong("idGpu");
+                String gpuBrand = resultSet.getString("gpuBrand");
+
+                Cpu cpu = new Cpu(idCpu, cpuBrand, cpuCores, cpuFrequency);
+                Ram ram = new Ram(idRam, ramBrand, ramSize);
+                Gpu gpu = new Gpu(idGpu, gpuBrand);
+
+                pcList.add(new Pc(id, brand, price, cpu, ram, gpu));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pcList;
+    }
+
+    public List<Pc> get(long pageSize, long pageIndex) {
+        List<Pc> pcList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.idPc, " +
+                    "p.brand, " +
+                    "p.price, " +
+                    "c.idCpu, " +
+                    "c.brand AS cpuBrand, " +
+                    "c.cores AS cpuCores, " +
+                    "c.frequency AS cpuFrequency, " +
+                    "r.idRam, " +
+                    "r.brand AS ramBrand, " +
+                    "r.size AS ramSize, " +
+                    "g.idGpu, " +
+                    "g.brand AS gpuBrand " +
+                    "FROM pc AS p " +
+                    "INNER JOIN cpu AS c ON p.idCpu = c.idCpu " +
+                    "INNER JOIN ram AS r ON p.idRam = r.idRam " +
+                    "INNER JOIN gpu AS g ON p.idGpu = g.idGpu " +
+                    "LIMIT ? OFFSET ?;");
+
+            preparedStatement.setLong(1, pageSize);
+            preparedStatement.setLong(2, pageSize * pageIndex);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                long idPc = resultSet.getLong("idPc");
+                String brand = resultSet.getString("brand");
+                double price = resultSet.getDouble("price");
+
+                long idCpu = resultSet.getLong("idCpu");
+                String cpuBrand = resultSet.getString("cpuBrand");
+                int cpuCores = resultSet.getInt("cpuCores");
+                double cpuFrequency = resultSet.getDouble("cpuFrequency");
+
+                long idRam = resultSet.getLong("idRam");
+                String ramBrand = resultSet.getString("ramBrand");
+                int ramSize = resultSet.getInt("ramSize");
+
+                long idGpu = resultSet.getLong("idGpu");
+                String gpuBrand = resultSet.getString("gpuBrand");
+
+                Cpu cpu = new Cpu(idCpu, cpuBrand, cpuCores, cpuFrequency);
+                Ram ram = new Ram(idRam, ramBrand, ramSize);
+                Gpu gpu = new Gpu(idGpu, gpuBrand);
+
+                pcList.add(new Pc(idPc, brand, price, cpu, ram, gpu));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pcList;
     }
 
     public List<Pc> get() {
@@ -133,5 +252,25 @@ public class PcDAO implements PcDAOLocal {
         }
 
         return pcList;
+    }
+
+    public long count() {
+        long numberPc = 0;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) " +
+                    "FROM pc;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            numberPc = resultSet.getLong("COUNT(*)");
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return numberPc;
     }
 }
