@@ -148,7 +148,6 @@ public class CreateServlet extends HttpServlet {
         String product = parameterService.getProduct(req);
 
         String url = "/pclist/list";
-        String pageTitle = "";
 
         if (product == null) {
             resp.sendRedirect(url);
@@ -156,7 +155,6 @@ public class CreateServlet extends HttpServlet {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 create action for pc
-//                    pageTitle = "PC";
 //                    req.setAttribute("pcBrandList", pcDAO.getBrand());
 //                    req.setAttribute("cpuList", cpuDAO.get());
 //                    req.setAttribute("ramList", ramDAO.get());
@@ -164,17 +162,14 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "cpu":
-                    pageTitle = "Processor";
                     req.setAttribute("cpuBrandList", cpuDAO.getBrand());
                     break;
 
                 case "ram":
-                    pageTitle = "Memory";
                     req.setAttribute("ramBrandList", ramDAO.getBrand());
                     break;
 
                 case "gpu":
-                    pageTitle = "Graphic";
                     req.setAttribute("gpuBrandList", gpuDAO.getBrand());
                     break;
             }

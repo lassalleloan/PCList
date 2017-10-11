@@ -52,37 +52,27 @@ public class ConfigurationServlet extends HttpServlet {
         String product = parameterService.getProduct(req);
         long productGenerated = parameterService.getUnsignedLong(req, "productGenerated");
 
-        String pageTitle;
-
         switch (product) {
             case "pc":
                 // TODO: 07.10.2017 configuration action for pc
-                pageTitle = "PC";
-
                 for (long i = 0; i < productGenerated; ++i) {
 //                    pcDAO.set(Chance.randomPc());
                 }
                 break;
 
             case "cpu":
-                pageTitle = "Processor";
-
                 for (long i = 0; i < productGenerated; ++i) {
                     cpuDAO.set(Chance.randomCpu());
                 }
                 break;
 
             case "ram":
-                pageTitle = "Memory";
-
                 for (long i = 0; i < productGenerated; ++i) {
                     ramDAO.set(Chance.randomRam());
                 }
                 break;
 
             case "gpu":
-                pageTitle = "Graphic";
-
                 for (long i = 0; i < productGenerated; ++i) {
                     gpuDAO.set(Chance.randomGpu());
                 }
