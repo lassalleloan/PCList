@@ -15,4 +15,26 @@ public interface GpuDAOLocal {
     Gpu get(long id);
 
     List<Gpu> get();
+
+    List<Gpu> get(int pageSize, int pageIndex);
+
+    List<Gpu> get();
+
+    List<String> getBrand();
+
+    long count();
+
+    int set(Gpu gpu);
+
+    int set(List<Gpu> gpuList);
+
+    int update(Gpu gpu);
+
+    int update(List<Gpu> gpuList);
+
+    int delete(long id);
+
+    int delete(List<Long> idList);
+
+    int delete();
 }
