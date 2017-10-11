@@ -86,12 +86,14 @@ public class ListServlet extends HttpServlet {
 
         if (isAllList || product.equals("ram")) {
             pageTitle = "Memory";
-            objectMap.put("ramList", ramDAO.get());
+            objectMap.put("ramList", ramDAO.get(pageSize, pageIndex));
+            numberOfPages = (ramDAO.count() + pageSize - 1) / pageSize;
         }
 
         if (isAllList || product.equals("gpu")) {
             pageTitle = "Graphic";
-            objectMap.put("gpuList", gpuDAO.get());
+            objectMap.put("gpuList", gpuDAO.get(pageSize, pageIndex));
+            numberOfPages = (gpuDAO.count() + pageSize - 1) / pageSize;
         }
 
         if (isAllList) {

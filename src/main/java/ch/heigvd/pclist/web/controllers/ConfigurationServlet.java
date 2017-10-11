@@ -77,20 +77,18 @@ public class ConfigurationServlet extends HttpServlet {
                 break;
 
             case "ram":
-                // TODO: 07.10.2017 configuration action for ram
                 pageTitle = "Memory";
 
                 for (long i = 0; i < numberGenerate; ++i) {
-//                    ramDAO.set(Chance.randomRam());
+                    ramDAO.set(Chance.randomRam());
                 }
                 break;
 
             case "gpu":
-                // TODO: 07.10.2017 configuration action for gpu
                 pageTitle = "Graphic";
 
                 for (long i = 0; i < numberGenerate; ++i) {
-//                    gpuDAO.set(Chance.randomGpu());
+                    gpuDAO.set(Chance.randomGpu());
                 }
                 break;
 

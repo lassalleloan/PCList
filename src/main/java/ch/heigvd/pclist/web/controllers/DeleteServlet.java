@@ -73,13 +73,11 @@ public class DeleteServlet extends HttpServlet {
                     break;
 
                 case "ram":
-                    // TODO: 07.10.2017 delete action for ram
-//                    url += "?product=" + product + "&action=deleted&rowsAffected=" + ramDAO.delete(id);
+                    url += "?product=" + product + "&action=deleted&rowsAffected=" + ramDAO.delete(id);
                     break;
 
                 case "gpu":
-                    // TODO: 07.10.2017 delete action for gpu
-//                    url += "?product=" + product + "&action=deleted&rowsAffected=" + gpuDAO.delete(id);
+                    url += "?product=" + product + "&action=deleted&rowsAffected=" + gpuDAO.delete(id);
                     break;
             }
         }

@@ -107,11 +107,10 @@ public class CreateServlet extends HttpServlet {
                     String ramSize = req.getParameter("ramSize");
 
                     if (ramBrand != null && ramSize != null) {
-                        // TODO: 07.10.2017 create action for ram
-//                    url += "?product=" + product +
-//                            "&action=created" +
-//                            "&rowsAffected=" +
-//                            ramDAO.set(new Ram(0, ramBrand, Integer.valueOf(ramSize)));
+                        url += "?product=" + product +
+                                "&action=created" +
+                                "&rowsAffected=" +
+                                ramDAO.set(new Ram(0, ramBrand, Integer.valueOf(ramSize)));
                     }
                     break;
 
@@ -119,11 +118,10 @@ public class CreateServlet extends HttpServlet {
                     String gpuBrand = req.getParameter("gpuBrand");
 
                     if (gpuBrand != null) {
-                        // TODO: 07.10.2017 create action for gpu
-//                    url += "?product=" + product +
-//                            "&action=created" +
-//                            "&rowsAffected=" +
-//                            gpuDAO.set(new Gpu(0, gpuBrand));
+                        url += "?product=" + product +
+                                "&action=created" +
+                                "&rowsAffected=" +
+                                gpuDAO.set(new Gpu(0, gpuBrand));
                     }
                     break;
             }
@@ -168,15 +166,13 @@ public class CreateServlet extends HttpServlet {
                     break;
 
                 case "ram":
-                    // TODO: 07.10.2017 create action for ram
-//                    pageTitle = "Memory";
-//                    req.setAttribute("ramBrandList", ramDAO.getBrand());
+                    pageTitle = "Memory";
+                    req.setAttribute("ramBrandList", ramDAO.getBrand());
                     break;
 
                 case "gpu":
-                    // TODO: 07.10.2017 create action for gpu
-//                    pageTitle = "Graphic";
-//                    req.setAttribute("gpuBrandList", gpuDAO.getBrand());
+                    pageTitle = "Graphic";
+                    req.setAttribute("gpuBrandList", gpuDAO.getBrand());
                     break;
             }
 

@@ -162,7 +162,6 @@ public class EditServlet extends HttpServlet {
                     break;
 
                 case "ram":
-                    // TODO: 07.10.2017 edit action for ram
                     pageTitle = "Memory";
 
                     if (!ramBrand.isEmpty() && ramSize > 0) {
@@ -181,7 +180,6 @@ public class EditServlet extends HttpServlet {
                     break;
 
                 case "gpu":
-                    // TODO: 07.10.2017 edit action for gpu
                     pageTitle = "Graphic";
 
                     if (!gpuBrand.isEmpty()) {
