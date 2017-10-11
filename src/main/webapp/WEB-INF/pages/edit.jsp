@@ -21,7 +21,7 @@
 <article class="text-center">
 
     <!-- Form for edit pc -->
-    <c:if test="${pc != null && pcBrandList != null&& cpuList != null&& ramList != null&& gpuList != null}">
+    <c:if test="${pc != null && pcBrandList != null && cpuList != null && ramList != null && gpuList != null}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
@@ -101,9 +101,6 @@
                     <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
                     <form method="post">
                         <table class="table">
-                            <tr>
-                                <td colspan="8"><input type="submit" value="Edit"></td>
-                            </tr>
                             <thead class="tab-header-area">
                             <tr>
                                 <th>Brand</th>
