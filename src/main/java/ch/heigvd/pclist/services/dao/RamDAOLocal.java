@@ -14,5 +14,27 @@ public interface RamDAOLocal {
 
     Ram get(long id);
 
+    List<Ram> get(List<Long> idList);
+
+    List<Ram> get(int pageSize, int pageIndex);
+
     List<Ram> get();
+
+    List<String> getBrand();
+
+    long count();
+
+    int set(Ram cpu);
+
+    int set(List<Ram> cpuList);
+
+    int update(Ram cpu);
+
+    int update(List<Ram> cpuList);
+
+    int delete(long id);
+
+    int delete(List<Long> idList);
+
+    int delete();
 }

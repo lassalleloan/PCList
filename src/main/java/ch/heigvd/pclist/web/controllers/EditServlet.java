@@ -1,6 +1,8 @@
 package ch.heigvd.pclist.web.controllers;
 
 import ch.heigvd.pclist.models.Cpu;
+import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Ram;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
 import ch.heigvd.pclist.services.dao.PcDAOLocal;
@@ -163,38 +165,38 @@ public class EditServlet extends HttpServlet {
                     // TODO: 07.10.2017 edit action for ram
                     pageTitle = "Memory";
 
-//                    if (!ramBrand.isEmpty() && ramSize > 0) {
-//
-//                        // Update of ram, if it exists
-//                        url += "?product=" + product +
-//                                "&action=edited" +
-//                                "&rowsAffected=" +
-//                                ramDAO.update(new Ram(id, ramBrand, ramSize));
-//                    } else {
-//
-//                        // Filling of page for editing on ram
-//                        objectMap.put("ram", ramDAO.get(id));
-//                        objectMap.put("ramBrandList", ramDAO.getBrand());
-//                    }
+                    if (!ramBrand.isEmpty() && ramSize > 0) {
+
+                        // Update of ram, if it exists
+                        url += "?product=" + product +
+                                "&action=edited" +
+                                "&rowsAffected=" +
+                                ramDAO.update(new Ram(id, ramBrand, ramSize));
+                    } else {
+
+                        // Filling of page for editing on ram
+                        objectMap.put("ram", ramDAO.get(id));
+                        objectMap.put("ramBrandList", ramDAO.getBrand());
+                    }
                     break;
 
                 case "gpu":
                     // TODO: 07.10.2017 edit action for gpu
                     pageTitle = "Graphic";
 
-//                    if (!gpuBrand.isEmpty()) {
-//
-//                        // Update of gpu, if it exists
-//                        url += "?product=" + product +
-//                                "&action=edited" +
-//                                "&rowsAffected=" +
-//                                gpuDAO.update(new Gpu(id, gpuBrand));
-//                    } else {
-//
-//                        // Filling of page for editing on gpu
-//                        objectMap.put("gpu", gpuDAO.get(id));
-//                        objectMap.put("gpuBrandList", gpuDAO.getBrand());
-//                    }
+                    if (!gpuBrand.isEmpty()) {
+
+                        // Update of gpu, if it exists
+                        url += "?product=" + product +
+                                "&action=edited" +
+                                "&rowsAffected=" +
+                                gpuDAO.update(new Gpu(id, gpuBrand));
+                    } else {
+
+                        // Filling of page for editing on gpu
+                        objectMap.put("gpu", gpuDAO.get(id));
+                        objectMap.put("gpuBrandList", gpuDAO.getBrand());
+                    }
                     break;
 
                 default:

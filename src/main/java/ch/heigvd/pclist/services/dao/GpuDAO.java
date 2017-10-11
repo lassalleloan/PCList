@@ -31,7 +31,9 @@ public class GpuDAO implements GpuDAOLocal {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
                     "FROM gpu " +
-                    "WHERE idGpu=" + id);
+                    "WHERE idGpu=?");
+
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -45,30 +47,6 @@ public class GpuDAO implements GpuDAOLocal {
         }
 
         return gpu;
-    }
-
-    public List<Gpu> get() {
-        List<Gpu> gpuList = new ArrayList<>();
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM gpu");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                long id = resultSet.getLong("idGpu");
-                String brand = resultSet.getString("brand");
-
-                gpuList.add(new Gpu(id, brand));
-            }
-
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(GpuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return gpuList;
     }
 
     public List<Gpu> get(List<Long> idList) {
@@ -127,6 +105,29 @@ public class GpuDAO implements GpuDAOLocal {
         return gpuList;
     }
 
+    public List<Gpu> get() {
+        List<Gpu> gpuList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
+                    "FROM gpu");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                long id = resultSet.getLong("idGpu");
+                String brand = resultSet.getString("brand");
+
+                gpuList.add(new Gpu(id, brand));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gpuList;
+    }
 
     public List<String> getBrand() {
         List<String> brandList = new ArrayList<>();
@@ -217,7 +218,7 @@ public class GpuDAO implements GpuDAOLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE gpu " +
-                    "SET brand=?, " +
+                    "SET brand=? " +
                     "WHERE idGpu=?;");
 
             preparedStatement.setString(1, gpu.getBrand());
@@ -239,7 +240,7 @@ public class GpuDAO implements GpuDAOLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE gpu " +
-                    "SET brand=?, " +
+                    "SET brand=? " +
                     "WHERE idGpu=?;");
 
             for (Gpu gpu : gpuList) {
