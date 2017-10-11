@@ -16,7 +16,7 @@ public interface GpuDAOLocal {
 
     List<Gpu> get(List<Long> idList);
 
-    List<Gpu> get(int pageSize, int pageIndex);
+    List<Gpu> get(long pageSize, long pageIndex);
 
     List<Gpu> get();
 

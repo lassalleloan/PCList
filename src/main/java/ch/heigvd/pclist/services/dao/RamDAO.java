@@ -81,7 +81,7 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public List<Ram> get(int pageSize, int pageIndex) {
+    public List<Ram> get(long pageSize, long pageIndex) {
         List<Ram> ramList = new ArrayList<>();
 
         try {
@@ -90,8 +90,8 @@ public class RamDAO implements RamDAOLocal {
                     "FROM ram " +
                     "LIMIT ? OFFSET ?;");
 
-            preparedStatement.setInt(1, pageSize);
-            preparedStatement.setInt(2, pageSize * pageIndex);
+            preparedStatement.setLong(1, pageSize);
+            preparedStatement.setLong(2, pageSize * pageIndex);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

@@ -77,7 +77,7 @@ public class GpuDAO implements GpuDAOLocal {
         return gpuList;
     }
 
-    public List<Gpu> get(int pageSize, int pageIndex) {
+    public List<Gpu> get(long pageSize, long pageIndex) {
         List<Gpu> gpuList = new ArrayList<>();
 
         try {
@@ -86,8 +86,8 @@ public class GpuDAO implements GpuDAOLocal {
                     "FROM gpu " +
                     "LIMIT ? OFFSET ?;");
 
-            preparedStatement.setInt(1, pageSize);
-            preparedStatement.setInt(2, pageSize * pageIndex);
+            preparedStatement.setLong(1, pageSize);
+            preparedStatement.setLong(2, pageSize * pageIndex);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

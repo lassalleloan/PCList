@@ -16,7 +16,7 @@ public interface RamDAOLocal {
 
     List<Ram> get(List<Long> idList);
 
-    List<Ram> get(int pageSize, int pageIndex);
+    List<Ram> get(long pageSize, long pageIndex);
 
     List<Ram> get();
 
