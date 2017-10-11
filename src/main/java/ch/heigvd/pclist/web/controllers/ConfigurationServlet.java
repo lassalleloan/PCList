@@ -1,5 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
+import ch.heigvd.pclist.services.business.ParameterServiceLocal;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
 import ch.heigvd.pclist.services.dao.PcDAOLocal;
@@ -23,6 +24,9 @@ import java.io.IOException;
 public class ConfigurationServlet extends HttpServlet {
 
     @EJB
+    private ParameterServiceLocal parameterService;
+
+    @EJB
     private PcDAOLocal pcDAO;
 
     @EJB
@@ -44,17 +48,9 @@ public class ConfigurationServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // Get type of product
-        String product = req.getParameter("product");
-        product = product == null ? "" : product;
-
-        // Get number of product to generate
-        long numberGenerate;
-        try {
-            numberGenerate = Integer.parseInt(req.getParameter("numberGenerate"));
-        } catch (NumberFormatException e) {
-            numberGenerate = 0;
-        }
+        // Gets type of product and number of product to generate
+        String product = parameterService.getProduct(req);
+        long productGenerated = parameterService.getUnsignedLong(req, "productGenerated");
 
         String pageTitle;
 
@@ -63,7 +59,7 @@ public class ConfigurationServlet extends HttpServlet {
                 // TODO: 07.10.2017 configuration action for pc
                 pageTitle = "PC";
 
-                for (long i = 0; i < numberGenerate; ++i) {
+                for (long i = 0; i < productGenerated; ++i) {
 //                    pcDAO.set(Chance.randomPc());
                 }
                 break;
@@ -71,7 +67,7 @@ public class ConfigurationServlet extends HttpServlet {
             case "cpu":
                 pageTitle = "Processor";
 
-                for (long i = 0; i < numberGenerate; ++i) {
+                for (long i = 0; i < productGenerated; ++i) {
                     cpuDAO.set(Chance.randomCpu());
                 }
                 break;
@@ -79,7 +75,7 @@ public class ConfigurationServlet extends HttpServlet {
             case "ram":
                 pageTitle = "Memory";
 
-                for (long i = 0; i < numberGenerate; ++i) {
+                for (long i = 0; i < productGenerated; ++i) {
                     ramDAO.set(Chance.randomRam());
                 }
                 break;
@@ -87,7 +83,7 @@ public class ConfigurationServlet extends HttpServlet {
             case "gpu":
                 pageTitle = "Graphic";
 
-                for (long i = 0; i < numberGenerate; ++i) {
+                for (long i = 0; i < productGenerated; ++i) {
                     gpuDAO.set(Chance.randomGpu());
                 }
                 break;
@@ -97,7 +93,7 @@ public class ConfigurationServlet extends HttpServlet {
                 return;
         }
 
-        req.setAttribute("pageTitle", pageTitle);
+        parameterService.setPageTitle(req, product);
         req.getRequestDispatcher("WEB-INF/pages/configuration.jsp").forward(req, resp);
     }
 

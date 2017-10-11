@@ -3,6 +3,7 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.services.business.ParameterServiceLocal;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
 import ch.heigvd.pclist.services.dao.PcDAOLocal;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Handles requests coming from /create
@@ -24,6 +24,9 @@ import java.util.Arrays;
  * @since 13.09.2017
  */
 public class CreateServlet extends HttpServlet {
+
+    @EJB
+    private ParameterServiceLocal parameterService;
 
     @EJB
     private PcDAOLocal pcDAO;
@@ -59,9 +62,9 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String product = req.getParameter("product");
 
-        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
+        // Get type of product
+        String product = parameterService.getProduct(req);
 
         String url = "/pclist/list";
 
@@ -140,9 +143,9 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String product = req.getParameter("product");
 
-        product = product != null && Arrays.asList("pc", "cpu", "ram", "gpu").contains(product) ? product : null;
+        // Get type of product
+        String product = parameterService.getProduct(req);
 
         String url = "/pclist/list";
         String pageTitle = "";
@@ -176,8 +179,7 @@ public class CreateServlet extends HttpServlet {
                     break;
             }
 
-            req.setAttribute("pageTitle", pageTitle);
-            req.setAttribute("product", product);
+            parameterService.setPageTitle(req, product);
 
             req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
         }

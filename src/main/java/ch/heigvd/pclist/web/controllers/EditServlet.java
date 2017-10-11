@@ -3,6 +3,7 @@ package ch.heigvd.pclist.web.controllers;
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Ram;
+import ch.heigvd.pclist.services.business.ParameterServiceLocal;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
 import ch.heigvd.pclist.services.dao.PcDAOLocal;
@@ -27,6 +28,9 @@ import java.util.Map;
 public class EditServlet extends HttpServlet {
 
     @EJB
+    private ParameterServiceLocal parameterService;
+
+    @EJB
     private PcDAOLocal pcDAO;
 
     @EJB
@@ -48,19 +52,11 @@ public class EditServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // Get type of product
-        String product = req.getParameter("product");
-        product = product == null ? "" : product;
+        // Gets type of product and product ID
+        String product = parameterService.getProduct(req);
+        long id = parameterService.getUnsignedLong(req, "id");
 
-        // Get product ID
-        long id;
-        try {
-            id = Integer.parseInt(req.getParameter("id"));
-        } catch (NumberFormatException e) {
-            id = 0;
-        }
-
-        // Get variables of form for pc
+        // Gets variables of form for pc
         String pcBrand = req.getParameter("pcBrand");
         pcBrand = pcBrand == null ? "" : pcBrand;
         Double pcPrice;
@@ -79,7 +75,7 @@ public class EditServlet extends HttpServlet {
             idGpu = 0L;
         }
 
-        // Get variables of form for cpu
+        // Gets variables of form for cpu
         String cpuBrand = req.getParameter("cpuBrand");
         cpuBrand = cpuBrand == null ? "" : cpuBrand;
         Integer cpuCores;
@@ -92,7 +88,7 @@ public class EditServlet extends HttpServlet {
             cpuFrequency = 0d;
         }
 
-        // Get variables of form for ram
+        // Gets variables of form for ram
         String ramBrand = req.getParameter("ramBrand");
         ramBrand = ramBrand == null ? "" : ramBrand;
         Integer ramSize;
@@ -102,26 +98,23 @@ public class EditServlet extends HttpServlet {
             ramSize = 0;
         }
 
-        // Get variables of form for gpu
+        // Gets variables of form for gpu
         String gpuBrand = req.getParameter("gpuBrand");
         gpuBrand = gpuBrand == null ? "" : gpuBrand;
 
         String url = "/pclist/list";
-        String pageTitle;
         Map<String, Object> objectMap = new HashMap<>();
 
-        // Check if ID is correct
+        // Checks if ID is correct
         if (id <= 0) {
             resp.sendRedirect(url);
         } else {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 edit action for pc
-                    pageTitle = "PC";
-
 //                    if (!pcBrand.isEmpty() && pcPrice > 0 && idCpu > 0 && idRam > 0 && idGpu > 0) {
 //
-//                        // Update of pc, if it exists
+//                        // Updates pc, if it exists
 //                        Cpu cpu = cpuDAO.get(idCpu);
 //                        Ram ram = ramDAO.get(idRam);
 //                        Gpu gpu = gpuDAO.get(idGpu);
@@ -134,7 +127,7 @@ public class EditServlet extends HttpServlet {
 //                        }
 //                    } else {
 //
-//                        // Filling of page for editing on pc
+//                        // Fills page for editing on pc
 //                        objectMap.put("pc", pcDAO.get(id));
 //                        objectMap.put("pcBrandList", pcDAO.getBrand());
 //                        objectMap.put("cpuList", cpuDAO.get());
@@ -144,54 +137,48 @@ public class EditServlet extends HttpServlet {
                     break;
 
                 case "cpu":
-                    pageTitle = "Processor";
-
                     if (!cpuBrand.isEmpty() && cpuCores > 0 && cpuFrequency > 0) {
 
-                        // Update of cpu, if it exists
+                        // Updates cpu, if it exists
                         url += "?product=" + product +
                                 "&action=edited" +
                                 "&rowsAffected=" +
                                 cpuDAO.update(new Cpu(id, cpuBrand, cpuCores, cpuFrequency));
                     } else {
 
-                        // Filling of page for editing on cpu
+                        // Fills page for editing on cpu
                         objectMap.put("cpu", cpuDAO.get(id));
                         objectMap.put("cpuBrandList", cpuDAO.get());
                     }
                     break;
 
                 case "ram":
-                    pageTitle = "Memory";
-
                     if (!ramBrand.isEmpty() && ramSize > 0) {
 
-                        // Update of ram, if it exists
+                        // Updates ram, if it exists
                         url += "?product=" + product +
                                 "&action=edited" +
                                 "&rowsAffected=" +
                                 ramDAO.update(new Ram(id, ramBrand, ramSize));
                     } else {
 
-                        // Filling of page for editing on ram
+                        // Fills page for editing on ram
                         objectMap.put("ram", ramDAO.get(id));
                         objectMap.put("ramBrandList", ramDAO.getBrand());
                     }
                     break;
 
                 case "gpu":
-                    pageTitle = "Graphic";
-
                     if (!gpuBrand.isEmpty()) {
 
-                        // Update of gpu, if it exists
+                        // Updates gpu, if it exists
                         url += "?product=" + product +
                                 "&action=edited" +
                                 "&rowsAffected=" +
                                 gpuDAO.update(new Gpu(id, gpuBrand));
                     } else {
 
-                        // Filling of page for editing on gpu
+                        // Fills page for editing on gpu
                         objectMap.put("gpu", gpuDAO.get(id));
                         objectMap.put("gpuBrandList", gpuDAO.getBrand());
                     }
@@ -205,8 +192,7 @@ public class EditServlet extends HttpServlet {
             if (!pcBrand.isEmpty() || !cpuBrand.isEmpty() || !ramBrand.isEmpty() || !gpuBrand.isEmpty()) {
                 resp.sendRedirect(url);
             } else {
-                objectMap.put("pageTitle", pageTitle);
-                objectMap.put("product", product);
+                parameterService.setPageTitle(req, product);
 
                 for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                     req.setAttribute(entry.getKey(), entry.getValue());

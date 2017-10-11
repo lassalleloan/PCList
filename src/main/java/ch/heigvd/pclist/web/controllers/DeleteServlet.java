@@ -1,5 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
+import ch.heigvd.pclist.services.business.ParameterServiceLocal;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
 import ch.heigvd.pclist.services.dao.PcDAOLocal;
@@ -24,6 +25,9 @@ public class DeleteServlet extends HttpServlet {
     // TODO: 10.10.2017 Know when a cpu, ram, gpu are bound to a pc and display a information message
 
     @EJB
+    private ParameterServiceLocal parameterService;
+
+    @EJB
     private PcDAOLocal pcDAO;
 
     @EJB
@@ -45,22 +49,14 @@ public class DeleteServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // Get type of product
-        String product = req.getParameter("product");
-        product = product == null ? "" : product;
-
-        // Get product ID
-        long id;
-        try {
-            id = Integer.parseInt(req.getParameter("id"));
-        } catch (NumberFormatException e) {
-            id = 0;
-        }
+        // Gets type of product and product ID
+        String product = parameterService.getProduct(req);
+        long id = parameterService.getUnsignedLong(req, "id");
 
         // Redirect URL
         String url = "/pclist/list";
 
-        // Check if ID is correct
+        // Checks if ID is correct
         if (id > 0) {
             switch (product) {
                 case "pc":
