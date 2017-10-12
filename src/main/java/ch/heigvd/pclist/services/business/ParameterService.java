@@ -87,27 +87,27 @@ public class ParameterService implements ParameterServiceLocal {
     }
 
     public long getNumberPages(String product, long pageSize, long pageIndex) {
-        long numberPages = 0;
+        long numberProduct = 0;
 
         switch (product) {
             case "pc":
-                numberPages = (pcDAO.count() + pageSize - 1) / pageSize;
+                numberProduct = pcDAO.count();
                 break;
 
             case "cpu":
-                numberPages = (cpuDAO.count() + pageSize - 1) / pageSize;
+                numberProduct = cpuDAO.count();
                 break;
 
             case "ram":
-                numberPages = (ramDAO.count() + pageSize - 1) / pageSize;
+                numberProduct = ramDAO.count();
                 break;
 
             case "gpu":
-                numberPages = (gpuDAO.count() + pageSize - 1) / pageSize;
+                numberProduct = gpuDAO.count();
                 break;
         }
 
-        return numberPages;
+        return numberProduct <= 0 ? 0 : (numberProduct + pageSize - 1) / pageSize;
     }
 
     public void setPageTitle(HttpServletRequest req, String product) {
