@@ -27,10 +27,10 @@
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" href="/pclist/create?product=pc">PC</a></th>
-                        <th><a class="nav-link" href="/pclist/create?product=cpu">Processor</a></th>
-                        <th><a class="nav-link" href="/pclist/create?product=ram">Memory</a></th>
-                        <th><a class="nav-link" href="/pclist/create?product=gpu">Graphic</a></th>
+                        <th><a class="nav-link" href="<c:url value="/create?product=pc"/>">PC</a></th>
+                        <th><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Processor</a></th>
+                        <th><a class="nav-link" href="<c:url value="/create?product=ram"/>">Memory</a></th>
+                        <th><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
@@ -44,7 +44,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=pc"><h3>PC</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=pc"/>"><h3>PC</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -112,7 +112,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=cpu"/>"><h3>Processor</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -152,7 +152,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=ram"><h3>Memory</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=ram"/>"><h3>Memory</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -189,7 +189,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=gpu"><h3>Graphic</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=gpu"/>"><h3>Graphic</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">

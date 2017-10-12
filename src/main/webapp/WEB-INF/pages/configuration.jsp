@@ -27,10 +27,10 @@
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" href="/pclist/configuration?product=pc">PC</a></th>
-                        <th><a class="nav-link" href="/pclist/configuration?product=cpu">Processor</a></th>
-                        <th><a class="nav-link" href="/pclist/configuration?product=ram">Memory</a></th>
-                        <th><a class="nav-link" href="/pclist/configuration?product=gpu">Graphic</a></th>
+                        <th><a class="nav-link" href="<c:url value="/configuration?product=pc"/>">PC</a></th>
+                        <th><a class="nav-link" href="<c:url value="/configuration?product=cpu"/>">Processor</a></th>
+                        <th><a class="nav-link" href="<c:url value="/configuration?product=ram"/>">Memory</a></th>
+                        <th><a class="nav-link" href="<c:url value="/configuration?product=gpu"/>">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
