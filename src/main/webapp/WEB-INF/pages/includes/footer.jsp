@@ -22,6 +22,6 @@
 <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="static/js/amt-pclist.min.js"></script>
+<script src="static/js/clean-blog.min.js"></script>
 </body>
 </html>

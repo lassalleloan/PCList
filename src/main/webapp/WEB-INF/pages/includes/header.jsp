@@ -28,7 +28,7 @@
           rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="static/css/amt-pclist.min.css" rel="stylesheet">
+    <link href="static/css/clean-blog.min.css" rel="stylesheet">
 
 </head>
 
