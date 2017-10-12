@@ -41,7 +41,7 @@ public class CreateServlet extends HttpServlet {
     private GpuDAOLocal gpuDAO;
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods
+     * Processes requests for both HTTP GET and POST methods
      *
      * @param req  servlet request
      * @param resp servlet response
@@ -53,7 +53,7 @@ public class CreateServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method
+     * Handles the HTTP POST method
      *
      * @param req  servlet request
      * @param resp servlet response
@@ -134,7 +134,7 @@ public class CreateServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>GET</code> method
+     * Handles the HTTP GET method
      *
      * @param req  servlet request
      * @param resp servlet response

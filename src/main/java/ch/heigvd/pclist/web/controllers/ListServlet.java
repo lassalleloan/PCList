@@ -22,7 +22,7 @@ public class ListServlet extends HttpServlet {
     private ParameterServiceLocal parameterService;
 
     /**
-     * Processes requests for both HTTP <code>GET</code> method
+     * Processes requests for both HTTP GET method
      *
      * @param req  servlet request
      * @param resp servlet response
@@ -46,7 +46,7 @@ public class ListServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>GET</code> method
+     * Handles the HTTP GET method
      *
      * @param req  servlet request
      * @param resp servlet response
