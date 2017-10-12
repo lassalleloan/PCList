@@ -27,11 +27,11 @@
                 <table class="table">
                     <thead class="tab-header-area">
                     <tr>
-                        <th><a class="nav-link" href="/pclist/list">All</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=pc">PC</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=cpu">Processor</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=ram">Memory</a></th>
-                        <th><a class="nav-link" href="/pclist/list?product=gpu">Graphic</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list"/>">All</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=pc"/>">PC</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=cpu"/>">Processor</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=ram"/>">Memory</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=gpu"/>">Graphic</a></th>
                     </tr>
                     </thead>
                 </table>
@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=pc"><h3>PC</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=pc"/>"><h3>PC</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -70,7 +70,8 @@
                             <th>Graphic</th>
                             <th>Price</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=pc">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=pc"/>">Add</a>
+                                </th>
                             </c:if>
                         </tr>
                         </thead>
@@ -85,15 +86,17 @@
                                 <td>${pc.gpu.brand}</td>
                                 <td>${pc.price}.-</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="/pclist/edit?product=pc&id=${pc.idPc}">Edit</a></td>
-                                    <td><a class="nav-link" href="/pclist/delete?product=pc&id=${pc.idPc}">Delete</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/edit?product=pc&id=${pc.idPc}"/>">Edit</a></td>
+                                    <td><a class="nav-link" href="<c:url value="/delete?product=pc&id=${pc.idPc}"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
                         </c:forEach>
                         <c:if test="${allList}">
                             <tr>
-                                <td colspan="8"><a class="nav-link" href="/pclist/list?product=pc">...</a></td>
+                                <td colspan="8"><a class="nav-link" href="<c:url value="/list?product=pc"/>">...</a>
+                                </td>
                             </tr>
                         </c:if>
                     </table>
@@ -108,7 +111,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=cpu"><h3>Processor</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=cpu"/>"><h3>Processor</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -117,7 +120,8 @@
                             <th>Number of Cores</th>
                             <th>Frequency</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=cpu">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Add</a>
+                                </th>
                             </c:if>
                         </tr>
                         </thead>
@@ -127,17 +131,18 @@
                                 <td>${cpu.cores}</td>
                                 <td>${cpu.frequency}GHz</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="/pclist/edit?product=cpu&id=${cpu.idCpu}">Edit</a>
+                                    <td><a class="nav-link" href="<c:url value="/edit?product=cpu&id=${cpu.idCpu}"/>">Edit</a>
                                     </td>
                                     <td><a class="nav-link"
-                                           href="/pclist/delete?product=cpu&id=${cpu.idCpu}">Delete</a>
+                                           href="<c:url value="/delete?product=cpu&id=${cpu.idCpu}"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
                         </c:forEach>
                         <c:if test="${allList}">
                             <tr>
-                                <td colspan="3"><a class="nav-link" href="/pclist/list?product=cpu">...</a></td>
+                                <td colspan="3"><a class="nav-link" href="<c:url value="/list?product=cpu"/>">...</a>
+                                </td>
                             </tr>
                         </c:if>
                     </table>
@@ -152,7 +157,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=ram"><h3>Memory</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=ram"/>"><h3>Memory</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
@@ -160,7 +165,8 @@
                             <th>Brand</th>
                             <th>Size</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=ram">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=ram"/>">Add</a>
+                                </th>
                             </c:if>
                         </tr>
                         </thead>
@@ -169,16 +175,17 @@
                                 <td>${ram.brand}</td>
                                 <td>${ram.size}GB</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="/pclist/edit?product=ram&id=${ram.idRam}">Edit</a>
+                                    <td><a class="nav-link" href="<c:url value="/edit?product=ram&id=${ram.idRam}"/>">Edit</a>
                                     </td>
-                                    <td><a class="nav-link" href="/pclist/delete?product=ram&id=${ram.idRam}">Delete</a>
+                                    <td><a class="nav-link" href="<c:url value="/delete?product=ram&id=${ram.idRam}"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
                         </c:forEach>
                         <c:if test="${allList}">
                             <tr>
-                                <td colspan="2"><a class="nav-link" href="/pclist/list?product=ram">...</a></td>
+                                <td colspan="2"><a class="nav-link" href="<c:url value="/list?product=ram"/>">...</a>
+                                </td>
                             </tr>
                         </c:if>
                     </table>
@@ -193,14 +200,15 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="/pclist/list?product=gpu"><h3>Graphic</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=gpu"/>"><h3>Graphic</h3></a>
                     <br>
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
                             <th>Brand</th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="/pclist/create?product=gpu">Add</a></th>
+                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Add</a>
+                                </th>
                             </c:if>
                         </tr>
                         </thead>
@@ -208,16 +216,16 @@
                             <tr>
                                 <td>${gpu.brand}</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="/pclist/edit?product=gpu&id=${gpu.idGpu}">Edit</a>
+                                    <td><a class="nav-link" href="<c:url value="/edit?product=gpu&id=${gpu.idGpu}"/>">Edit</a>
                                     </td>
-                                    <td><a class="nav-link" href="/pclist/delete?product=gpu&id=${gpu.idGpu}">Delete</a>
+                                    <td><a class="nav-link" href="<c:url value="/delete?product=gpu&id=${gpu.idGpu}"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
                         </c:forEach>
                         <c:if test="${allList}">
                             <tr>
-                                <td><a class="nav-link" href="/pclist/list?product=gpu">...</a></td>
+                                <td><a class="nav-link" href="<c:url value="/list?product=gpu"/>">...</a></td>
                             </tr>
                         </c:if>
                     </table>

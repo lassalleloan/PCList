@@ -19,9 +19,9 @@ public interface ParameterServiceLocal {
 
     String getString(HttpServletRequest req, String s, List<String> stringList);
 
-    String getProduct(HttpServletRequest req);
-
     long getUnsignedLong(HttpServletRequest req, String parameter);
+
+    String getProduct(HttpServletRequest req);
 
     String getPageTitle(String product);
 

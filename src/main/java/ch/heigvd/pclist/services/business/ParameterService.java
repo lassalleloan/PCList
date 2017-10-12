@@ -34,10 +34,6 @@ public class ParameterService implements ParameterServiceLocal {
         return string == null || !stringList.contains(string) ? "" : string;
     }
 
-    public String getProduct(HttpServletRequest req) {
-        return getString(req, "product", PRODUCT_LIST);
-    }
-
     public long getUnsignedLong(HttpServletRequest req, String parameter) {
         long value;
 
@@ -48,6 +44,10 @@ public class ParameterService implements ParameterServiceLocal {
         }
 
         return value <= -1 ? 0 : value;
+    }
+
+    public String getProduct(HttpServletRequest req) {
+        return getString(req, "product", PRODUCT_LIST);
     }
 
     public String getPageTitle(String product) {
