@@ -13,7 +13,6 @@ import java.util.List;
 public interface ParameterServiceLocal {
 
     List<String> PRODUCT_LIST = Arrays.asList("pc", "cpu", "ram", "gpu");
-    List<String> ACTION_LIST = Arrays.asList("created", "edited", "deleted");
 
     long PAGE_SIZE_IS_ALL_LIST = 2;
     long PAGE_SIZE_IS_PRODUCT_LIST = 10;
@@ -26,15 +25,17 @@ public interface ParameterServiceLocal {
 
     String getPageTitle(String product);
 
-    long getPageSize(HttpServletRequest req, String product);
+    long getPageSize(HttpServletRequest req);
 
     long getNumberPages(String product, long pageSize, long pageIndex);
 
-    void setPageTitle(HttpServletRequest req, String product);
+    void setPageTitle(HttpServletRequest req);
 
-    void setProductList(HttpServletRequest req, String product, long pageSize, long pageIndex);
+    void setProductList(HttpServletRequest req);
 
-    void setInformationsMessage(HttpServletRequest req, String product);
+    void setProductBrandList(HttpServletRequest req);
 
-    void setPageLinks(HttpServletRequest req, String product, long pageSize, long pageIndex);
+    void setInformationsMessage(HttpServletRequest req);
+
+    void setPageLinks(HttpServletRequest req);
 }

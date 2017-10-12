@@ -41,11 +41,11 @@
     </div>
 
     <!-- Information message during an action -->
-    <c:if test="${rowsAffected > 0 && product != null && action != null}">
+    <c:if test="${informationsMessage != null}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <p class="p-3">${rowsAffected} ${product} was ${action}</p><br>
+                    <p class="p-3" style="color:red">${informationsMessage}</p><br>
                 </div>
             </div>
         </div>

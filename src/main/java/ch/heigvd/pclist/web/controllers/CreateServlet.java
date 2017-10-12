@@ -144,39 +144,10 @@ public class CreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // Get type of product
-        String product = parameterService.getProduct(req);
+        // Sets page title and product brand list
+        parameterService.setPageTitle(req);
+        parameterService.setProductBrandList(req);
 
-        String url = "/pclist/list";
-
-        if (product == null) {
-            resp.sendRedirect(url);
-        } else {
-            switch (product) {
-                case "pc":
-                    // TODO: 07.10.2017 create action for pc
-//                    req.setAttribute("pcBrandList", pcDAO.getBrand());
-//                    req.setAttribute("cpuList", cpuDAO.get());
-//                    req.setAttribute("ramList", ramDAO.get());
-//                    req.setAttribute("gpuList", gpuDAO.get());
-                    break;
-
-                case "cpu":
-                    req.setAttribute("cpuBrandList", cpuDAO.getBrand());
-                    break;
-
-                case "ram":
-                    req.setAttribute("ramBrandList", ramDAO.getBrand());
-                    break;
-
-                case "gpu":
-                    req.setAttribute("gpuBrandList", gpuDAO.getBrand());
-                    break;
-            }
-
-            parameterService.setPageTitle(req, product);
-
-            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
-        }
+        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
     }
 }

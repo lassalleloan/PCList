@@ -74,7 +74,11 @@ public class ParameterService implements ParameterServiceLocal {
         return pageTitle;
     }
 
-    public long getPageSize(HttpServletRequest req, String product) {
+    public long getPageSize(HttpServletRequest req) {
+
+        // Gets type of product
+        String product = getProduct(req);
+
         long pageSize;
 
         try {
@@ -110,11 +114,18 @@ public class ParameterService implements ParameterServiceLocal {
         return numberProduct <= 0 ? 0 : (numberProduct + pageSize - 1) / pageSize;
     }
 
-    public void setPageTitle(HttpServletRequest req, String product) {
-        req.setAttribute("pageTitle", getPageTitle(product));
+    public void setPageTitle(HttpServletRequest req) {
+        req.setAttribute("pageTitle", getPageTitle(getProduct(req)));
     }
 
-    public void setProductList(HttpServletRequest req, String product, long pageSize, long pageIndex) {
+    public void setProductList(HttpServletRequest req) {
+
+        // Gets type of product
+        String product = getProduct(req);
+
+        // Gets page size, page index for pagination and number of pages
+        long pageSize = getPageSize(req);
+        long pageIndex = getUnsignedLong(req, "pageIndex");
 
         boolean isAllList = product.isEmpty();
 
@@ -134,24 +145,79 @@ public class ParameterService implements ParameterServiceLocal {
             req.setAttribute("gpuList", gpuDAO.get(pageSize, pageIndex));
         }
 
-        setPageTitle(req, product);
         req.setAttribute("allList", isAllList);
     }
 
-    public void setInformationsMessage(HttpServletRequest req, String product) {
+    public void setProductBrandList(HttpServletRequest req) {
 
-        // Gets type of action and number of rows affected
-        String action = getString(req, "action", ACTION_LIST);
-        long rowsAffected = getUnsignedLong(req, "rowsAffected");
+        switch (getProduct(req)) {
+            case "pc":
+                // TODO: 07.10.2017 create action for pc
+//                    req.setAttribute("pcBrandList", pcDAO.getBrand());
+//                    req.setAttribute("cpuList", cpuDAO.get());
+//                    req.setAttribute("ramList", ramDAO.get());
+//                    req.setAttribute("gpuList", gpuDAO.get());
+                break;
 
-        if (!product.isEmpty() && !action.isEmpty() && rowsAffected > 0) {
-            setPageTitle(req, product);
-            req.setAttribute("action", action);
-            req.setAttribute("rowsAffected", rowsAffected);
+            case "cpu":
+                req.setAttribute("cpuBrandList", cpuDAO.getBrand());
+                break;
+
+            case "ram":
+                req.setAttribute("ramBrandList", ramDAO.getBrand());
+                break;
+
+            case "gpu":
+                req.setAttribute("gpuBrandList", gpuDAO.getBrand());
+                break;
         }
     }
 
-    public void setPageLinks(HttpServletRequest req, String product, long pageSize, long pageIndex) {
+    public void setInformationsMessage(HttpServletRequest req) {
+
+        // Gets type of product and product ID
+        String product = getProduct(req);
+        long id = getUnsignedLong(req, "id");
+
+        long rowsAffected = 0;
+        String pageTitle = getPageTitle(product);
+
+        if (id > 0) {
+            switch (product) {
+                case "pc":
+                    // TODO: 07.10.2017 delete action for pc
+//                        rowsAffected = pcDAO.delete(id);
+                    break;
+
+                case "cpu":
+                    rowsAffected = cpuDAO.delete(id);
+                    break;
+
+                case "ram":
+                    rowsAffected = ramDAO.delete(id);
+                    break;
+
+                case "gpu":
+                    rowsAffected = gpuDAO.delete(id);
+                    break;
+            }
+        }
+
+        if (rowsAffected <= 0) {
+            req.setAttribute("informationsMessage", "Incorrect " + pageTitle + " ID");
+        } else {
+            req.setAttribute("informationsMessage", rowsAffected + " " + pageTitle + " was deleted");
+        }
+    }
+
+    public void setPageLinks(HttpServletRequest req) {
+
+        // Gets type of product
+        String product = getProduct(req);
+
+        // Gets page size, page index for pagination and number of pages
+        long pageSize = getPageSize(req);
+        long pageIndex = getUnsignedLong(req, "pageIndex");
         long numberOfPages = getNumberPages(product, pageSize, pageIndex);
 
         req.setAttribute("firstPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=0");

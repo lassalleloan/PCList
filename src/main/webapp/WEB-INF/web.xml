@@ -21,10 +21,6 @@
         <servlet-name>ListServlet</servlet-name>
         <servlet-class>ch.heigvd.pclist.web.controllers.ListServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeleteServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.web.controllers.DeleteServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigurationServlet</servlet-name>
         <url-pattern>/configuration</url-pattern>
@@ -32,10 +28,6 @@
     <servlet-mapping>
         <servlet-name>CreateServlet</servlet-name>
         <url-pattern>/create</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteServlet</servlet-name>
-        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditServlet</servlet-name>
@@ -48,5 +40,6 @@
     <servlet-mapping>
         <servlet-name>ListServlet</servlet-name>
         <url-pattern>/list</url-pattern>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -30,20 +30,17 @@ public class ListServlet extends HttpServlet {
      * @throws IOException
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String servletPath = req.getServletPath();
 
-        // Gets type of product
-        String product = parameterService.getProduct(req);
+        // Sets informations message
+        if ("/delete".equals(servletPath)) {
+            parameterService.setInformationsMessage(req);
+        }
 
-        // Gets type of action and number of rows affected
-        parameterService.setInformationsMessage(req, product);
-
-        // Gets page size, page index for pagination and number of pages
-        long pageSize = parameterService.getPageSize(req, product);
-        long pageIndex = parameterService.getUnsignedLong(req, "pageIndex");
-
-        // Sets list of product and page links
-        parameterService.setProductList(req, product, pageSize, pageIndex);
-        parameterService.setPageLinks(req, product, pageSize, pageIndex);
+        // Sets page title, list of product and page links
+        parameterService.setPageTitle(req);
+        parameterService.setProductList(req);
+        parameterService.setPageLinks(req);
 
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
     }

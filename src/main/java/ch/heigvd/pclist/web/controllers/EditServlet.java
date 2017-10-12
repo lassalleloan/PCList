@@ -192,7 +192,7 @@ public class EditServlet extends HttpServlet {
             if (!pcBrand.isEmpty() || !cpuBrand.isEmpty() || !ramBrand.isEmpty() || !gpuBrand.isEmpty()) {
                 resp.sendRedirect(url);
             } else {
-                parameterService.setPageTitle(req, product);
+                parameterService.setPageTitle(req);
 
                 for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
                     req.setAttribute(entry.getKey(), entry.getValue());

@@ -83,7 +83,7 @@ public class ConfigurationServlet extends HttpServlet {
                 return;
         }
 
-        parameterService.setPageTitle(req, product);
+        parameterService.setPageTitle(req);
         req.getRequestDispatcher("WEB-INF/pages/configuration.jsp").forward(req, resp);
     }
 
