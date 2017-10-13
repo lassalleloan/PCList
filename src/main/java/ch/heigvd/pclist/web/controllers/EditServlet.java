@@ -148,7 +148,7 @@ public class EditServlet extends HttpServlet {
 
                         // Fills page for editing on cpu
                         objectMap.put("cpu", cpuDAO.get(id));
-                        objectMap.put("cpuBrandList", cpuDAO.get());
+                        objectMap.put("cpuBrandList", cpuDAO.getBrand());
                     }
                     break;
 

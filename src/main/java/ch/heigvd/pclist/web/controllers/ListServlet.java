@@ -1,6 +1,7 @@
 package ch.heigvd.pclist.web.controllers;
 
 import ch.heigvd.pclist.services.business.ParameterServiceLocal;
+import ch.heigvd.pclist.services.business.ProductServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,6 +22,9 @@ public class ListServlet extends HttpServlet {
     @EJB
     private ParameterServiceLocal parameterService;
 
+    @EJB
+    private ProductServiceLocal productService;
+
     /**
      * Processes requests for both HTTP GET method
      *
@@ -32,12 +36,10 @@ public class ListServlet extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String servletPath = req.getServletPath();
 
-        // Sets page title, list of product and page links
         parameterService.setPageTitle(req);
 
-        // Sets information message
         if ("/delete".equals(servletPath)) {
-            parameterService.setInformationMessage(req);
+            productService.delete(req);
         }
 
         parameterService.setProductList(req);

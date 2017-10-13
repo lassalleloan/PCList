@@ -1,14 +1,11 @@
 package ch.heigvd.pclist.services.business;
 
-import ch.heigvd.pclist.services.dao.CpuDAOLocal;
-import ch.heigvd.pclist.services.dao.GpuDAOLocal;
-import ch.heigvd.pclist.services.dao.PcDAOLocal;
-import ch.heigvd.pclist.services.dao.RamDAOLocal;
-
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
@@ -18,20 +15,23 @@ import java.util.List;
 public class ParameterService implements ParameterServiceLocal {
 
     @EJB
-    private PcDAOLocal pcDAO;
-
-    @EJB
-    private CpuDAOLocal cpuDAO;
-
-    @EJB
-    private RamDAOLocal ramDAO;
-
-    @EJB
-    private GpuDAOLocal gpuDAO;
+    private ProductServiceLocal productService;
 
     public String getString(HttpServletRequest req, String s, List<String> stringList) {
         String string = req.getParameter(s);
         return string == null || !stringList.contains(string) ? "" : string;
+    }
+
+    public int getUnsignedInteger(HttpServletRequest req, String parameter) {
+        int value;
+
+        try {
+            value = Integer.valueOf(req.getParameter(parameter));
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
+
+        return value <= -1 ? 0 : value;
     }
 
     public long getUnsignedLong(HttpServletRequest req, String parameter) {
@@ -39,6 +39,18 @@ public class ParameterService implements ParameterServiceLocal {
 
         try {
             value = Long.valueOf(req.getParameter(parameter));
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
+
+        return value <= -1 ? 0 : value;
+    }
+
+    public double getUnsignedDouble(HttpServletRequest req, String parameter) {
+        double value;
+
+        try {
+            value = Double.valueOf(req.getParameter(parameter));
         } catch (NumberFormatException e) {
             value = 0;
         }
@@ -91,27 +103,7 @@ public class ParameterService implements ParameterServiceLocal {
     }
 
     public long getNumberPages(String product, long pageSize, long pageIndex) {
-        long numberProduct = 0;
-
-        switch (product) {
-            case "pc":
-                numberProduct = pcDAO.count();
-                break;
-
-            case "cpu":
-                numberProduct = cpuDAO.count();
-                break;
-
-            case "ram":
-                numberProduct = ramDAO.count();
-                break;
-
-            case "gpu":
-                numberProduct = gpuDAO.count();
-                break;
-        }
-
-        return numberProduct <= 0 ? 0 : (numberProduct + pageSize - 1) / pageSize;
+        return (productService.count(product) + pageSize - 1) / pageSize;
     }
 
     public void setPageTitle(HttpServletRequest req) {
@@ -122,6 +114,7 @@ public class ParameterService implements ParameterServiceLocal {
 
         // Gets type of product
         String product = getProduct(req);
+        Map<String, Object> objectMap = new HashMap<>();
 
         // Gets page size, page index for pagination and number of pages
         long pageSize = getPageSize(req);
@@ -130,84 +123,53 @@ public class ParameterService implements ParameterServiceLocal {
         boolean isAllList = product.isEmpty();
 
         if (isAllList || product.equals("pc")) {
-            req.setAttribute("pcList", pcDAO.get());
+            objectMap.putAll(productService.get("pc", pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("cpu")) {
-            req.setAttribute("cpuList", cpuDAO.get(pageSize, pageIndex));
+            objectMap.putAll(productService.get("cpu", pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("ram")) {
-            req.setAttribute("ramList", ramDAO.get(pageSize, pageIndex));
+            objectMap.putAll(productService.get("ram", pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("gpu")) {
-            req.setAttribute("gpuList", gpuDAO.get(pageSize, pageIndex));
+            objectMap.putAll(productService.get("gpu", pageSize, pageIndex));
         }
 
         req.setAttribute("allList", isAllList);
+
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            req.setAttribute(entry.getKey(), entry.getValue());
+        }
     }
 
     public void setProductBrandList(HttpServletRequest req) {
 
-        switch (getProduct(req)) {
-            case "pc":
-                // TODO: 07.10.2017 create action for pc
-//                    req.setAttribute("pcBrandList", pcDAO.getBrand());
-//                    req.setAttribute("cpuList", cpuDAO.get());
-//                    req.setAttribute("ramList", ramDAO.get());
-//                    req.setAttribute("gpuList", gpuDAO.get());
-                break;
+        // Gets product brand list
+        String product = getProduct(req);
 
-            case "cpu":
-                req.setAttribute("cpuBrandList", cpuDAO.getBrand());
-                break;
+        Map<String, Object> objectMap = productService.getBrand(product);
+        objectMap.putAll(productService.getComponent(product));
 
-            case "ram":
-                req.setAttribute("ramBrandList", ramDAO.getBrand());
-                break;
-
-            case "gpu":
-                req.setAttribute("gpuBrandList", gpuDAO.getBrand());
-                break;
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            req.setAttribute(entry.getKey(), entry.getValue());
         }
     }
 
-    public void setInformationMessage(HttpServletRequest req) {
-
-        // Gets type of product and product ID
+    public void setComponentList(HttpServletRequest req) {
         String product = getProduct(req);
-        long id = getUnsignedLong(req, "id");
 
-        long rowsAffected = 0;
-        String pageTitle = getPageTitle(product);
+        Map<String, Object> objectMap = productService.getComponent(product);
 
-        if (id > 0) {
-            switch (product) {
-                case "pc":
-                    // TODO: 07.10.2017 delete action for pc
-//                        rowsAffected = pcDAO.delete(id);
-                    break;
-
-                case "cpu":
-                    rowsAffected = cpuDAO.delete(id);
-                    break;
-
-                case "ram":
-                    rowsAffected = ramDAO.delete(id);
-                    break;
-
-                case "gpu":
-                    rowsAffected = gpuDAO.delete(id);
-                    break;
-            }
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            req.setAttribute(entry.getKey(), entry.getValue());
         }
+    }
 
-        if (rowsAffected <= 0) {
-            req.setAttribute("informationsMessage", "Incorrect " + pageTitle + " ID");
-        } else {
-            req.setAttribute("informationsMessage", rowsAffected + " " + pageTitle + " was deleted");
-        }
+    public void setInformationMessage(HttpServletRequest req, String informationMessage) {
+        req.setAttribute("informationMessage", informationMessage);
     }
 
     public void setPageLinks(HttpServletRequest req) {

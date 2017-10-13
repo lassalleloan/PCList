@@ -19,7 +19,11 @@ public interface ParameterServiceLocal {
 
     String getString(HttpServletRequest req, String s, List<String> stringList);
 
+    int getUnsignedInteger(HttpServletRequest req, String parameter);
+
     long getUnsignedLong(HttpServletRequest req, String parameter);
+
+    double getUnsignedDouble(HttpServletRequest req, String parameter);
 
     String getProduct(HttpServletRequest req);
 
@@ -35,7 +39,9 @@ public interface ParameterServiceLocal {
 
     void setProductBrandList(HttpServletRequest req);
 
-    void setInformationMessage(HttpServletRequest req);
+    void setComponentList(HttpServletRequest req);
+
+    void setInformationMessage(HttpServletRequest req, String informationMessage);
 
     void setPageLinks(HttpServletRequest req);
 }

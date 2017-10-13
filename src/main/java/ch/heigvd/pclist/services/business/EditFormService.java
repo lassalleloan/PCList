@@ -28,8 +28,8 @@ public class EditFormService implements EditFormServiceLocal {
                 long idRam = parameterService.getUnsignedLong(req, "idRam");
                 long idGpu = parameterService.getUnsignedLong(req, "idGpu");
 
-                isError = !pcBrand.isEmpty() && pcBrand.charAt(0) != ' ' && pcPrice > 0
-                        && idCpu > 0 && idRam > 0 && idGpu > 0;
+                isError = pcBrand.isEmpty() || pcBrand.charAt(0) == ' ' || pcPrice <= 0
+                        || idCpu <= 0 || idRam <= 0 || idGpu <= 0;
                 break;
 
             case "cpu":
@@ -37,20 +37,20 @@ public class EditFormService implements EditFormServiceLocal {
                 int cpuCores = parameterService.getUnsignedInteger(req, "cpuCores");
                 double cpuFrequency = parameterService.getUnsignedDouble(req, "cpuFrequency");
 
-                isError = !cpuBrand.isEmpty() && cpuBrand.charAt(0) != ' ' && cpuCores > 0 && cpuFrequency > 0;
+                isError = cpuBrand.isEmpty() || cpuBrand.charAt(0) == ' ' || cpuCores <= 0 || cpuFrequency <= 0;
                 break;
 
             case "ram":
                 String ramBrand = req.getParameter("ramBrand");
                 int ramSize = parameterService.getUnsignedInteger(req, "ramSize");
 
-                isError = !ramBrand.isEmpty() && ramBrand.charAt(0) != ' ' && ramSize > 0;
+                isError = ramBrand.isEmpty() || ramBrand.charAt(0) == ' ' || ramSize <= 0;
                 break;
 
             case "gpu":
                 String gpuBrand = req.getParameter("gpuBrand");
 
-                isError = !gpuBrand.isEmpty() && gpuBrand.charAt(0) != ' ';
+                isError = gpuBrand.isEmpty() || gpuBrand.charAt(0) == ' ';
                 break;
         }
 
