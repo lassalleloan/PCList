@@ -41,11 +41,11 @@
     </div>
 
     <!-- Information message during an action -->
-    <c:if test="${informationsMessage != null}">
+    <c:if test="${informationMessage != null}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <p class="p-3" style="color:red">${informationsMessage}</p><br>
+                    <p class="p-3" style="color:red">${informationMessage}</p><br>
                 </div>
             </div>
         </div>
