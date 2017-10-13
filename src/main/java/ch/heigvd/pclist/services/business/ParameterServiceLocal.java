@@ -35,7 +35,7 @@ public interface ParameterServiceLocal {
 
     void setProductBrandList(HttpServletRequest req);
 
-    void setInformationsMessage(HttpServletRequest req);
+    void setInformationMessage(HttpServletRequest req);
 
     void setPageLinks(HttpServletRequest req);
 }

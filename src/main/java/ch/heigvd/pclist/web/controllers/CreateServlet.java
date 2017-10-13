@@ -49,7 +49,20 @@ public class CreateServlet extends HttpServlet {
      * @throws IOException
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String servletPath = req.getServletPath();
 
+        // Sets page title, list product brand and information message
+        parameterService.setPageTitle(req);
+        parameterService.setInformationMessage(req);
+
+        // Sets
+        if ("/edit".equals(servletPath)) {
+            req.getRequestDispatcher("WEB-INF/pages/edit.jsp").forward(req, resp);
+        } else {
+            parameterService.setProductBrandList(req);
+
+            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
+        }
     }
 
     /**
@@ -143,11 +156,6 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        // Sets page title and product brand list
-        parameterService.setPageTitle(req);
-        parameterService.setProductBrandList(req);
-
-        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
+        processRequest(req, resp);
     }
 }

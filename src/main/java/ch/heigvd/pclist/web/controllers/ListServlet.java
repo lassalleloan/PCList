@@ -32,13 +32,14 @@ public class ListServlet extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String servletPath = req.getServletPath();
 
-        // Sets informations message
-        if ("/delete".equals(servletPath)) {
-            parameterService.setInformationsMessage(req);
-        }
-
         // Sets page title, list of product and page links
         parameterService.setPageTitle(req);
+
+        // Sets information message
+        if ("/delete".equals(servletPath)) {
+            parameterService.setInformationMessage(req);
+        }
+
         parameterService.setProductList(req);
         parameterService.setPageLinks(req);
 

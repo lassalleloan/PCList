@@ -173,7 +173,7 @@ public class ParameterService implements ParameterServiceLocal {
         }
     }
 
-    public void setInformationsMessage(HttpServletRequest req) {
+    public void setInformationMessage(HttpServletRequest req) {
 
         // Gets type of product and product ID
         String product = getProduct(req);
