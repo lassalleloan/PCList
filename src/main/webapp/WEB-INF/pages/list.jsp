@@ -41,7 +41,7 @@
     </div>
 
     <!-- Information message during an action -->
-    <c:if test="${informationMessage != null}">
+    <c:if test="${!allList && informationMessage != null}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
