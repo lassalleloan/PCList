@@ -21,6 +21,8 @@ public interface ProductServiceLocal {
 
     Map<String, Object> getComponent(String product);
 
+    void generate(HttpServletRequest req);
+
     void create(HttpServletRequest req);
 
     void update(HttpServletRequest req);

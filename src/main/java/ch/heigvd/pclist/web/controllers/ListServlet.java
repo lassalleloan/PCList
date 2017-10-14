@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
-import ch.heigvd.pclist.services.business.ParameterServiceLocal;
+import ch.heigvd.pclist.services.business.JspServiceLocal;
 import ch.heigvd.pclist.services.business.ProductServiceLocal;
 
 import javax.ejb.EJB;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ListServlet extends HttpServlet {
 
     @EJB
-    private ParameterServiceLocal parameterService;
+    private JspServiceLocal jspService;
 
     @EJB
     private ProductServiceLocal productService;
@@ -34,16 +34,14 @@ public class ListServlet extends HttpServlet {
      * @throws IOException
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String servletPath = req.getServletPath();
+        jspService.setPageTitle(req);
 
-        parameterService.setPageTitle(req);
-
-        if ("/delete".equals(servletPath)) {
+        if ("/delete".equals(req.getServletPath())) {
             productService.delete(req);
         }
 
-        parameterService.setList(req);
-        parameterService.setPageLinks(req);
+        jspService.setList(req);
+        jspService.setPageLinks(req);
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
     }
 

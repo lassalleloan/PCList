@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class ParameterService implements ParameterServiceLocal {
+public class JspService implements JspServiceLocal {
 
     @EJB
     private ProductServiceLocal productService;
@@ -68,6 +68,31 @@ public class ParameterService implements ParameterServiceLocal {
     }
 
     @Override
+    public String getNameProduct(String product) {
+        String nameProduct = "All";
+
+        switch (product) {
+            case "pc":
+                nameProduct += "PC";
+                break;
+
+            case "cpu":
+                nameProduct += "Processor";
+                break;
+
+            case "ram":
+                nameProduct += "Memory";
+                break;
+
+            case "gpu":
+                nameProduct += "Graphic";
+                break;
+        }
+
+        return nameProduct;
+    }
+
+    @Override
     public String getPageTitle(String action, String product) {
         String pageTitle = "";
 
@@ -89,27 +114,7 @@ public class ParameterService implements ParameterServiceLocal {
                 break;
         }
 
-        switch (product) {
-            case "pc":
-                pageTitle += "PC";
-                break;
-
-            case "cpu":
-                pageTitle += "Processor";
-                break;
-
-            case "ram":
-                pageTitle += "Memory";
-                break;
-
-            case "gpu":
-                pageTitle += "Graphic";
-                break;
-
-            default:
-                pageTitle += "All";
-                break;
-        }
+        pageTitle += getNameProduct(product);
 
         return pageTitle;
     }
@@ -141,7 +146,12 @@ public class ParameterService implements ParameterServiceLocal {
         req.setAttribute("pageTitle", getPageTitle(req.getServletPath(), getProduct(req)));
     }
 
-    public void setProduct(HttpServletRequest req) {
+    @Override
+    public void setHeaderTitle(HttpServletRequest req) {
+        req.setAttribute("headerTitle", "Number of " + getNameProduct(getProduct(req)));
+    }
+
+    public void setProductDetails(HttpServletRequest req) {
         String product = getProduct(req);
         long id = getUnsignedLong(req, "id");
         Map<String, Object> objectMap = productService.get(product, id);

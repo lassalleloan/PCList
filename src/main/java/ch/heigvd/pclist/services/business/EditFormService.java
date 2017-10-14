@@ -12,22 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 public class EditFormService implements EditFormServiceLocal {
 
     @EJB
-    private ParameterServiceLocal parameterService;
+    private JspServiceLocal jspService;
 
     @Override
     public boolean isErrorInput(HttpServletRequest req) {
         boolean isError = false;
 
         // Gets type of product
-        String product = parameterService.getProduct(req);
+        String product = jspService.getProduct(req);
 
         switch (product) {
             case "pc":
                 String pcBrand = req.getParameter("pcBrand");
-                double pcPrice = parameterService.getUnsignedDouble(req, "pcPrice");
-                long idCpu = parameterService.getUnsignedLong(req, "idCpu");
-                long idRam = parameterService.getUnsignedLong(req, "idRam");
-                long idGpu = parameterService.getUnsignedLong(req, "idGpu");
+                double pcPrice = jspService.getUnsignedDouble(req, "pcPrice");
+                long idCpu = jspService.getUnsignedLong(req, "idCpu");
+                long idRam = jspService.getUnsignedLong(req, "idRam");
+                long idGpu = jspService.getUnsignedLong(req, "idGpu");
 
                 isError = pcBrand.isEmpty() || pcBrand.charAt(0) == ' ' || pcPrice <= 0
                         || idCpu <= 0 || idRam <= 0 || idGpu <= 0;
@@ -35,15 +35,15 @@ public class EditFormService implements EditFormServiceLocal {
 
             case "cpu":
                 String cpuBrand = req.getParameter("cpuBrand");
-                int cpuCores = parameterService.getUnsignedInteger(req, "cpuCores");
-                double cpuFrequency = parameterService.getUnsignedDouble(req, "cpuFrequency");
+                int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
+                double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
 
                 isError = cpuBrand.isEmpty() || cpuBrand.charAt(0) == ' ' || cpuCores <= 0 || cpuFrequency <= 0;
                 break;
 
             case "ram":
                 String ramBrand = req.getParameter("ramBrand");
-                int ramSize = parameterService.getUnsignedInteger(req, "ramSize");
+                int ramSize = jspService.getUnsignedInteger(req, "ramSize");
 
                 isError = ramBrand.isEmpty() || ramBrand.charAt(0) == ' ' || ramSize <= 0;
                 break;

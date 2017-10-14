@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.web.controllers;
 
-import ch.heigvd.pclist.services.business.ParameterServiceLocal;
+import ch.heigvd.pclist.services.business.JspServiceLocal;
 import ch.heigvd.pclist.services.business.ProductServiceLocal;
 
 import javax.ejb.EJB;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class CreateServlet extends HttpServlet {
 
     @EJB
-    private ParameterServiceLocal parameterService;
+    private JspServiceLocal jspService;
 
     @EJB
     private ProductServiceLocal productService;
@@ -34,41 +34,18 @@ public class CreateServlet extends HttpServlet {
      * @throws IOException
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String servletPath = req.getServletPath();
-        boolean isCreatePath = "/create".equals(servletPath);
+        boolean isCreatePath = "/create".equals(req.getServletPath());
 
-        parameterService.setPageTitle(req);
+        jspService.setPageTitle(req);
         req.setAttribute("isCreatePath", isCreatePath);
-        parameterService.setProductBrandList(req);
-        parameterService.setProductList(req);
+        jspService.setProductBrandList(req);
+        jspService.setProductList(req);
 
-        if (isCreatePath) {
-            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
-        } else {
-            parameterService.setProduct(req);
-            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
-        }
-    }
-
-    /**
-     * Handles the HTTP POST method
-     *
-     * @param req  servlet request
-     * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String servletPath = req.getServletPath();
-
-        if ("/create".equals(servletPath)) {
-            productService.create(req);
-        } else {
-            productService.update(req);
+        if (!isCreatePath) {
+            jspService.setProductDetails(req);
         }
 
-        processRequest(req, resp);
+        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
     }
 
     /**
@@ -81,6 +58,25 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    /**
+     * Handles the HTTP POST method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if ("/create".equals(req.getServletPath())) {
+            productService.create(req);
+        } else {
+            productService.update(req);
+        }
+
         processRequest(req, resp);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Local
-public interface ParameterServiceLocal {
+public interface JspServiceLocal {
 
     List<String> PRODUCT_LIST = Arrays.asList("pc", "cpu", "ram", "gpu");
 
@@ -27,6 +27,8 @@ public interface ParameterServiceLocal {
 
     String getProduct(HttpServletRequest req);
 
+    String getNameProduct(String product);
+
     String getPageTitle(String action, String product);
 
     long getPageSize(HttpServletRequest req);
@@ -35,7 +37,9 @@ public interface ParameterServiceLocal {
 
     void setPageTitle(HttpServletRequest req);
 
-    void setProduct(HttpServletRequest req);
+    void setHeaderTitle(HttpServletRequest req);
+
+    void setProductDetails(HttpServletRequest req);
 
     void setList(HttpServletRequest req);
 
