@@ -73,19 +73,19 @@ public class JspService implements JspServiceLocal {
 
         switch (product) {
             case "pc":
-                nameProduct += "PC";
+                nameProduct = "PC";
                 break;
 
             case "cpu":
-                nameProduct += "Processor";
+                nameProduct = "Processor";
                 break;
 
             case "ram":
-                nameProduct += "Memory";
+                nameProduct = "Memory";
                 break;
 
             case "gpu":
-                nameProduct += "Graphic";
+                nameProduct = "Graphic";
                 break;
         }
 

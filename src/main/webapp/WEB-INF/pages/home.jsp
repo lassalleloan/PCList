@@ -26,7 +26,7 @@
             <div class="mx-auto">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="<c:url value="/list"/>">Manage things</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<c:url value="/configuration"/>">Configuration</a>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value="/configuration?product=pc"/>">Configuration</a>
                     </li>
                 </ul>
             </div>

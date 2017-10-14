@@ -84,7 +84,8 @@
                                         <select name="idCpu">
                                             <c:forEach items="${cpuList}" var="cpu">
                                                 <option value="${cpu.idCpu}" <c:if
-                                                        test="${pc.idCpu == cpu.idCpu}"> selected </c:if>>${cpu.brand} ${cpu.cores} ${cpu.frequency}GHz
+                                                        test="${pc.cpu.idCpu == cpu.idCpu}"> selected </c:if>>${cpu.brand} ${cpu.cores}
+                                                    Cores ${cpu.frequency}GHz
                                                 </option>
                                             </c:forEach>
                                         </select>
@@ -95,7 +96,7 @@
                                         <select name="idRam">
                                             <c:forEach items="${ramList}" var="ram">
                                                 <option value="${ram.idRam}" <c:if
-                                                        test="${pc.idRam == ram.idRam}"> selected </c:if>>${ram.brand} ${ram.size}GB
+                                                        test="${pc.ram.idRam == ram.idRam}"> selected </c:if>>${ram.brand} ${ram.size}GB
                                                 </option>
                                             </c:forEach>
                                         </select>
@@ -106,7 +107,7 @@
                                         <select name="idGpu">
                                             <c:forEach items="${gpuList}" var="gpu">
                                                 <option value="${gpu.idGpu}" <c:if
-                                                        test="${pc.idGpu == gpu.idGpu}"> selected </c:if>>${gpu.brand}</option>
+                                                        test="${pc.gpu.idGpu == gpu.idGpu}"> selected </c:if>>${gpu.brand}</option>
                                             </c:forEach>
                                         </select>
                                     </label>
