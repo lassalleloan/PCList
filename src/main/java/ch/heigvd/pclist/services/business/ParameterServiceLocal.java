@@ -37,11 +37,11 @@ public interface ParameterServiceLocal {
 
     void setProduct(HttpServletRequest req);
 
-    void setProductList(HttpServletRequest req);
+    void setList(HttpServletRequest req);
 
     void setProductBrandList(HttpServletRequest req);
 
-    void setComponentList(HttpServletRequest req);
+    void setProductList(HttpServletRequest req);
 
     void setInformationMessage(HttpServletRequest req, String informationMessage);
 

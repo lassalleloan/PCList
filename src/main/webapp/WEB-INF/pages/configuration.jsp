@@ -47,12 +47,12 @@
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
-                            <th>Number of ${pageTitle}</th>
+                            <th>${headerTitle}</th>
                         </tr>
                         </thead>
                         <tr>
-                            <td><input name="productGenerated" type="number" step="1" value="1000000" min="1" required>
-                            </td>
+                            <td><label><input name="productGenerated" type="number" step="1" value="1000000" min="1"
+                                              required></label></td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Generate random"></td>

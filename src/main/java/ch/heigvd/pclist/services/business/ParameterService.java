@@ -152,7 +152,7 @@ public class ParameterService implements ParameterServiceLocal {
     }
 
     @Override
-    public void setProductList(HttpServletRequest req) {
+    public void setList(HttpServletRequest req) {
 
         // Gets type of product
         String product = getProduct(req);
@@ -202,7 +202,7 @@ public class ParameterService implements ParameterServiceLocal {
     }
 
     @Override
-    public void setComponentList(HttpServletRequest req) {
+    public void setProductList(HttpServletRequest req) {
         String product = getProduct(req);
 
         Map<String, Object> objectMap = productService.getComponent(product);

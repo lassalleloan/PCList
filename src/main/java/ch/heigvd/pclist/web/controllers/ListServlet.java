@@ -42,9 +42,8 @@ public class ListServlet extends HttpServlet {
             productService.delete(req);
         }
 
-        parameterService.setProductList(req);
+        parameterService.setList(req);
         parameterService.setPageLinks(req);
-
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
     }
 

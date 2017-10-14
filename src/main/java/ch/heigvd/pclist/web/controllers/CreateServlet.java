@@ -35,17 +35,17 @@ public class CreateServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String servletPath = req.getServletPath();
+        boolean isCreatePath = "/create".equals(servletPath);
 
         parameterService.setPageTitle(req);
+        req.setAttribute("isCreatePath", isCreatePath);
         parameterService.setProductBrandList(req);
-        parameterService.setComponentList(req);
+        parameterService.setProductList(req);
 
-        if ("/create".equals(servletPath)) {
-            req.setAttribute("isCreate", true);
+        if (isCreatePath) {
             req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
         } else {
             parameterService.setProduct(req);
-
             req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
         }
     }
@@ -63,7 +63,6 @@ public class CreateServlet extends HttpServlet {
         String servletPath = req.getServletPath();
 
         if ("/create".equals(servletPath)) {
-            req.setAttribute("isCreate", true);
             productService.create(req);
         } else {
             productService.update(req);

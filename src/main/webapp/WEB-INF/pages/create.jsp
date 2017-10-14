@@ -21,7 +21,7 @@
 <article class="text-center">
 
     <!-- Links for all things -->
-    <c:if test="${isCreate}">
+    <c:if test="${isCreatePath}">
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
