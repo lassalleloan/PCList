@@ -39,6 +39,17 @@
         </div>
     </div>
 
+    <!-- Information message during an action -->
+    <c:if test="${informationMessage != null}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <p class="p-3" style="color:red">${informationMessage}</p><br>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
     <!-- Form for generate things -->
     <div class="container">
         <div class="row">
