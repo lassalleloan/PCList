@@ -254,6 +254,27 @@ public class PcDAO implements PcDAOLocal {
         return pcList;
     }
 
+    public List<String> getBrand() {
+        List<String> brandList = new ArrayList<>();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT brand " +
+                    "FROM pc;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                brandList.add(resultSet.getString("brand"));
+            }
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return brandList;
+    }
+
     public long count() {
         long numberPc = 0;
 

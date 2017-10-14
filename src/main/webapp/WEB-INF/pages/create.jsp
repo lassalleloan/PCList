@@ -64,10 +64,7 @@
                             <tr>
                                 <th>Brand</th>
                                 <th>Processor</th>
-                                <th>Number of Cores</th>
-                                <th>Frequency</th>
                                 <th>Memory</th>
-                                <th>Memory Size</th>
                                 <th>Graphic</th>
                                 <th>Price</th>
                             </tr>
@@ -114,9 +111,12 @@
                                         </select>
                                     </label>
                                 </td>
+                                <td><label><input name="pcPrice" type="number" step="0.01" min="0.01"
+                                                  value="${pc.price}"
+                                                  required>.-</label></td>
                             </tr>
                             <tr>
-                                <td colspan="8"><input type="submit" value="Create"></td>
+                                <td colspan="5"><input type="submit" value="Create"></td>
                             </tr>
                         </table>
                     </form>

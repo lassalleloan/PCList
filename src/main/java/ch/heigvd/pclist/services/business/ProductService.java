@@ -123,8 +123,7 @@ public class ProductService implements ProductServiceLocal {
 
         switch (product) {
             case "pc":
-                // TODO: 13.10.2017 getBrand action for pc
-//                objectMap.put("pcBrandList", pcDAO.getBrand());
+                objectMap.put("pcBrandList", pcDAO.getBrand());
                 break;
 
             case "cpu":

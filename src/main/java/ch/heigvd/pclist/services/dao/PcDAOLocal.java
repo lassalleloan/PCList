@@ -20,5 +20,7 @@ public interface PcDAOLocal {
 
     List<Pc> get();
 
+    List<String> getBrand();
+
     long count();
 }
