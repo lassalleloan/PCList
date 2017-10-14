@@ -10,10 +10,6 @@
         <servlet-class>ch.heigvd.pclist.web.controllers.CreateServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditServlet</servlet-name>
-        <servlet-class>ch.heigvd.pclist.web.controllers.EditServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>ch.heigvd.pclist.web.controllers.HomeServlet</servlet-class>
     </servlet>
@@ -28,9 +24,6 @@
     <servlet-mapping>
         <servlet-name>CreateServlet</servlet-name>
         <url-pattern>/create</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditServlet</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

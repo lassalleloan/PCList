@@ -27,13 +27,15 @@ public interface ParameterServiceLocal {
 
     String getProduct(HttpServletRequest req);
 
-    String getPageTitle(String product);
+    String getPageTitle(String action, String product);
 
     long getPageSize(HttpServletRequest req);
 
     long getNumberPages(String product, long pageSize, long pageIndex);
 
     void setPageTitle(HttpServletRequest req);
+
+    void setProduct(HttpServletRequest req);
 
     void setProductList(HttpServletRequest req);
 

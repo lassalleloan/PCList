@@ -34,11 +34,20 @@ public class CreateServlet extends HttpServlet {
      * @throws IOException
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String servletPath = req.getServletPath();
+
         parameterService.setPageTitle(req);
         parameterService.setProductBrandList(req);
         parameterService.setComponentList(req);
 
-        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
+        if ("/create".equals(servletPath)) {
+            req.setAttribute("isCreate", true);
+            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
+        } else {
+            parameterService.setProduct(req);
+
+            req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
+        }
     }
 
     /**
@@ -51,7 +60,15 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        productService.create(req);
+        String servletPath = req.getServletPath();
+
+        if ("/create".equals(servletPath)) {
+            req.setAttribute("isCreate", true);
+            productService.create(req);
+        } else {
+            productService.update(req);
+        }
+
         processRequest(req, resp);
     }
 

@@ -13,6 +13,8 @@ public interface ProductServiceLocal {
 
     long count(String product);
 
+    Map<String, Object> get(String product, long id);
+
     Map<String, Object> get(String product, long pageSize, long pageIndex);
 
     Map<String, Object> getBrand(String product);

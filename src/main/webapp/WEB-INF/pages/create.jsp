@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading text-md-center">
-                    <h1>Create a ${pageTitle}</h1>
+                    <h1>${pageTitle}</h1>
                 </div>
             </div>
         </div>
@@ -21,23 +21,25 @@
 <article class="text-center">
 
     <!-- Links for all things -->
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto">
-                <table class="table">
-                    <thead class="tab-header-area">
-                    <tr>
-                        <th><a class="nav-link" href="<c:url value="/create?product=pc"/>">PC</a></th>
-                        <th><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Processor</a></th>
-                        <th><a class="nav-link" href="<c:url value="/create?product=ram"/>">Memory</a></th>
-                        <th><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Graphic</a></th>
-                    </tr>
-                    </thead>
-                </table>
-                <br>
+    <c:if test="${isCreate}">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <table class="table">
+                        <thead class="tab-header-area">
+                        <tr>
+                            <th><a class="nav-link" href="<c:url value="/create?product=pc"/>">PC</a></th>
+                            <th><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Processor</a></th>
+                            <th><a class="nav-link" href="<c:url value="/create?product=ram"/>">Memory</a></th>
+                            <th><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Graphic</a></th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <br>
+                </div>
             </div>
         </div>
-    </div>
+    </c:if>
 
     <!-- Information message during an action -->
     <c:if test="${informationMessage != null}">
@@ -73,7 +75,7 @@
                             <tr>
                                 <td>
                                     <label><input name="pcBrand" type="text" list="pcBrandList" minlength="1"
-                                                  maxlength="45"></label>
+                                                  maxlength="45" value="${pc.brand}"></label>
                                     <datalist id="pcBrandList">
                                         <c:forEach items="${pcBrandList}" var="pcBrand">
                                             <option value="${pcBrand}">${pcBrand}</option>
@@ -84,7 +86,9 @@
                                     <label>
                                         <select name="idCpu">
                                             <c:forEach items="${cpuList}" var="cpu">
-                                                <option value="${cpu.idCpu}">${cpu.brand} ${cpu.cores} ${cpu.frequency}GHz</option>
+                                                <option value="${cpu.idCpu}" <c:if
+                                                        test="${pc.idCpu == cpu.idCpu}"> selected </c:if>>${cpu.brand} ${cpu.cores} ${cpu.frequency}GHz
+                                                </option>
                                             </c:forEach>
                                         </select>
                                     </label>
@@ -93,7 +97,9 @@
                                     <label>
                                         <select name="idRam">
                                             <c:forEach items="${ramList}" var="ram">
-                                                <option value="${ram.idRam}">${ram.brand} ${ram.size}GB</option>
+                                                <option value="${ram.idRam}" <c:if
+                                                        test="${pc.idRam == ram.idRam}"> selected </c:if>>${ram.brand} ${ram.size}GB
+                                                </option>
                                             </c:forEach>
                                         </select>
                                     </label>
@@ -102,7 +108,8 @@
                                     <label>
                                         <select name="idGpu">
                                             <c:forEach items="${gpuList}" var="gpu">
-                                                <option value="${gpu.idGpu}">${gpu.brand}</option>
+                                                <option value="${gpu.idGpu}" <c:if
+                                                        test="${pc.idGpu == gpu.idGpu}"> selected </c:if>>${gpu.brand}</option>
                                             </c:forEach>
                                         </select>
                                     </label>
@@ -136,16 +143,17 @@
                             <tr>
                                 <td>
                                     <label><input name="cpuBrand" type="text" list="cpuBrandList" minlength="1"
-                                                  maxlength="45"></label>
+                                                  maxlength="45" value="${cpu.brand}"></label>
                                     <datalist id="cpuBrandList">
                                         <c:forEach items="${cpuBrandList}" var="cpuBrand">
                                             <option value="${cpuBrand}">${cpuBrand}</option>
                                         </c:forEach>
                                     </datalist>
                                 </td>
-                                <td><label><input name="cpuCores" type="number" step="1" min="1" value="1"
+                                <td><label><input name="cpuCores" type="number" step="1" min="1" value="${cpu.cores}"
                                                   required></label></td>
-                                <td><label><input name="cpuFrequency" type="number" step="0.01" min="0.01" value="1.00"
+                                <td><label><input name="cpuFrequency" type="number" step="0.01" min="0.01"
+                                                  value="${cpu.frequency}"
                                                   required>GHz</label></td>
                             </tr>
                             <tr>
@@ -175,14 +183,14 @@
                             <tr>
                                 <td>
                                     <label><input name="ramBrand" type="text" list="ramBrandList" minlength="1"
-                                                  maxlength="45"></label>
+                                                  maxlength="45" value="${ram.brand}"></label>
                                     <datalist id="ramBrandList">
                                         <c:forEach items="${ramBrandList}" var="ramBrand">
                                             <option value="${ramBrand}">${ramBrand}</option>
                                         </c:forEach>
                                     </datalist>
                                 </td>
-                                <td><label><input name="ramSize" type="number" step="1" min="1" value="1"
+                                <td><label><input name="ramSize" type="number" step="1" min="1" value="${ram.size}"
                                                   required>GB</label></td>
                             </tr>
                             <tr>
@@ -211,7 +219,7 @@
                             <tr>
                                 <td>
                                     <label><input name="gpuBrand" type="text" list="gpuBrandList" minlength="1"
-                                                  maxlength="45"></label>
+                                                  maxlength="45" value="${gpu.brand}"></label>
                                     <datalist id="gpuBrandList">
                                         <c:forEach items="${gpuBrandList}" var="gpuBrand">
                                             <option value="${gpuBrand}">${gpuBrand}</option>

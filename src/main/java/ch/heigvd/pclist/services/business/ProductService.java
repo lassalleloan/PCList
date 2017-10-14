@@ -65,6 +65,32 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
+    public Map<String, Object> get(String product, long id) {
+
+        Map<String, Object> objectMap = new HashMap<>();
+
+        switch (product) {
+            case "pc":
+                objectMap.put("pc", pcDAO.get(id));
+                break;
+
+            case "cpu":
+                objectMap.put("cpu", cpuDAO.get(id));
+                break;
+
+            case "ram":
+                objectMap.put("ram", ramDAO.get(id));
+                break;
+
+            case "gpu":
+                objectMap.put("gpu", gpuDAO.get(id));
+                break;
+        }
+
+        return objectMap;
+    }
+
+    @Override
     public Map<String, Object> get(String product, long pageSize, long pageIndex) {
 
         Map<String, Object> objectMap = new HashMap<>();
@@ -97,7 +123,7 @@ public class ProductService implements ProductServiceLocal {
 
         switch (product) {
             case "pc":
-                // TODO: 13.10.2017 create action for pc
+                // TODO: 13.10.2017 getBrand action for pc
 //                objectMap.put("pcBrandList", pcDAO.getBrand());
                 break;
 
@@ -135,7 +161,7 @@ public class ProductService implements ProductServiceLocal {
     @Override
     public void create(HttpServletRequest req) {
         String product = parameterService.getProduct(req);
-        String pageTitle = parameterService.getPageTitle(product);
+        String pageTitle = parameterService.getPageTitle(req.getServletPath(), product);
 
         long rowsAffected = 0;
         String informationMessage = "Incoming information is incorrect";
@@ -190,16 +216,63 @@ public class ProductService implements ProductServiceLocal {
     @Override
     public void update(HttpServletRequest req) {
         String product = parameterService.getProduct(req);
-        String pageTitle = parameterService.getPageTitle(product);
+        String pageTitle = parameterService.getPageTitle(req.getServletPath(), product);
         long id = parameterService.getUnsignedLong(req, "id");
 
         long rowsAffected = 0;
+        String informationMessage = "Incoming information is incorrect";
+
+        if (id > 0 && !editFormService.isErrorInput(req)) {
+            switch (product) {
+                case "pc":
+                    // TODO: 07.10.2017 update action for pc
+                    String pcBrand = req.getParameter("pcBrand");
+                    double pcPrice = parameterService.getUnsignedDouble(req, "pcPrice");
+                    Cpu cpu = cpuDAO.get(parameterService.getUnsignedLong(req, "idCpu"));
+                    Ram ram = ramDAO.get(parameterService.getUnsignedLong(req, "idRam"));
+                    Gpu gpu = gpuDAO.get(parameterService.getUnsignedLong(req, "idGpu"));
+
+                    if (cpu != null && ram != null && gpu != null) {
+//                    rowsAffected = pcDAO.update(new Pc(id, pcBrand, pcPrice, cpu, ram, gpu));
+                    }
+                    break;
+
+                case "cpu":
+                    String cpuBrand = req.getParameter("cpuBrand");
+                    int cpuCores = parameterService.getUnsignedInteger(req, "cpuCores");
+                    double cpuFrequency = parameterService.getUnsignedDouble(req, "cpuFrequency");
+
+                    rowsAffected = cpuDAO.update(new Cpu(id, cpuBrand, cpuCores, cpuFrequency));
+                    break;
+
+                case "ram":
+                    String ramBrand = req.getParameter("ramBrand");
+                    int ramSize = parameterService.getUnsignedInteger(req, "ramSize");
+
+                    rowsAffected = ramDAO.update(new Ram(id, ramBrand, ramSize));
+                    break;
+
+                case "gpu":
+                    String gpuBrand = req.getParameter("gpuBrand");
+
+                    rowsAffected = gpuDAO.update(new Gpu(id, gpuBrand));
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Incorrect " + pageTitle + " ID";
+            } else {
+                informationMessage = rowsAffected + " " + pageTitle + " was updated";
+            }
+        }
+
+        parameterService.setInformationMessage(req, informationMessage);
     }
 
     @Override
     public void delete(HttpServletRequest req) {
         String product = parameterService.getProduct(req);
-        String pageTitle = parameterService.getPageTitle(product);
+        String pageTitle = parameterService.getPageTitle(req.getServletPath(), product);
         long id = parameterService.getUnsignedLong(req, "id");
 
         long rowsAffected = 0;
@@ -209,7 +282,7 @@ public class ProductService implements ProductServiceLocal {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 delete action for pc
-//                    wasDeleted = pcDAO.delete(id);
+//                    rowsAffected = pcDAO.delete(id);
                     break;
 
                 case "cpu":

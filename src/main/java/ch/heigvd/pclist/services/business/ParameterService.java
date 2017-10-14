@@ -17,11 +17,13 @@ public class ParameterService implements ParameterServiceLocal {
     @EJB
     private ProductServiceLocal productService;
 
+    @Override
     public String getString(HttpServletRequest req, String s, List<String> stringList) {
         String string = req.getParameter(s);
         return string == null || !stringList.contains(string) ? "" : string;
     }
 
+    @Override
     public int getUnsignedInteger(HttpServletRequest req, String parameter) {
         int value;
 
@@ -34,6 +36,7 @@ public class ParameterService implements ParameterServiceLocal {
         return value <= -1 ? 0 : value;
     }
 
+    @Override
     public long getUnsignedLong(HttpServletRequest req, String parameter) {
         long value;
 
@@ -46,6 +49,7 @@ public class ParameterService implements ParameterServiceLocal {
         return value <= -1 ? 0 : value;
     }
 
+    @Override
     public double getUnsignedDouble(HttpServletRequest req, String parameter) {
         double value;
 
@@ -58,34 +62,59 @@ public class ParameterService implements ParameterServiceLocal {
         return value <= -1 ? 0 : value;
     }
 
+    @Override
     public String getProduct(HttpServletRequest req) {
         return getString(req, "product", PRODUCT_LIST);
     }
 
-    public String getPageTitle(String product) {
-        String pageTitle = "All";
+    @Override
+    public String getPageTitle(String action, String product) {
+        String pageTitle = "";
+
+        switch (action) {
+            case "/list":
+                pageTitle = "List of ";
+                break;
+
+            case "/create":
+                pageTitle = "Create a ";
+                break;
+
+            case "/edit":
+                pageTitle = "Edit a ";
+                break;
+
+            case "/configuration":
+                pageTitle = "Configuration of ";
+                break;
+        }
 
         switch (product) {
             case "pc":
-                pageTitle = "PC";
+                pageTitle += "PC";
                 break;
 
             case "cpu":
-                pageTitle = "Processor";
+                pageTitle += "Processor";
                 break;
 
             case "ram":
-                pageTitle = "Memory";
+                pageTitle += "Memory";
                 break;
 
             case "gpu":
-                pageTitle = "Graphic";
+                pageTitle += "Graphic";
+                break;
+
+            default:
+                pageTitle += "All";
                 break;
         }
 
         return pageTitle;
     }
 
+    @Override
     public long getPageSize(HttpServletRequest req) {
 
         // Gets type of product
@@ -102,14 +131,27 @@ public class ParameterService implements ParameterServiceLocal {
         return pageSize <= 0 ? 1 : pageSize;
     }
 
+    @Override
     public long getNumberPages(String product, long pageSize, long pageIndex) {
         return (productService.count(product) + pageSize - 1) / pageSize;
     }
 
+    @Override
     public void setPageTitle(HttpServletRequest req) {
-        req.setAttribute("pageTitle", getPageTitle(getProduct(req)));
+        req.setAttribute("pageTitle", getPageTitle(req.getServletPath(), getProduct(req)));
     }
 
+    public void setProduct(HttpServletRequest req) {
+        String product = getProduct(req);
+        long id = getUnsignedLong(req, "id");
+        Map<String, Object> objectMap = productService.get(product, id);
+
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            req.setAttribute(entry.getKey(), entry.getValue());
+        }
+    }
+
+    @Override
     public void setProductList(HttpServletRequest req) {
 
         // Gets type of product
@@ -145,6 +187,7 @@ public class ParameterService implements ParameterServiceLocal {
         }
     }
 
+    @Override
     public void setProductBrandList(HttpServletRequest req) {
 
         // Gets product brand list
@@ -158,6 +201,7 @@ public class ParameterService implements ParameterServiceLocal {
         }
     }
 
+    @Override
     public void setComponentList(HttpServletRequest req) {
         String product = getProduct(req);
 
@@ -168,10 +212,12 @@ public class ParameterService implements ParameterServiceLocal {
         }
     }
 
+    @Override
     public void setInformationMessage(HttpServletRequest req, String informationMessage) {
         req.setAttribute("informationMessage", informationMessage);
     }
 
+    @Override
     public void setPageLinks(HttpServletRequest req) {
 
         // Gets type of product
