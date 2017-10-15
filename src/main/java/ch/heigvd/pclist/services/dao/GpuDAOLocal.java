@@ -6,8 +6,11 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
+ * Data Access Objects for gpu
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Local
 public interface GpuDAOLocal {
@@ -16,25 +19,23 @@ public interface GpuDAOLocal {
 
     List<Gpu> get(List<Long> idList);
 
-    List<Gpu> get(long pageSize, long pageIndex);
-
-    List<Gpu> get();
+    List<Gpu> get(String like, String orderBy, long pageSize, long pageIndex);
 
     List<String> getBrand();
 
     long count();
 
-    int set(Gpu gpu);
+    long set(Gpu gpu);
 
-    int set(List<Gpu> gpuList);
+    long set(List<Gpu> gpuList);
 
-    int update(Gpu gpu);
+    long update(Gpu gpu);
 
-    int update(List<Gpu> gpuList);
+    long update(List<Gpu> gpuList);
 
-    int delete(long id);
+    long delete(long id);
 
-    int delete(List<Long> idList);
+    long delete(List<Long> idList);
 
-    int delete();
+    long delete();
 }
