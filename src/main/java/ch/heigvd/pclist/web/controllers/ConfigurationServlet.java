@@ -30,8 +30,8 @@ public class ConfigurationServlet extends HttpServlet {
      *
      * @param req  servlet request
      * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException throws when I/O operations failed or interrupted
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         jspService.setPageTitle(req);
@@ -44,12 +44,16 @@ public class ConfigurationServlet extends HttpServlet {
      *
      * @param req  servlet request
      * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException throws when I/O operations failed or interrupted
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+        if (jspService.getProduct(req).isEmpty()) {
+            resp.sendRedirect("/pclist/configuration?product=pc");
+        } else {
+            processRequest(req, resp);
+        }
     }
 
     /**
@@ -57,8 +61,8 @@ public class ConfigurationServlet extends HttpServlet {
      *
      * @param req  servlet request
      * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException throws when I/O operations failed or interrupted
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
