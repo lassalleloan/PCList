@@ -164,7 +164,7 @@ public class RamDAO implements RamDAOLocal {
         StringBuilder sqlQuery = new StringBuilder()
                 .append("INSERT INTO ram ")
                 .append("(`idRam`, `brand`, `size`) VALUES ")
-                .append("DEFAULT, ?, ?);");
+                .append("(DEFAULT, ?, ?);");
 
         try {
             Connection connection = dataSource.getConnection();
