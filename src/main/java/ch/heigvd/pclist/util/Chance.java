@@ -5,11 +5,12 @@ import ch.heigvd.pclist.models.Gpu;
 import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Used to generate random values
+ * Generate random values
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
@@ -24,11 +25,26 @@ public class Chance {
     private static final List<String> gpuBrands = Arrays.asList("AMD", "Asus", "ATI", "EVGA", "Gigabyte", "MSI", "NVIDIA", "XFX");
 
     /**
+     * Basic random generator for list of pc
+     *
+     * @return a random list of pc
+     */
+    public static List<Pc> randomPc(long maximum) {
+        List<Pc> pcList = new ArrayList<>();
+
+        for (int i = 0; i < maximum; ++i) {
+            pcList.add(randomPc());
+        }
+
+        return pcList;
+    }
+
+    /**
      * Basic random generator for pc
      *
      * @return a random pc
      */
-    public static Pc randomPc() {
+    private static Pc randomPc() {
         return new Pc(0, randomPcBrand(), randomPcPrice(), randomCpu(), randomRam(), randomGpu());
     }
 
@@ -51,11 +67,26 @@ public class Chance {
     }
 
     /**
+     * Basic random generator for list of cpu
+     *
+     * @return a random list of cpu
+     */
+    public static List<Cpu> randomCpu(long maximum) {
+        List<Cpu> cpuList = new ArrayList<>();
+
+        for (int i = 0; i < maximum; ++i) {
+            cpuList.add(randomCpu());
+        }
+
+        return cpuList;
+    }
+
+    /**
      * Basic random generator for cpu
      *
      * @return a random cpu
      */
-    public static Cpu randomCpu() {
+    private static Cpu randomCpu() {
         return new Cpu(0, randomCpuBrand(), randomCpuNbCores(), randomCpuFrequency());
     }
 
@@ -87,11 +118,26 @@ public class Chance {
     }
 
     /**
+     * Basic random generator for list of ram
+     *
+     * @return a random list of ram
+     */
+    public static List<Ram> randomRam(long maximum) {
+        List<Ram> ramList = new ArrayList<>();
+
+        for (int i = 0; i < maximum; ++i) {
+            ramList.add(randomRam());
+        }
+
+        return ramList;
+    }
+
+    /**
      * Basic random generator for ram
      *
      * @return a random ram
      */
-    public static Ram randomRam() {
+    private static Ram randomRam() {
         return new Ram(0, randomRamBrands(), randomRamSize());
     }
 
@@ -114,11 +160,26 @@ public class Chance {
     }
 
     /**
+     * Basic random generator for list of gpu
+     *
+     * @return a random list of gpu
+     */
+    public static List<Gpu> randomGpu(long maximum) {
+        List<Gpu> gpuList = new ArrayList<>();
+
+        for (int i = 0; i < maximum; ++i) {
+            gpuList.add(randomGpu());
+        }
+
+        return gpuList;
+    }
+
+    /**
      * Basic random generator for gpu
      *
      * @return a random gpu
      */
-    public static Gpu randomGpu() {
+    private static Gpu randomGpu() {
         return new Gpu(0, randomGpuBrands());
     }
 
