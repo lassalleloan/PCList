@@ -27,18 +27,23 @@ public class CpuDAO implements CpuDAOLocal {
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
+    @Override
     public Cpu get(long id) {
         return get(Collections.singletonList(id)).get(0);
     }
 
+    @Override
     public List<Cpu> get(List<Long> idList) {
         List<Cpu> cpuList = new ArrayList<>();
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT * ")
+                .append("FROM cpu ")
+                .append("WHERE idCpu= ?;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu " +
-                    "WHERE idCpu= ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (long id : idList) {
                 preparedStatement.setLong(1, id);
@@ -61,17 +66,22 @@ public class CpuDAO implements CpuDAOLocal {
         return cpuList;
     }
 
-    public List<Cpu> get(long pageSize, long pageIndex) {
+    @Override
+    public List<Cpu> get(String like, String orderBy, long pageSize, long pageIndex) {
         List<Cpu> cpuList = new ArrayList<>();
-        String limit = pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;";
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT * ")
+                .append("FROM cpu ")
+                .append(like.isEmpty() ? "" : "WHERE " + like + " ")
+                .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
+                .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM cpu " +
-                    limit);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
-            if (!limit.isEmpty()) {
+            if (sqlQuery.toString().contains("?")) {
                 preparedStatement.setLong(1, pageSize);
                 preparedStatement.setLong(2, pageSize * pageIndex);
             }
@@ -95,17 +105,17 @@ public class CpuDAO implements CpuDAOLocal {
         return cpuList;
     }
 
-    public List<Cpu> get() {
-        return get(0, 0);
-    }
-
+    @Override
     public List<String> getBrand() {
         List<String> brandList = new ArrayList<>();
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT DISTINCT brand ")
+                .append("FROM cpu;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT brand " +
-                    "FROM cpu;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -120,13 +130,17 @@ public class CpuDAO implements CpuDAOLocal {
         return brandList;
     }
 
+    @Override
     public long count() {
         long numberRows = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT COUNT(*) ")
+                .append("FROM cpu;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) " +
-                    "FROM cpu;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -140,17 +154,22 @@ public class CpuDAO implements CpuDAOLocal {
         return numberRows;
     }
 
+    @Override
     public long set(Cpu cpu) {
         return set(Collections.singletonList(cpu));
     }
 
+    @Override
     public long set(List<Cpu> cpuList) {
         long rowsAffected = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("INSERT INTO cpu ")
+                .append("(`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, ?, ?, ?);");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO cpu " +
-                    "(`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, ?, ?, ?);");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Cpu cpu : cpuList) {
                 preparedStatement.setString(1, cpu.getBrand());
@@ -169,20 +188,25 @@ public class CpuDAO implements CpuDAOLocal {
         return rowsAffected;
     }
 
+    @Override
     public long update(Cpu cpu) {
         return update(Collections.singletonList(cpu));
     }
 
+    @Override
     public long update(List<Cpu> cpuList) {
         long rowsAffected = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("UPDATE cpu ")
+                .append("SET brand=?, ")
+                .append("cores=?, ")
+                .append("frequency=? ")
+                .append("WHERE idCpu=?;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cpu " +
-                    "SET brand=?, " +
-                    "cores=?, " +
-                    "frequency=? " +
-                    "WHERE idCpu=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Cpu cpu : cpuList) {
                 preparedStatement.setString(1, cpu.getBrand());
@@ -202,17 +226,22 @@ public class CpuDAO implements CpuDAOLocal {
         return rowsAffected;
     }
 
+    @Override
     public long delete(long id) {
         return delete(Collections.singletonList(id));
     }
 
+    @Override
     public long delete(List<Long> idList) {
         long rowsAffected = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM cpu ")
+                .append("WHERE idCpu=?;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cpu " +
-                    "WHERE idCpu=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Long id : idList) {
                 preparedStatement.setLong(1, id);
@@ -229,12 +258,16 @@ public class CpuDAO implements CpuDAOLocal {
         return rowsAffected;
     }
 
+    @Override
     public long delete() {
         long rowsAffected = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM cpu;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cpu;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             rowsAffected = preparedStatement.executeUpdate();
 
