@@ -5,6 +5,7 @@ package ch.heigvd.pclist.models;
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 public class Gpu {
 
