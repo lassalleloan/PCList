@@ -6,6 +6,7 @@ import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -30,6 +31,15 @@ public class PcDAO implements PcDAOLocal {
 
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
+
+    @EJB
+    private CpuDAOLocal cpuDAO;
+
+    @EJB
+    private RamDAOLocal ramDAO;
+
+    @EJB
+    private GpuDAOLocal gpuDAO;
 
     @Override
     public Pc get(long id) {
@@ -219,7 +229,6 @@ public class PcDAO implements PcDAOLocal {
         return set(Collections.singletonList(pc));
     }
 
-    // TODO: 15.10.2017 cpu, ram and gpu does not exist, insert cpu, ram and gpu before pc
     @Override
     public long set(List<Pc> pcList) {
         long rowsAffected = 0;
@@ -232,6 +241,12 @@ public class PcDAO implements PcDAOLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+
+            for (Pc pc : pcList) {
+                cpuDAO.set(pc.getCpu());
+                ramDAO.set(pc.getRam());
+                gpuDAO.set(pc.getGpu());
+            }
 
             for (Pc pc : pcList) {
                 preparedStatement.setString(1, pc.getBrand());
