@@ -166,7 +166,8 @@ public class CpuDAO implements CpuDAOLocal {
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("INSERT INTO cpu ")
-                .append("(`idCpu`, `brand`, `cores`, `frequency`) VALUES (DEFAULT, ?, ?, ?);");
+                .append("(`idCpu`, `brand`, `cores`, `frequency`) VALUES ")
+                .append("(DEFAULT, ?, ?, ?);");
 
         try {
             Connection connection = dataSource.getConnection();

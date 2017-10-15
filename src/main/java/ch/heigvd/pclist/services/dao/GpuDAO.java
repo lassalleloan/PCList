@@ -162,7 +162,8 @@ public class GpuDAO implements GpuDAOLocal {
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("INSERT INTO gpu ")
-                .append("(`idGpu`, `brand`) VALUES (DEFAULT, ?);");
+                .append("(`idGpu`, `brand`) VALUES ")
+                .append("DEFAULT, ?);");
 
         try {
             Connection connection = dataSource.getConnection();

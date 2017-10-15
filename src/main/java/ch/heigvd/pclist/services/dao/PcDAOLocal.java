@@ -6,8 +6,11 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
+ * Data Access Objects for pc
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Local
 public interface PcDAOLocal {
@@ -16,9 +19,7 @@ public interface PcDAOLocal {
 
     List<Pc> get(List<Long> idList);
 
-    List<Pc> get(long pageSize, long pageIndex);
-
-    List<Pc> get();
+    List<Pc> get(String like, String orderBy, long pageSize, long pageIndex);
 
     List<String> getBrand();
 
