@@ -1,6 +1,8 @@
 package ch.heigvd.pclist.models;
 
 /**
+ * Models a processor
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
