@@ -62,30 +62,29 @@ CREATE TABLE IF NOT EXISTS `pclist`.`pc` (
   `brand` VARCHAR(45)     NOT NULL,
   `price` DOUBLE UNSIGNED NOT NULL,
   `idCpu` INT             NOT NULL,
-  `idGpu` INT             NOT NULL,
   `idRam` INT             NOT NULL,
+  `idGpu` INT             NOT NULL,
   PRIMARY KEY (`idPc`),
   INDEX `fk_Pc_Cpu_idx` (`idCpu` ASC),
-  INDEX `fk_Pc_Gpu1_idx` (`idGpu` ASC),
-  INDEX `fk_Pc_Ram1_idx` (`idRam` ASC),
+  INDEX `fk_Pc_Ram_idx` (`idRam` ASC),
+  INDEX `fk_Pc_Gpu_idx` (`idGpu` ASC),
   CONSTRAINT `fk_Pc_Cpu`
   FOREIGN KEY (`idCpu`)
   REFERENCES `pclist`.`cpu` (`idCpu`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pc_Gpu1`
-  FOREIGN KEY (`idGpu`)
-  REFERENCES `pclist`.`gpu` (`idGpu`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pc_Ram1`
+  CONSTRAINT `fk_Pc_Ram`
   FOREIGN KEY (`idRam`)
   REFERENCES `pclist`.`ram` (`idRam`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pc_Gpu`
+  FOREIGN KEY (`idGpu`)
+  REFERENCES `pclist`.`gpu` (`idGpu`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 )
   ENGINE = InnoDB;
-
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
