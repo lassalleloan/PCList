@@ -10,6 +10,7 @@ import java.util.List;
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Local
 public interface CpuDAOLocal {

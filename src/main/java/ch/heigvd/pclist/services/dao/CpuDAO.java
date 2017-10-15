@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Singleton
 public class CpuDAO implements CpuDAOLocal {
