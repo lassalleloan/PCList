@@ -238,6 +238,7 @@ public class GpuDAO implements GpuDAOLocal {
 
             for (Long id : idList) {
                 preparedStatement.setLong(1, id);
+                preparedStatement.addBatch();
             }
 
             rowsAffected = preparedStatement.executeBatch().length != idList.size() ? 0 : idList.size();
