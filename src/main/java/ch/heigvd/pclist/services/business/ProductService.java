@@ -18,6 +18,7 @@ import java.util.Map;
 /**
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Singleton
 public class ProductService implements ProductServiceLocal {
@@ -39,6 +40,45 @@ public class ProductService implements ProductServiceLocal {
 
     @EJB
     private GpuDAOLocal gpuDAO;
+
+    @Override
+    public void generate(HttpServletRequest req) {
+        String informationMessage = "Incoming information are incorrect";
+
+        if (!formService.isConfigurationError(req)) {
+            String product = jspService.getProduct(req);
+            String nameProduct = jspService.getNameProduct(product);
+            long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
+
+            long rowsAffected = 0;
+
+            switch (product) {
+                case "pc":
+                    rowsAffected = pcDAO.set(Chance.randomPc(productGenerated));
+                    break;
+
+                case "cpu":
+                    rowsAffected = cpuDAO.set(Chance.randomCpu(productGenerated));
+                    break;
+
+                case "ram":
+                    rowsAffected = ramDAO.set(Chance.randomRam(productGenerated));
+                    break;
+
+                case "gpu":
+                    rowsAffected = gpuDAO.set(Chance.randomGpu(productGenerated));
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Internal error for " + nameProduct;
+            } else {
+                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "created";
+            }
+        }
+
+        jspService.setInformationMessage(req, informationMessage);
+    }
 
     @Override
     public long count(String product) {
@@ -156,46 +196,6 @@ public class ProductService implements ProductServiceLocal {
         }
 
         return objectMap;
-    }
-
-    @Override
-    public void generate(HttpServletRequest req) {
-        String informationMessage = "Incoming information are incorrect";
-
-        if (!formService.isConfigurationError(req)) {
-            String product = jspService.getProduct(req);
-            String nameProduct = jspService.getNameProduct(product);
-            long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
-
-            long rowsAffected = 0;
-
-            switch (product) {
-                case "pc":
-                    // TODO: 07.10.2017 configuration action for pc
-//                    rowsAffected = pcDAO.set(Chance.randomPc(productGenerated));
-                    break;
-
-                case "cpu":
-                    rowsAffected = cpuDAO.set(Chance.randomCpu(productGenerated));
-                    break;
-
-                case "ram":
-                    rowsAffected = ramDAO.set(Chance.randomRam(productGenerated));
-                    break;
-
-                case "gpu":
-                    rowsAffected = gpuDAO.set(Chance.randomGpu(productGenerated));
-                    break;
-            }
-
-            if (rowsAffected <= 0) {
-                informationMessage = "Internal error for " + nameProduct;
-            } else {
-                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "created";
-            }
-        }
-
-        jspService.setInformationMessage(req, informationMessage);
     }
 
     @Override

@@ -26,20 +26,6 @@ public class ConfigurationServlet extends HttpServlet {
     private ProductServiceLocal productService;
 
     /**
-     * Processes requests for both HTTP GET and POST methods
-     *
-     * @param req  servlet request
-     * @param resp servlet response
-     * @throws ServletException throws when it encounters difficulty
-     * @throws IOException      throws when I/O operations failed or interrupted
-     */
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        jspService.setPageTitle(req);
-        jspService.setHeaderTitle(req);
-        req.getRequestDispatcher("WEB-INF/pages/configuration.jsp").forward(req, resp);
-    }
-
-    /**
      * Handles the HTTP GET method
      *
      * @param req  servlet request
@@ -68,5 +54,19 @@ public class ConfigurationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         productService.generate(req);
         processRequest(req, resp);
+    }
+
+    /**
+     * Processes requests for both HTTP GET and POST methods
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException      throws when I/O operations failed or interrupted
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        jspService.setPageTitle(req);
+        jspService.setHeaderTitle(req);
+        req.getRequestDispatcher("WEB-INF/pages/configuration.jsp").forward(req, resp);
     }
 }

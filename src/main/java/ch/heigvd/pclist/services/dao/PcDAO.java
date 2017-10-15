@@ -117,7 +117,7 @@ public class PcDAO implements PcDAOLocal {
                 .append("FROM pc AS p ")
                 .append("INNER JOIN cpu AS c ON p.idCpu = c.idCpu ")
                 .append("INNER JOIN ram AS r ON p.idRam = r.idRam ")
-                .append("INNER JOIN gpu AS g ON p.idGpu = g.idGpu;")
+                .append("INNER JOIN gpu AS g ON p.idGpu = g.idGpu ")
                 .append(like.isEmpty() ? "" : "WHERE " + like + " ")
                 .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
                 .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
@@ -212,5 +212,43 @@ public class PcDAO implements PcDAOLocal {
         }
 
         return numberPc;
+    }
+
+    @Override
+    public long set(Pc pc) {
+        return set(Collections.singletonList(pc));
+    }
+
+    // TODO: 15.10.2017 cpu, ram and gpu does not exist, insert cpu, ram and gpu before pc
+    @Override
+    public long set(List<Pc> pcList) {
+        long rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("INSERT INTO pc ")
+                .append("(`idPc`, `brand`, `price`, `idCpu`, `idRam`, `idGpu`) VALUES ")
+                .append("(DEFAULT, ?, ?, ?, ?, ?);");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+
+            for (Pc pc : pcList) {
+                preparedStatement.setString(1, pc.getBrand());
+                preparedStatement.setDouble(2, pc.getPrice());
+                preparedStatement.setLong(3, pc.getCpu().getIdCpu());
+                preparedStatement.setLong(4, pc.getRam().getIdRam());
+                preparedStatement.setLong(5, pc.getGpu().getIdGpu());
+                preparedStatement.addBatch();
+            }
+
+            rowsAffected = preparedStatement.executeBatch().length != pcList.size() ? 0 : pcList.size();
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowsAffected;
     }
 }

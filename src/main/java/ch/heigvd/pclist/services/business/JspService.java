@@ -234,6 +234,8 @@ public class JspService implements JspServiceLocal {
         long pageIndex = getUnsignedLong(req, "pageIndex");
         long numberOfPages = getNumberPages(product, pageSize, pageIndex);
 
+        numberOfPages = numberOfPages <= 0 ? 1 : numberOfPages;
+
         req.setAttribute("firstPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=0");
         req.setAttribute("previousPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + Math.max(0, pageIndex - 1));
         req.setAttribute("nextPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + Math.min(pageIndex + 1, numberOfPages - 1));
