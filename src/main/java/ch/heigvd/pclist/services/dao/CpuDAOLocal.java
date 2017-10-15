@@ -6,6 +6,8 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
+ * Data Access Objects for cpu
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
@@ -24,17 +26,17 @@ public interface CpuDAOLocal {
 
     long count();
 
-    int set(Cpu cpu);
+    long set(Cpu cpu);
 
-    int set(List<Cpu> cpuList);
+    long set(List<Cpu> cpuList);
 
-    int update(Cpu cpu);
+    long update(Cpu cpu);
 
-    int update(List<Cpu> cpuList);
+    long update(List<Cpu> cpuList);
 
-    int delete(long id);
+    long delete(long id);
 
-    int delete(List<Long> idList);
+    long delete(List<Long> idList);
 
-    int delete();
+    long delete();
 }
