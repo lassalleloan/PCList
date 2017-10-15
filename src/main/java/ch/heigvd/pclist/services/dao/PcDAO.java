@@ -91,7 +91,7 @@ public class PcDAO implements PcDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pcList;
@@ -208,7 +208,7 @@ public class PcDAO implements PcDAOLocal {
 
             connection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PcDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return numberPc;
