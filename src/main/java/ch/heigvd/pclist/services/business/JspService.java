@@ -64,7 +64,7 @@ public class JspService implements JspServiceLocal {
 
     @Override
     public String getProduct(HttpServletRequest req) {
-        return getString(req, "product", PRODUCT_LIST);
+        return getString(req, "product", productService.PRODUCT_LIST);
     }
 
     @Override
@@ -72,20 +72,20 @@ public class JspService implements JspServiceLocal {
         String nameProduct = "All";
 
         switch (product) {
-            case "pc":
-                nameProduct = "PC";
-                break;
-
             case "cpu":
                 nameProduct = "Processor";
+                break;
+
+            case "gpu":
+                nameProduct = "Graphic";
                 break;
 
             case "ram":
                 nameProduct = "Memory";
                 break;
 
-            case "gpu":
-                nameProduct = "Graphic";
+            case "pc":
+                nameProduct = "PC";
                 break;
         }
 
@@ -97,8 +97,8 @@ public class JspService implements JspServiceLocal {
         String pageTitle = "";
 
         switch (action) {
-            case "/list":
-                pageTitle = "List of ";
+            case "/configuration":
+                pageTitle = "Configuration of ";
                 break;
 
             case "/create":
@@ -109,8 +109,8 @@ public class JspService implements JspServiceLocal {
                 pageTitle = "Edit a ";
                 break;
 
-            case "/configuration":
-                pageTitle = "Configuration of ";
+            case "/list":
+                pageTitle = "List of ";
                 break;
         }
 
@@ -121,16 +121,12 @@ public class JspService implements JspServiceLocal {
 
     @Override
     public long getPageSize(HttpServletRequest req) {
-
-        // Gets type of product
-        String product = getProduct(req);
-
         long pageSize;
 
         try {
             pageSize = Long.parseLong(req.getParameter("pageSize"));
         } catch (NumberFormatException e) {
-            pageSize = product.isEmpty() ? PAGE_SIZE_IS_ALL_LIST : PAGE_SIZE_IS_PRODUCT_LIST;
+            pageSize = getProduct(req).isEmpty() ? PAGE_SIZE_IS_ALL_LIST : PAGE_SIZE_IS_PRODUCT_LIST;
         }
 
         return pageSize <= 0 ? 1 : pageSize;

@@ -2,6 +2,8 @@ package ch.heigvd.pclist.services.business;
 
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,6 +12,8 @@ import java.util.Map;
  */
 @Local
 public interface ProductServiceLocal {
+
+    List<String> PRODUCT_LIST = Arrays.asList("pc", "cpu", "ram", "gpu");
 
     long count(String product);
 

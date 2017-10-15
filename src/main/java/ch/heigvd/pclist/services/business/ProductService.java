@@ -98,19 +98,19 @@ public class ProductService implements ProductServiceLocal {
 
         switch (product) {
             case "pc":
-                objectMap.put("pcList", pcDAO.get(pageSize, pageIndex));
+                objectMap.put("pcList", pcDAO.get("", "", pageSize, pageIndex));
                 break;
 
             case "cpu":
-                objectMap.put("cpuList", cpuDAO.get(pageSize, pageIndex));
+                objectMap.put("cpuList", cpuDAO.get("", "", pageSize, pageIndex));
                 break;
 
             case "ram":
-                objectMap.put("ramList", ramDAO.get(pageSize, pageIndex));
+                objectMap.put("ramList", ramDAO.get("", "", pageSize, pageIndex));
                 break;
 
             case "gpu":
-                objectMap.put("gpuList", gpuDAO.get(pageSize, pageIndex));
+                objectMap.put("gpuList", gpuDAO.get("", "", pageSize, pageIndex));
                 break;
         }
 
@@ -149,52 +149,53 @@ public class ProductService implements ProductServiceLocal {
 
         switch (product) {
             case "pc":
-                objectMap.put("cpuList", cpuDAO.get());
-                objectMap.put("ramList", ramDAO.get());
-                objectMap.put("gpuList", gpuDAO.get());
+                objectMap.put("cpuList", cpuDAO.get("", "brand, cores, frequency", 0, 0));
+                objectMap.put("ramList", ramDAO.get("", "brand, size", 0, 0));
+                objectMap.put("gpuList", gpuDAO.get("", "brand", 0, 0));
                 break;
         }
 
         return objectMap;
     }
 
-    // TODO: 14.10.2017 JBDC batch, check form errors, check get errors
     @Override
     public void generate(HttpServletRequest req) {
-        // Gets type of product and number of product to generate
-        String product = jspService.getProduct(req);
-        long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
+        String informationMessage = "Incoming information are incorrect";
 
-        switch (product) {
-            case "pc":
-                // TODO: 07.10.2017 configuration action for pc
-                for (long i = 0; i < productGenerated; ++i) {
-//                    pcDAO.set(Chance.randomPc());
-                }
-                break;
+        if (!formService.isConfigurationError(req)) {
+            String product = jspService.getProduct(req);
+            String nameProduct = jspService.getNameProduct(product);
+            long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
 
-            case "cpu":
-                for (long i = 0; i < productGenerated; ++i) {
-                    cpuDAO.set(Chance.randomCpu());
-                }
-                break;
+            long rowsAffected = 0;
 
-            case "ram":
-                for (long i = 0; i < productGenerated; ++i) {
-                    ramDAO.set(Chance.randomRam());
-                }
-                break;
+            switch (product) {
+                case "pc":
+                    // TODO: 07.10.2017 configuration action for pc
+//                    rowsAffected = pcDAO.set(Chance.randomPc(productGenerated));
+                    break;
 
-            case "gpu":
-                for (long i = 0; i < productGenerated; ++i) {
-                    gpuDAO.set(Chance.randomGpu());
-                }
-                break;
+                case "cpu":
+                    rowsAffected = cpuDAO.set(Chance.randomCpu(productGenerated));
+                    break;
 
-            default:
-//                resp.sendRedirect("/pclist/configuration?product=pc");
-                return;
+                case "ram":
+                    rowsAffected = ramDAO.set(Chance.randomRam(productGenerated));
+                    break;
+
+                case "gpu":
+                    rowsAffected = gpuDAO.set(Chance.randomGpu(productGenerated));
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Internal error for " + nameProduct;
+            } else {
+                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "created";
+            }
         }
+
+        jspService.setInformationMessage(req, informationMessage);
     }
 
     @Override
@@ -203,7 +204,7 @@ public class ProductService implements ProductServiceLocal {
         String pageTitle = jspService.getPageTitle(req.getServletPath(), product);
 
         long rowsAffected = 0;
-        String informationMessage = "Incoming information is incorrect";
+        String informationMessage = "Incoming information are incorrect";
 
         if (!formService.isCreateError(req)) {
             switch (product) {
@@ -259,7 +260,7 @@ public class ProductService implements ProductServiceLocal {
         long id = jspService.getUnsignedLong(req, "id");
 
         long rowsAffected = 0;
-        String informationMessage = "Incoming information is incorrect";
+        String informationMessage = "Incoming information are incorrect";
 
         if (id > 0 && !formService.isCreateError(req)) {
             switch (product) {

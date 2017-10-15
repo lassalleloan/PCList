@@ -2,7 +2,6 @@ package ch.heigvd.pclist.services.business;
 
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,8 +10,6 @@ import java.util.List;
  */
 @Local
 public interface JspServiceLocal {
-
-    List<String> PRODUCT_LIST = Arrays.asList("pc", "cpu", "ram", "gpu");
 
     long PAGE_SIZE_IS_ALL_LIST = 2;
     long PAGE_SIZE_IS_PRODUCT_LIST = 10;
