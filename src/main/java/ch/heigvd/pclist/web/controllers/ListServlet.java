@@ -26,7 +26,7 @@ public class ListServlet extends HttpServlet {
     private ProductServiceLocal productService;
 
     /**
-     * Processes requests for both HTTP GET method
+     * Processes requests for HTTP GET method
      *
      * @param req  servlet request
      * @param resp servlet response

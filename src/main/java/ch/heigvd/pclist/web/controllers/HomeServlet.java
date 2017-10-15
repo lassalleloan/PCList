@@ -16,7 +16,7 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP GET method
+     * Processes requests for HTTP GET method
      *
      * @param req  servlet request
      * @param resp servlet response
