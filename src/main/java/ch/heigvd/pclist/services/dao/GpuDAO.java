@@ -112,10 +112,8 @@ public class GpuDAO implements GpuDAOLocal {
 
         try {
             Connection connection = dataSource.getConnection();
-            ResultSet resultSet;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString())) {
-                resultSet = preparedStatement.executeQuery();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 brandList.add(resultSet.getString("brand"));

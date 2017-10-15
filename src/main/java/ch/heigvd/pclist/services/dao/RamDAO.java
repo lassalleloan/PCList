@@ -10,13 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Data Access Objects for ram
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Singleton
 public class RamDAO implements RamDAOLocal {
@@ -25,40 +29,21 @@ public class RamDAO implements RamDAOLocal {
     private DataSource dataSource;
 
     public Ram get(long id) {
-        Ram ram = null;
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram " +
-                    "WHERE idRam=?;");
-
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-
-            String brand = resultSet.getString("brand");
-            int size = resultSet.getInt("size");
-
-            ram = new Ram(id, brand, size);
-
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return ram;
+        return get(Collections.singletonList(id)).get(0);
     }
 
     @Override
     public List<Ram> get(List<Long> idList) {
         List<Ram> ramList = new ArrayList<>();
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT * ")
+                .append("FROM ram ")
+                .append("WHERE idRam= ?;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram " +
-                    "WHERE idRam= ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (long id : idList) {
                 preparedStatement.setLong(1, id);
@@ -81,42 +66,25 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public List<Ram> get(long pageSize, long pageIndex) {
+    public List<Ram> get(String like, String orderBy, long pageSize, long pageIndex) {
         List<Ram> ramList = new ArrayList<>();
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT * ")
+                .append("FROM ram ")
+                .append(like.isEmpty() ? "" : "WHERE " + like + " ")
+                .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
+                .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram " +
-                    "LIMIT ? OFFSET ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
-            preparedStatement.setLong(1, pageSize);
-            preparedStatement.setLong(2, pageSize * pageIndex);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                long id = resultSet.getLong("idRam");
-                String brand = resultSet.getString("brand");
-                int size = resultSet.getInt("size");
-
-                ramList.add(new Ram(id, brand, size));
+            if (sqlQuery.toString().contains("?")) {
+                preparedStatement.setLong(1, pageSize);
+                preparedStatement.setLong(2, pageSize * pageIndex);
             }
 
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return ramList;
-    }
-
-    public List<Ram> get() {
-        List<Ram> ramList = new ArrayList<>();
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
-                    "FROM ram;");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -139,10 +107,13 @@ public class RamDAO implements RamDAOLocal {
     public List<String> getBrand() {
         List<String> brandList = new ArrayList<>();
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT DISTINCT brand ")
+                .append("FROM ram;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT brand " +
-                    "FROM ram;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -161,10 +132,13 @@ public class RamDAO implements RamDAOLocal {
     public long count() {
         long numberRam = 0;
 
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("SELECT COUNT(*) ")
+                .append("FROM ram;");
+
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) " +
-                    "FROM ram;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
@@ -179,67 +153,29 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public int set(Ram ram) {
-        int rowsAffected = 0;
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ram " +
-                    "(`idRam`, `brand`, `size`) VALUES (DEFAULT, ?, ?);");
-
-            preparedStatement.setString(1, ram.getBrand());
-            preparedStatement.setInt(2, ram.getSize());
-
-            rowsAffected = preparedStatement.executeUpdate();
-
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return rowsAffected;
+    public long set(Ram ram) {
+        return set(Collections.singletonList(ram));
     }
 
     @Override
-    public int set(List<Ram> ramList) {
+    public long set(List<Ram> ramList) {
         int rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("INSERT INTO ram ")
+                .append("(`idRam`, `brand`, `size`) VALUES (DEFAULT, ?, ?);");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ram " +
-                    "(`idRam`, `brand`, `size`) VALUES (DEFAULT, ?, ?);");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Ram ram : ramList) {
                 preparedStatement.setString(1, ram.getBrand());
                 preparedStatement.setInt(2, ram.getSize());
-
-                rowsAffected += preparedStatement.executeUpdate();
+                preparedStatement.addBatch();
             }
 
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return rowsAffected;
-    }
-
-    @Override
-    public int update(Ram ram) {
-        int rowsAffected = 0;
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ram " +
-                    "SET brand=?, " +
-                    "size=? " +
-                    "WHERE idRam=?;");
-
-            preparedStatement.setString(1, ram.getBrand());
-            preparedStatement.setInt(2, ram.getSize());
-            preparedStatement.setLong(3, ram.getIdRam());
-
-            rowsAffected = preparedStatement.executeUpdate();
+            rowsAffected = preparedStatement.executeBatch().length != ramList.size() ? 0 : ramList.size();
 
             connection.close();
         } catch (SQLException ex) {
@@ -250,44 +186,32 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public int update(List<Ram> ramList) {
+    public long update(Ram ram) {
+        return update(Collections.singletonList(ram));
+    }
+
+    @Override
+    public long update(List<Ram> ramList) {
         int rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("UPDATE ram ")
+                .append("SET brand=?, ")
+                .append("size=? ")
+                .append("WHERE idRam=?;");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE cpu " +
-                    "SET brand=?, " +
-                    "size=? " +
-                    "WHERE idRam=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Ram ram : ramList) {
                 preparedStatement.setString(1, ram.getBrand());
                 preparedStatement.setInt(2, ram.getSize());
                 preparedStatement.setLong(3, ram.getIdRam());
-
-                rowsAffected += preparedStatement.executeUpdate();
+                preparedStatement.addBatch();
             }
 
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(RamDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return rowsAffected;
-    }
-
-    @Override
-    public int delete(long id) {
-        int rowsAffected = 0;
-
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ram " +
-                    "WHERE idRam=?;");
-
-            preparedStatement.setLong(1, id);
-
-            rowsAffected = preparedStatement.executeUpdate();
+            rowsAffected = preparedStatement.executeBatch().length != ramList.size() ? 0 : ramList.size();
 
             connection.close();
         } catch (SQLException ex) {
@@ -298,19 +222,28 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public int delete(List<Long> idList) {
+    public long delete(long id) {
+        return delete(Collections.singletonList(id));
+    }
+
+    @Override
+    public long delete(List<Long> idList) {
         int rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM ram ")
+                .append("WHERE idRam=?;");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ram " +
-                    "WHERE idRam=?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             for (Long id : idList) {
                 preparedStatement.setLong(1, id);
-
-                rowsAffected += preparedStatement.executeUpdate();
+                preparedStatement.addBatch();
             }
+
+            rowsAffected = preparedStatement.executeBatch().length != idList.size() ? 0 : idList.size();
 
             connection.close();
         } catch (SQLException ex) {
@@ -321,12 +254,15 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public int delete() {
+    public long delete() {
         int rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM ram;");
 
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ram;");
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
 
             rowsAffected = preparedStatement.executeUpdate();
 

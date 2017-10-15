@@ -6,8 +6,11 @@ import javax.ejb.Local;
 import java.util.List;
 
 /**
+ * Data Access Objects for ram
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
+ * @since 13.09.2017
  */
 @Local
 public interface RamDAOLocal {
@@ -16,25 +19,23 @@ public interface RamDAOLocal {
 
     List<Ram> get(List<Long> idList);
 
-    List<Ram> get(long pageSize, long pageIndex);
-
-    List<Ram> get();
+    List<Ram> get(String like, String orderBy, long pageSize, long pageIndex);
 
     List<String> getBrand();
 
     long count();
 
-    int set(Ram cpu);
+    long set(Ram cpu);
 
-    int set(List<Ram> cpuList);
+    long set(List<Ram> cpuList);
 
-    int update(Ram cpu);
+    long update(Ram cpu);
 
-    int update(List<Ram> cpuList);
+    long update(List<Ram> cpuList);
 
-    int delete(long id);
+    long delete(long id);
 
-    int delete(List<Long> idList);
+    long delete(List<Long> idList);
 
-    int delete();
+    long delete();
 }
