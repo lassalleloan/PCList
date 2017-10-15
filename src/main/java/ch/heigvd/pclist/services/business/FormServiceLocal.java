@@ -4,11 +4,15 @@ import javax.ejb.Local;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * Handles input from form
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Local
-public interface EditFormServiceLocal {
+public interface FormServiceLocal {
 
-    boolean isErrorInput(HttpServletRequest req);
+    boolean isConfigurationError(HttpServletRequest req);
+
+    boolean isCreateError(HttpServletRequest req);
 }

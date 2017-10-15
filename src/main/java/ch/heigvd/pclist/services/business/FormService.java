@@ -5,20 +5,26 @@ import javax.ejb.Singleton;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * Handles input from form
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  */
 @Singleton
-public class EditFormService implements EditFormServiceLocal {
+public class FormService implements FormServiceLocal {
 
     @EJB
     private JspServiceLocal jspService;
 
     @Override
-    public boolean isErrorInput(HttpServletRequest req) {
+    public boolean isConfigurationError(HttpServletRequest req) {
+        return jspService.getUnsignedLong(req, "productGenerated") <= 0;
+    }
+
+    @Override
+    public boolean isCreateError(HttpServletRequest req) {
         boolean isError = false;
 
-        // Gets type of product
         String product = jspService.getProduct(req);
 
         switch (product) {

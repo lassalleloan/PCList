@@ -26,7 +26,7 @@ public class ProductService implements ProductServiceLocal {
     private JspServiceLocal jspService;
 
     @EJB
-    private EditFormServiceLocal editFormService;
+    private FormServiceLocal formService;
 
     @EJB
     private PcDAOLocal pcDAO;
@@ -205,7 +205,7 @@ public class ProductService implements ProductServiceLocal {
         long rowsAffected = 0;
         String informationMessage = "Incoming information is incorrect";
 
-        if (!editFormService.isErrorInput(req)) {
+        if (!formService.isCreateError(req)) {
             switch (product) {
                 case "pc":
                     // TODO: 13.10.2017 create action for pc
@@ -261,7 +261,7 @@ public class ProductService implements ProductServiceLocal {
         long rowsAffected = 0;
         String informationMessage = "Incoming information is incorrect";
 
-        if (id > 0 && !editFormService.isErrorInput(req)) {
+        if (id > 0 && !formService.isCreateError(req)) {
             switch (product) {
                 case "pc":
                     // TODO: 07.10.2017 update action for pc
