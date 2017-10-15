@@ -30,8 +30,8 @@ public class ListServlet extends HttpServlet {
      *
      * @param req  servlet request
      * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException throws when I/O operations failed or interrupted
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         jspService.setPageTitle(req);
@@ -50,8 +50,8 @@ public class ListServlet extends HttpServlet {
      *
      * @param req  servlet request
      * @param resp servlet response
-     * @throws ServletException
-     * @throws IOException
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException throws when I/O operations failed or interrupted
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
