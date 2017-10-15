@@ -31,7 +31,7 @@ public class CreateServlet extends HttpServlet {
      * @param req  servlet request
      * @param resp servlet response
      * @throws ServletException throws when it encounters difficulty
-     * @throws IOException throws when I/O operations failed or interrupted
+     * @throws IOException      throws when I/O operations failed or interrupted
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean isCreatePath = "/create".equals(req.getServletPath());
@@ -54,7 +54,7 @@ public class CreateServlet extends HttpServlet {
      * @param req  servlet request
      * @param resp servlet response
      * @throws ServletException throws when it encounters difficulty
-     * @throws IOException throws when I/O operations failed or interrupted
+     * @throws IOException      throws when I/O operations failed or interrupted
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,7 +67,7 @@ public class CreateServlet extends HttpServlet {
      * @param req  servlet request
      * @param resp servlet response
      * @throws ServletException throws when it encounters difficulty
-     * @throws IOException throws when I/O operations failed or interrupted
+     * @throws IOException      throws when I/O operations failed or interrupted
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
