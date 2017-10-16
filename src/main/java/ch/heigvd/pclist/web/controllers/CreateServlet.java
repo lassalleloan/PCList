@@ -71,9 +71,9 @@ public class CreateServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         jspService.setPageTitle(req);
-        jspService.setProductBrandList(req);
         jspService.setProductList(req);
-        jspService.setProductDetails(req);
+        jspService.setProductComponent(req);
+        jspService.setProductBrandList(req);
         req.setAttribute("submitValue", "/create".equals(req.getServletPath()) ? "Create" : "Edit");
 
         req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
