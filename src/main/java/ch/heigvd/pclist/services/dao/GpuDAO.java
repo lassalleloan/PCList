@@ -113,7 +113,8 @@ public class GpuDAO implements GpuDAOLocal {
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("SELECT DISTINCT brand ")
-                .append("FROM gpu;");
+                .append("FROM gpu ")
+                .append("ORDER BY brand;");
 
         try {
             Connection connection = dataSource.getConnection();

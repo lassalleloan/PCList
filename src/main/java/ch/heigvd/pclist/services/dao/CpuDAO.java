@@ -118,7 +118,8 @@ public class CpuDAO implements CpuDAOLocal {
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("SELECT DISTINCT brand ")
-                .append("FROM cpu;");
+                .append("FROM cpu ")
+                .append("ORDER BY brand;");
 
         try {
             Connection connection = dataSource.getConnection();

@@ -115,7 +115,8 @@ public class RamDAO implements RamDAOLocal {
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("SELECT DISTINCT brand ")
-                .append("FROM ram;");
+                .append("FROM ram ")
+                .append("ORDER BY brand;");
 
         try {
             Connection connection = dataSource.getConnection();
