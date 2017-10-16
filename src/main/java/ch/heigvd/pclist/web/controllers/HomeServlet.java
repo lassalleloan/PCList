@@ -16,18 +16,6 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
 
     /**
-     * Processes requests for HTTP GET method
-     *
-     * @param req  servlet request
-     * @param resp servlet response
-     * @throws ServletException throws when it encounters difficulty
-     * @throws IOException      throws when I/O operations failed or interrupted
-     */
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(req, resp);
-    }
-
-    /**
      * Handles the HTTP GET method
      *
      * @param req  servlet request
@@ -38,6 +26,18 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
+    }
+
+    /**
+     * Processes requests for HTTP GET method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException      throws when I/O operations failed or interrupted
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(req, resp);
     }
 }
 
