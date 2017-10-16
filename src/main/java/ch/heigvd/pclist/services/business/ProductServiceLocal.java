@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Handles actions for all products
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  * @since 13.09.2017
@@ -18,19 +20,19 @@ public interface ProductServiceLocal {
 
     void generate(HttpServletRequest req);
 
-    long count(String product);
-
-    Map<String, Object> get(String product, long id);
-
-    Map<String, Object> get(String product, long pageSize, long pageIndex);
-
-    Map<String, Object> getBrand(String product);
-
-    Map<String, Object> getComponent(String product);
-
     void create(HttpServletRequest req);
 
     void update(HttpServletRequest req);
 
     void delete(HttpServletRequest req);
+
+    Map<String, Object> get(String product, long id);
+
+    Map<String, Object> get(String product, String like, String orderBy, long pageSize, long pageIndex);
+
+    Map<String, Object> getBrand(String product);
+
+    Map<String, Object> getDetails(String product);
+
+    long count(String product);
 }

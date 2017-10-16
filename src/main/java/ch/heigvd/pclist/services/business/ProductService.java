@@ -2,6 +2,7 @@ package ch.heigvd.pclist.services.business;
 
 import ch.heigvd.pclist.models.Cpu;
 import ch.heigvd.pclist.models.Gpu;
+import ch.heigvd.pclist.models.Pc;
 import ch.heigvd.pclist.models.Ram;
 import ch.heigvd.pclist.services.dao.CpuDAOLocal;
 import ch.heigvd.pclist.services.dao.GpuDAOLocal;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Handles actions for all products
+ *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  * @since 13.09.2017
@@ -81,33 +84,157 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public long count(String product) {
-        long numberProduct = 0;
+    public void create(HttpServletRequest req) {
+        String informationMessage = "Incoming information are incorrect";
 
-        switch (product) {
-            case "pc":
-                numberProduct = pcDAO.count();
-                break;
+        if (!formService.isCreateError(req)) {
+            String product = jspService.getProduct(req);
+            String nameProduct = jspService.getNameProduct(product);
 
-            case "cpu":
-                numberProduct = cpuDAO.count();
-                break;
+            long rowsAffected = 0;
 
-            case "ram":
-                numberProduct = ramDAO.count();
-                break;
+            switch (product) {
+                case "pc":
+                    String pcBrand = req.getParameter("pcBrand");
+                    double pcPrice = jspService.getUnsignedDouble(req, "pcPrice");
+                    Cpu cpu = cpuDAO.get(jspService.getUnsignedLong(req, "idCpu"));
+                    Ram ram = ramDAO.get(jspService.getUnsignedLong(req, "idRam"));
+                    Gpu gpu = gpuDAO.get(jspService.getUnsignedLong(req, "idGpu"));
 
-            case "gpu":
-                numberProduct = gpuDAO.count();
-                break;
+                    if (cpu != null && ram != null && gpu != null) {
+                        rowsAffected = pcDAO.set(new Pc(0, pcBrand, pcPrice, cpu, ram, gpu));
+                    }
+                    break;
+
+                case "cpu":
+                    String cpuBrand = req.getParameter("cpuBrand");
+                    int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
+                    double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
+
+                    rowsAffected = cpuDAO.set(new Cpu(0, cpuBrand, cpuCores, cpuFrequency));
+                    break;
+
+                case "ram":
+                    String ramBrand = req.getParameter("ramBrand");
+                    int ramSize = jspService.getUnsignedInteger(req, "ramSize");
+
+                    rowsAffected = ramDAO.set(new Ram(0, ramBrand, ramSize));
+                    break;
+
+                case "gpu":
+                    String gpuBrand = req.getParameter("gpuBrand");
+
+                    rowsAffected = gpuDAO.set(new Gpu(0, gpuBrand));
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Internal error for " + nameProduct;
+            } else {
+                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "created";
+            }
         }
 
-        return numberProduct <= 0 ? 0 : numberProduct;
+        jspService.setInformationMessage(req, informationMessage);
+    }
+
+    @Override
+    public void update(HttpServletRequest req) {
+        long id = jspService.getUnsignedLong(req, "id");
+        String informationMessage = "Incoming information are incorrect";
+
+        if (id > 0 && !formService.isCreateError(req)) {
+            String product = jspService.getProduct(req);
+            String nameProduct = jspService.getNameProduct(product);
+
+            long rowsAffected = 0;
+
+            switch (product) {
+                case "pc":
+                    String pcBrand = req.getParameter("pcBrand");
+                    double pcPrice = jspService.getUnsignedDouble(req, "pcPrice");
+                    Cpu cpu = cpuDAO.get(jspService.getUnsignedLong(req, "idCpu"));
+                    Ram ram = ramDAO.get(jspService.getUnsignedLong(req, "idRam"));
+                    Gpu gpu = gpuDAO.get(jspService.getUnsignedLong(req, "idGpu"));
+
+                    if (cpu != null && ram != null && gpu != null) {
+                        rowsAffected = pcDAO.update(new Pc(id, pcBrand, pcPrice, cpu, ram, gpu));
+                    }
+                    break;
+
+                case "cpu":
+                    String cpuBrand = req.getParameter("cpuBrand");
+                    int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
+                    double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
+
+                    rowsAffected = cpuDAO.update(new Cpu(id, cpuBrand, cpuCores, cpuFrequency));
+                    break;
+
+                case "ram":
+                    String ramBrand = req.getParameter("ramBrand");
+                    int ramSize = jspService.getUnsignedInteger(req, "ramSize");
+
+                    rowsAffected = ramDAO.update(new Ram(id, ramBrand, ramSize));
+                    break;
+
+                case "gpu":
+                    String gpuBrand = req.getParameter("gpuBrand");
+
+                    rowsAffected = gpuDAO.update(new Gpu(id, gpuBrand));
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Internal error for " + nameProduct;
+            } else {
+                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "updated";
+            }
+        }
+
+        jspService.setInformationMessage(req, informationMessage);
+    }
+
+    @Override
+    public void delete(HttpServletRequest req) {
+        long id = jspService.getUnsignedLong(req, "id");
+        String informationMessage = "Incoming information are incorrect";
+
+        if (id > 0) {
+            String product = jspService.getProduct(req);
+            String nameProduct = jspService.getNameProduct(product);
+
+            long rowsAffected = 0;
+
+            switch (product) {
+                case "pc":
+                    rowsAffected = pcDAO.delete(id);
+                    break;
+
+                case "cpu":
+                    rowsAffected = cpuDAO.delete(id);
+                    break;
+
+                case "ram":
+                    rowsAffected = ramDAO.delete(id);
+                    break;
+
+                case "gpu":
+                    rowsAffected = gpuDAO.delete(id);
+                    break;
+            }
+
+            if (rowsAffected <= 0) {
+                informationMessage = "Internal error for " + nameProduct;
+            } else {
+                informationMessage = rowsAffected + " " + nameProduct + (rowsAffected <= 1 ? " was " : " were ") + "deleted";
+            }
+        }
+
+        jspService.setInformationMessage(req, informationMessage);
     }
 
     @Override
     public Map<String, Object> get(String product, long id) {
-
         Map<String, Object> objectMap = new HashMap<>();
 
         switch (product) {
@@ -132,25 +259,25 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public Map<String, Object> get(String product, long pageSize, long pageIndex) {
+    public Map<String, Object> get(String product, String like, String orderBy, long pageSize, long pageIndex) {
 
         Map<String, Object> objectMap = new HashMap<>();
 
         switch (product) {
             case "pc":
-                objectMap.put("pcList", pcDAO.get("", "", pageSize, pageIndex));
+                objectMap.put("pcList", pcDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "cpu":
-                objectMap.put("cpuList", cpuDAO.get("", "", pageSize, pageIndex));
+                objectMap.put("cpuList", cpuDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "ram":
-                objectMap.put("ramList", ramDAO.get("", "", pageSize, pageIndex));
+                objectMap.put("ramList", ramDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "gpu":
-                objectMap.put("gpuList", gpuDAO.get("", "", pageSize, pageIndex));
+                objectMap.put("gpuList", gpuDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
         }
 
@@ -184,7 +311,7 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public Map<String, Object> getComponent(String product) {
+    public Map<String, Object> getDetails(String product) {
         Map<String, Object> objectMap = new HashMap<>();
 
         switch (product) {
@@ -199,152 +326,27 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public void create(HttpServletRequest req) {
-        String product = jspService.getProduct(req);
-        String pageTitle = jspService.getPageTitle(req.getServletPath(), product);
+    public long count(String product) {
+        long numberProduct = 0;
 
-        long rowsAffected = 0;
-        String informationMessage = "Incoming information are incorrect";
+        switch (product) {
+            case "pc":
+                numberProduct = pcDAO.count();
+                break;
 
-        if (!formService.isCreateError(req)) {
-            switch (product) {
-                case "pc":
-                    // TODO: 13.10.2017 create action for pc
-                    String pcBrand = req.getParameter("pcBrand");
-                    double pcPrice = jspService.getUnsignedDouble(req, "pcPrice");
-                    Cpu cpu = cpuDAO.get(jspService.getUnsignedLong(req, "idCpu"));
-                    Ram ram = ramDAO.get(jspService.getUnsignedLong(req, "idRam"));
-                    Gpu gpu = gpuDAO.get(jspService.getUnsignedLong(req, "idGpu"));
+            case "cpu":
+                numberProduct = cpuDAO.count();
+                break;
 
-                    if (cpu != null && ram != null && gpu != null) {
-//                    rowsAffected = pcDAO.setPc(new Pc(0, pcBrand, pcPrice, cpu, ram, gpu));
-                    }
-                    break;
+            case "ram":
+                numberProduct = ramDAO.count();
+                break;
 
-                case "cpu":
-                    String cpuBrand = req.getParameter("cpuBrand");
-                    int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
-                    double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
-
-                    rowsAffected = cpuDAO.set(new Cpu(0, cpuBrand, cpuCores, cpuFrequency));
-                    break;
-
-                case "ram":
-                    String ramBrand = req.getParameter("ramBrand");
-                    int ramSize = jspService.getUnsignedInteger(req, "ramSize");
-
-                    rowsAffected = ramDAO.set(new Ram(0, ramBrand, ramSize));
-                    break;
-
-                case "gpu":
-                    String gpuBrand = req.getParameter("gpuBrand");
-
-                    rowsAffected = gpuDAO.set(new Gpu(0, gpuBrand));
-                    break;
-            }
-
-            if (rowsAffected <= 0) {
-                informationMessage = "Incorrect " + pageTitle + " ID";
-            } else {
-                informationMessage = rowsAffected + " " + pageTitle + " was created";
-            }
+            case "gpu":
+                numberProduct = gpuDAO.count();
+                break;
         }
 
-        jspService.setInformationMessage(req, informationMessage);
-    }
-
-    @Override
-    public void update(HttpServletRequest req) {
-        String product = jspService.getProduct(req);
-        String pageTitle = jspService.getPageTitle(req.getServletPath(), product);
-        long id = jspService.getUnsignedLong(req, "id");
-
-        long rowsAffected = 0;
-        String informationMessage = "Incoming information are incorrect";
-
-        if (id > 0 && !formService.isCreateError(req)) {
-            switch (product) {
-                case "pc":
-                    // TODO: 07.10.2017 update action for pc
-                    String pcBrand = req.getParameter("pcBrand");
-                    double pcPrice = jspService.getUnsignedDouble(req, "pcPrice");
-                    Cpu cpu = cpuDAO.get(jspService.getUnsignedLong(req, "idCpu"));
-                    Ram ram = ramDAO.get(jspService.getUnsignedLong(req, "idRam"));
-                    Gpu gpu = gpuDAO.get(jspService.getUnsignedLong(req, "idGpu"));
-
-                    if (cpu != null && ram != null && gpu != null) {
-//                    rowsAffected = pcDAO.update(new Pc(id, pcBrand, pcPrice, cpu, ram, gpu));
-                    }
-                    break;
-
-                case "cpu":
-                    String cpuBrand = req.getParameter("cpuBrand");
-                    int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
-                    double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
-
-                    rowsAffected = cpuDAO.update(new Cpu(id, cpuBrand, cpuCores, cpuFrequency));
-                    break;
-
-                case "ram":
-                    String ramBrand = req.getParameter("ramBrand");
-                    int ramSize = jspService.getUnsignedInteger(req, "ramSize");
-
-                    rowsAffected = ramDAO.update(new Ram(id, ramBrand, ramSize));
-                    break;
-
-                case "gpu":
-                    String gpuBrand = req.getParameter("gpuBrand");
-
-                    rowsAffected = gpuDAO.update(new Gpu(id, gpuBrand));
-                    break;
-            }
-
-            if (rowsAffected <= 0) {
-                informationMessage = "Incorrect " + pageTitle + " ID";
-            } else {
-                informationMessage = rowsAffected + " " + pageTitle + " was updated";
-            }
-        }
-
-        jspService.setInformationMessage(req, informationMessage);
-    }
-
-    @Override
-    public void delete(HttpServletRequest req) {
-        String product = jspService.getProduct(req);
-        String pageTitle = jspService.getPageTitle(req.getServletPath(), product);
-        long id = jspService.getUnsignedLong(req, "id");
-
-        long rowsAffected = 0;
-        String informationMessage;
-
-        if (id > 0) {
-            switch (product) {
-                case "pc":
-                    // TODO: 07.10.2017 delete action for pc
-//                    rowsAffected = pcDAO.delete(id);
-                    break;
-
-                case "cpu":
-                    rowsAffected = cpuDAO.delete(id);
-                    break;
-
-                case "ram":
-                    rowsAffected = ramDAO.delete(id);
-                    break;
-
-                case "gpu":
-                    rowsAffected = gpuDAO.delete(id);
-                    break;
-            }
-        }
-
-        if (rowsAffected <= 0) {
-            informationMessage = "Incorrect " + pageTitle + " ID";
-        } else {
-            informationMessage = rowsAffected + " " + pageTitle + " was deleted";
-        }
-
-        jspService.setInformationMessage(req, informationMessage);
+        return numberProduct <= 0 ? 0 : numberProduct;
     }
 }
