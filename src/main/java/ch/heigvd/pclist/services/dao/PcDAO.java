@@ -327,4 +327,57 @@ public class PcDAO implements PcDAOLocal {
 
         return rowsAffected;
     }
+
+    @Override
+    public long delete(long id) {
+        return delete(Collections.singletonList(id));
+    }
+
+    @Override
+    public long delete(List<Long> idList) {
+        long rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM pc ")
+                .append("WHERE idPc=?;");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+
+            for (Long id : idList) {
+                preparedStatement.setLong(1, id);
+                preparedStatement.addBatch();
+            }
+
+            rowsAffected = preparedStatement.executeBatch().length != idList.size() ? 0 : idList.size();
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowsAffected;
+    }
+
+    @Override
+    public long delete() {
+        long rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("DELETE FROM pc;");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+
+            rowsAffected = preparedStatement.executeUpdate();
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowsAffected;
+    }
 }

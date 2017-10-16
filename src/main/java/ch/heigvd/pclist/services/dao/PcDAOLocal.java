@@ -34,4 +34,10 @@ public interface PcDAOLocal {
     long update(Pc cpu);
 
     long update(List<Pc> cpuList);
+
+    long delete(long id);
+
+    long delete(List<Long> idList);
+
+    long delete();
 }

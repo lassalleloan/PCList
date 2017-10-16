@@ -26,6 +26,19 @@ public class ListServlet extends HttpServlet {
     private ProductServiceLocal productService;
 
     /**
+     * Handles the HTTP GET method
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException      throws when I/O operations failed or interrupted
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    /**
      * Processes requests for HTTP GET method
      *
      * @param req  servlet request
@@ -43,18 +56,5 @@ public class ListServlet extends HttpServlet {
         jspService.setList(req);
         jspService.setPageLinks(req);
         req.getRequestDispatcher("WEB-INF/pages/list.jsp").forward(req, resp);
-    }
-
-    /**
-     * Handles the HTTP GET method
-     *
-     * @param req  servlet request
-     * @param resp servlet response
-     * @throws ServletException throws when it encounters difficulty
-     * @throws IOException      throws when I/O operations failed or interrupted
-     */
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
     }
 }
