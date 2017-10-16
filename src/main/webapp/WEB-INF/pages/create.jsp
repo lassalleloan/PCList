@@ -22,25 +22,24 @@
 <article class="text-center">
 
     <!-- Links for all things -->
-    <c:if test="${isCreatePath}">
-        <div class="container">
-            <div class="row">
-                <div class="mx-auto">
-                    <table class="table">
-                        <thead class="tab-header-area">
-                        <tr>
-                            <th><a class="nav-link" href="<c:url value="/create?product=pc"/>">PC</a></th>
-                            <th><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Processor</a></th>
-                            <th><a class="nav-link" href="<c:url value="/create?product=ram"/>">Memory</a></th>
-                            <th><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Graphic</a></th>
-                        </tr>
-                        </thead>
-                    </table>
-                    <br>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto">
+                <table class="table">
+                    <thead class="tab-header-area">
+                    <tr>
+                        <th><a class="nav-link" href="<c:url value="/list"/>">All</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=pc"/>">PC</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=cpu"/>">Processor</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=ram"/>">Memory</a></th>
+                        <th><a class="nav-link" href="<c:url value="/list?product=gpu"/>">Graphic</a></th>
+                    </tr>
+                    </thead>
+                </table>
+                <br>
             </div>
         </div>
-    </c:if>
+    </div>
 
     <!-- Information message during an action -->
     <c:if test="${informationMessage != null}">
@@ -115,10 +114,10 @@
                                 </td>
                                 <td><label><input name="pcPrice" type="number" step="0.01" min="0.01"
                                                   value="${pc.price}"
-                                                  required>.-</label></td>
+                                                  required></label></td>
                             </tr>
                             <tr>
-                                <td colspan="5"><input type="submit" value="Create"></td>
+                                <td colspan="5"><input type="submit" value="${submitValue}"></td>
                             </tr>
                         </table>
                     </form>
@@ -159,7 +158,7 @@
                                                   required>GHz</label></td>
                             </tr>
                             <tr>
-                                <td colspan="3"><input type="submit" value="Create"></td>
+                                <td colspan="3"><input type="submit" value="${submitValue}"></td>
                             </tr>
                         </table>
                     </form>
@@ -196,7 +195,7 @@
                                                   required>GB</label></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><input type="submit" value="Create"></td>
+                                <td colspan="2"><input type="submit" value="${submitValue}"></td>
                             </tr>
                         </table>
                     </form>
@@ -230,7 +229,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><input type="submit" value="Create"></td>
+                                <td><input type="submit" value="${submitValue}"></td>
                             </tr>
                         </table>
                     </form>

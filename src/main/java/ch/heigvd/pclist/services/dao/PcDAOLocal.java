@@ -30,4 +30,8 @@ public interface PcDAOLocal {
     long set(Pc pc);
 
     long set(List<Pc> pcList);
+
+    long update(Pc cpu);
+
+    long update(List<Pc> cpuList);
 }

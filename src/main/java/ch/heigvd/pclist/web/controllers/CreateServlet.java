@@ -26,29 +26,6 @@ public class CreateServlet extends HttpServlet {
     private ProductServiceLocal productService;
 
     /**
-     * Processes requests for both HTTP GET and POST methods
-     *
-     * @param req  servlet request
-     * @param resp servlet response
-     * @throws ServletException throws when it encounters difficulty
-     * @throws IOException      throws when I/O operations failed or interrupted
-     */
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean isCreatePath = "/create".equals(req.getServletPath());
-
-        jspService.setPageTitle(req);
-        req.setAttribute("isCreatePath", isCreatePath);
-        jspService.setProductBrandList(req);
-        jspService.setProductList(req);
-
-        if (!isCreatePath) {
-            jspService.setProductDetails(req);
-        }
-
-        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
-    }
-
-    /**
      * Handles the HTTP GET method
      *
      * @param req  servlet request
@@ -58,7 +35,11 @@ public class CreateServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
+        if (jspService.getProduct(req).isEmpty()) {
+            resp.sendRedirect("/pclist/create?product=pc");
+        } else {
+            processRequest(req, resp);
+        }
     }
 
     /**
@@ -78,5 +59,23 @@ public class CreateServlet extends HttpServlet {
         }
 
         processRequest(req, resp);
+    }
+
+    /**
+     * Processes requests for both HTTP GET and POST methods
+     *
+     * @param req  servlet request
+     * @param resp servlet response
+     * @throws ServletException throws when it encounters difficulty
+     * @throws IOException      throws when I/O operations failed or interrupted
+     */
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        jspService.setPageTitle(req);
+        jspService.setProductBrandList(req);
+        jspService.setProductList(req);
+        jspService.setProductDetails(req);
+        req.setAttribute("submitValue", "/create".equals(req.getServletPath()) ? "Create" : "Edit");
+
+        req.getRequestDispatcher("WEB-INF/pages/create.jsp").forward(req, resp);
     }
 }

@@ -285,4 +285,46 @@ public class PcDAO implements PcDAOLocal {
 
         return rowsAffected;
     }
+
+    @Override
+    public long update(Pc pc) {
+        return update(Collections.singletonList(pc));
+    }
+
+    @Override
+    public long update(List<Pc> pcList) {
+        long rowsAffected = 0;
+
+        StringBuilder sqlQuery = new StringBuilder()
+                .append("UPDATE pc ")
+                .append("SET brand=?, ")
+                .append("price=?, ")
+                .append("idCpu=?, ")
+                .append("idRam=?, ")
+                .append("idGpu=? ")
+                .append("WHERE idPc=?;");
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
+
+            for (Pc pc : pcList) {
+                preparedStatement.setString(1, pc.getBrand());
+                preparedStatement.setDouble(2, pc.getPrice());
+                preparedStatement.setLong(3, pc.getCpu().getIdCpu());
+                preparedStatement.setLong(4, pc.getRam().getIdRam());
+                preparedStatement.setLong(5, pc.getGpu().getIdGpu());
+                preparedStatement.setLong(6, pc.getIdPc());
+                preparedStatement.addBatch();
+            }
+
+            rowsAffected = preparedStatement.executeBatch().length != pcList.size() ? 0 : pcList.size();
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CpuDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rowsAffected;
+    }
 }
