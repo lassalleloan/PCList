@@ -15,6 +15,8 @@ import java.util.List;
 @Local
 public interface GpuDAOLocal {
 
+    boolean isExist(long id);
+
     Gpu get(long id);
 
     List<Gpu> get(List<Long> idList);

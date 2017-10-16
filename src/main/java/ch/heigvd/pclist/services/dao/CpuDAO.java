@@ -29,6 +29,11 @@ public class CpuDAO implements CpuDAOLocal {
     private DataSource dataSource;
 
     @Override
+    public boolean isExist(long id) {
+        return !get(Collections.singletonList(id)).isEmpty();
+    }
+
+    @Override
     public Cpu get(long id) {
         return get(Collections.singletonList(id)).get(0);
     }
@@ -50,13 +55,14 @@ public class CpuDAO implements CpuDAOLocal {
                 preparedStatement.setLong(1, id);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
 
-                String brand = resultSet.getString("brand");
-                int cores = resultSet.getInt("cores");
-                double frequency = resultSet.getDouble("frequency");
+                if (resultSet.next()) {
+                    String brand = resultSet.getString("brand");
+                    int cores = resultSet.getInt("cores");
+                    double frequency = resultSet.getDouble("frequency");
 
-                cpuList.add(new Cpu(id, brand, cores, frequency));
+                    cpuList.add(new Cpu(id, brand, cores, frequency));
+                }
             }
 
             connection.close();
@@ -143,9 +149,10 @@ public class CpuDAO implements CpuDAOLocal {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
 
-            numberRows = resultSet.getLong("COUNT(*)");
+            if (resultSet.next()) {
+                numberRows = resultSet.getLong("COUNT(*)");
+            }
 
             connection.close();
         } catch (SQLException ex) {

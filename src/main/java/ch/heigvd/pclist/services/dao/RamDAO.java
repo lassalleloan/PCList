@@ -28,6 +28,11 @@ public class RamDAO implements RamDAOLocal {
     @Resource(lookup = "java:/jdbc/pclist")
     private DataSource dataSource;
 
+    @Override
+    public boolean isExist(long id) {
+        return !get(Collections.singletonList(id)).isEmpty();
+    }
+
     public Ram get(long id) {
         return get(Collections.singletonList(id)).get(0);
     }
@@ -49,12 +54,13 @@ public class RamDAO implements RamDAOLocal {
                 preparedStatement.setLong(1, id);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
 
-                String brand = resultSet.getString("brand");
-                int size = resultSet.getInt("size");
+                if (resultSet.next()) {
+                    String brand = resultSet.getString("brand");
+                    int size = resultSet.getInt("size");
 
-                ramList.add(new Ram(id, brand, size));
+                    ramList.add(new Ram(id, brand, size));
+                }
             }
 
             connection.close();
@@ -140,9 +146,10 @@ public class RamDAO implements RamDAOLocal {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
 
-            numberRam = resultSet.getLong("COUNT(*)");
+            if (resultSet.next()) {
+                numberRam = resultSet.getLong("COUNT(*)");
+            }
 
             connection.close();
         } catch (SQLException ex) {

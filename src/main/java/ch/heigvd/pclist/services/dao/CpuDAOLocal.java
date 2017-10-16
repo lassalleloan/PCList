@@ -15,6 +15,8 @@ import java.util.List;
 @Local
 public interface CpuDAOLocal {
 
+    boolean isExist(long id);
+
     Cpu get(long id);
 
     List<Cpu> get(List<Long> idList);

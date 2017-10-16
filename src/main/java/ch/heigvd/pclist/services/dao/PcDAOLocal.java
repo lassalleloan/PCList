@@ -15,6 +15,8 @@ import java.util.List;
 @Local
 public interface PcDAOLocal {
 
+    boolean isExist(long id);
+
     Pc get(long id);
 
     List<Pc> get(List<Long> idList);

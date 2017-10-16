@@ -15,6 +15,8 @@ import java.util.List;
 @Local
 public interface RamDAOLocal {
 
+    boolean isExist(long id);
+
     Ram get(long id);
 
     List<Ram> get(List<Long> idList);

@@ -29,6 +29,11 @@ public class GpuDAO implements GpuDAOLocal {
     private DataSource dataSource;
 
     @Override
+    public boolean isExist(long id) {
+        return !get(Collections.singletonList(id)).isEmpty();
+    }
+
+    @Override
     public Gpu get(long id) {
         return get(Collections.singletonList(id)).get(0);
     }
@@ -50,11 +55,11 @@ public class GpuDAO implements GpuDAOLocal {
                 preparedStatement.setLong(1, id);
 
                 ResultSet resultSet = preparedStatement.executeQuery();
-                resultSet.next();
 
-                String brand = resultSet.getString("brand");
-
-                gpuList.add(new Gpu(id, brand));
+                if (resultSet.next()) {
+                    String brand = resultSet.getString("brand");
+                    gpuList.add(new Gpu(id, brand));
+                }
             }
 
             connection.close();
@@ -139,9 +144,10 @@ public class GpuDAO implements GpuDAOLocal {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
 
-            numberGpu = resultSet.getLong("COUNT(*)");
+            if (resultSet.next()) {
+                numberGpu = resultSet.getLong("COUNT(*)");
+            }
 
             connection.close();
         } catch (SQLException ex) {
