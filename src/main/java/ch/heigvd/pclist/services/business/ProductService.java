@@ -50,7 +50,7 @@ public class ProductService implements ProductServiceLocal {
 
         if (!formService.isConfigurationError(req)) {
             String product = jspService.getProduct(req);
-            String nameProduct = jspService.getNameProduct(product);
+            String nameProduct = jspService.NAME_PRODUCT_STRING_MAP.get(product);
             long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
 
             long rowsAffected = 0;
@@ -89,7 +89,7 @@ public class ProductService implements ProductServiceLocal {
 
         if (!formService.isCreateError(req)) {
             String product = jspService.getProduct(req);
-            String nameProduct = jspService.getNameProduct(product);
+            String nameProduct = jspService.NAME_PRODUCT_STRING_MAP.get(product);
 
             long rowsAffected = 0;
 
@@ -145,7 +145,7 @@ public class ProductService implements ProductServiceLocal {
 
         if (id > 0 && !formService.isCreateError(req)) {
             String product = jspService.getProduct(req);
-            String nameProduct = jspService.getNameProduct(product);
+            String nameProduct = jspService.NAME_PRODUCT_STRING_MAP.get(product);
 
             long rowsAffected = 0;
 
@@ -201,7 +201,7 @@ public class ProductService implements ProductServiceLocal {
 
         if (id > 0) {
             String product = jspService.getProduct(req);
-            String nameProduct = jspService.getNameProduct(product);
+            String nameProduct = jspService.NAME_PRODUCT_STRING_MAP.get(product);
 
             long rowsAffected = 0;
 
@@ -311,7 +311,7 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public Map<String, Object> getDetails(String product) {
+    public Map<String, Object> getComponent(String product) {
         Map<String, Object> objectMap = new HashMap<>();
 
         switch (product) {

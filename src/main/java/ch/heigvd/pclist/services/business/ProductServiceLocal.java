@@ -32,7 +32,7 @@ public interface ProductServiceLocal {
 
     Map<String, Object> getBrand(String product);
 
-    Map<String, Object> getDetails(String product);
+    Map<String, Object> getComponent(String product);
 
     long count(String product);
 }

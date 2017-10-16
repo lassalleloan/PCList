@@ -3,6 +3,7 @@ package ch.heigvd.pclist.services.business;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,68 +69,14 @@ public class JspService implements JspServiceLocal {
     }
 
     @Override
-    public String getNameProduct(String product) {
-        String nameProduct = "All";
-
-        switch (product) {
-            case "cpu":
-                nameProduct = "Processor";
-                break;
-
-            case "gpu":
-                nameProduct = "Graphic";
-                break;
-
-            case "ram":
-                nameProduct = "Memory";
-                break;
-
-            case "pc":
-                nameProduct = "PC";
-                break;
-        }
-
-        return nameProduct;
-    }
-
-    @Override
-    public String getPageTitle(String action, String product) {
-        String pageTitle = "";
-
-        switch (action) {
-            case "/configuration":
-                pageTitle = "Configuration of ";
-                break;
-
-            case "/create":
-                pageTitle = "Create a ";
-                break;
-
-            case "/edit":
-                pageTitle = "Edit a ";
-                break;
-
-            case "/list":
-                pageTitle = "List of ";
-                break;
-        }
-
-        pageTitle += getNameProduct(product);
-
-        return pageTitle;
-    }
-
-    @Override
     public long getPageSize(HttpServletRequest req) {
-        long pageSize;
+        long pageSize = getUnsignedLong(req, "pageSize");
 
-        try {
-            pageSize = Long.parseLong(req.getParameter("pageSize"));
-        } catch (NumberFormatException e) {
-            pageSize = getProduct(req).isEmpty() ? PAGE_SIZE_IS_ALL_LIST : PAGE_SIZE_IS_PRODUCT_LIST;
+        if (pageSize <= 0) {
+            pageSize = getProduct(req).isEmpty() ? PAGE_SIZE_ALL_LIST : PAGE_SIZE_PRODUCT_LIST;
         }
 
-        return pageSize <= 0 ? 1 : pageSize;
+        return pageSize;
     }
 
     @Override
@@ -139,51 +86,40 @@ public class JspService implements JspServiceLocal {
 
     @Override
     public void setPageTitle(HttpServletRequest req) {
-        req.setAttribute("pageTitle", getPageTitle(req.getServletPath(), getProduct(req)));
+        req.setAttribute("pageTitle", TITLE_STRING_MAP.get(req.getServletPath()) + NAME_PRODUCT_STRING_MAP.get(getProduct(req)));
     }
 
     @Override
     public void setHeaderTitle(HttpServletRequest req) {
-        req.setAttribute("headerTitle", "Number of " + getNameProduct(getProduct(req)));
-    }
-
-    public void setProductDetails(HttpServletRequest req) {
-        String product = getProduct(req);
-        long id = getUnsignedLong(req, "id");
-        Map<String, Object> objectMap = productService.get(product, id);
-
-        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-            req.setAttribute(entry.getKey(), entry.getValue());
-        }
+        req.setAttribute("headerTitle", "Number of " + NAME_PRODUCT_STRING_MAP.get(getProduct(req)));
     }
 
     @Override
     public void setList(HttpServletRequest req) {
-
-        // Gets type of product
         String product = getProduct(req);
         Map<String, Object> objectMap = new HashMap<>();
 
-        // Gets page size, page index for pagination and number of pages
         long pageSize = getPageSize(req);
         long pageIndex = getUnsignedLong(req, "pageIndex");
 
         boolean isAllList = product.isEmpty();
 
         if (isAllList || product.equals("pc")) {
-            objectMap.putAll(productService.get("pc", pageSize, pageIndex));
+            objectMap.putAll(productService.get("pc", "", "", pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("cpu")) {
-            objectMap.putAll(productService.get("cpu", pageSize, pageIndex));
+            String like = getString(req, "like", Arrays.asList("brand LIKE 'Int%'", "cores", "frequency"));
+            String orderBy = getString(req, "orderBy", Arrays.asList("brand", "cores", "frequency", "brand DESC", "cores DESC", "frequency DESC"));
+            objectMap.putAll(productService.get("cpu", like, orderBy, pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("ram")) {
-            objectMap.putAll(productService.get("ram", pageSize, pageIndex));
+            objectMap.putAll(productService.get("ram", "", "", pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("gpu")) {
-            objectMap.putAll(productService.get("gpu", pageSize, pageIndex));
+            objectMap.putAll(productService.get("gpu", "", "", pageSize, pageIndex));
         }
 
         req.setAttribute("allList", isAllList);
@@ -194,28 +130,20 @@ public class JspService implements JspServiceLocal {
     }
 
     @Override
-    public void setProductBrandList(HttpServletRequest req) {
+    public void setProductList(HttpServletRequest req) {
+        setAttribute(req, productService.getComponent(getProduct(req)));
+    }
 
-        // Gets product brand list
-        String product = getProduct(req);
-
-        Map<String, Object> objectMap = productService.getBrand(product);
-        objectMap.putAll(productService.getComponent(product));
-
-        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-            req.setAttribute(entry.getKey(), entry.getValue());
+    @Override
+    public void setProductComponent(HttpServletRequest req) {
+        if (!"/create".equals(req.getServletPath())) {
+            setAttribute(req, productService.get(getProduct(req), getUnsignedLong(req, "id")));
         }
     }
 
     @Override
-    public void setProductList(HttpServletRequest req) {
-        String product = getProduct(req);
-
-        Map<String, Object> objectMap = productService.getComponent(product);
-
-        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
-            req.setAttribute(entry.getKey(), entry.getValue());
-        }
+    public void setProductBrandList(HttpServletRequest req) {
+        setAttribute(req, productService.getBrand(getProduct(req)));
     }
 
     @Override
@@ -225,11 +153,8 @@ public class JspService implements JspServiceLocal {
 
     @Override
     public void setPageLinks(HttpServletRequest req) {
-
-        // Gets type of product
         String product = getProduct(req);
 
-        // Gets page size, page index for pagination and number of pages
         long pageSize = getPageSize(req);
         long pageIndex = getUnsignedLong(req, "pageIndex");
         long numberOfPages = getNumberPages(product, pageSize, pageIndex);
@@ -241,5 +166,12 @@ public class JspService implements JspServiceLocal {
         req.setAttribute("nextPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + Math.min(pageIndex + 1, numberOfPages - 1));
         req.setAttribute("lastPageLink", "/list?product=" + product + "&pageSize=" + pageSize + "&pageIndex=" + (numberOfPages - 1));
         req.setAttribute("pageCount", numberOfPages);
+    }
+
+    @Override
+    public void setAttribute(HttpServletRequest req, Map<String, Object> objectMap) {
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            req.setAttribute(entry.getKey(), entry.getValue());
+        }
     }
 }
