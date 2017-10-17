@@ -62,14 +62,30 @@
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
-                            <th>Brand</th>
-                            <th>Processor</th>
-                            <th>Number of Cores</th>
-                            <th>Frequency</th>
-                            <th>Memory</th>
-                            <th>Memory Size</th>
-                            <th>Graphic</th>
-                            <th>Price</th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=brand&order=${order == "DESC" ? "ASC" : "DESC"}">Brand</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=cpuBrand&order=${order == "DESC" ? "ASC" : "DESC"}">Processor</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=cpuCores&order=${order == "DESC" ? "ASC" : "DESC"}">Number
+                                of Cores</a></th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=cpuFrequency&order=${order == "DESC" ? "ASC" : "DESC"}">Frequency</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=ramBrand&order=${order == "DESC" ? "ASC" : "DESC"}">Memory</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=ramSize&order=${order == "DESC" ? "ASC" : "DESC"}">Memory
+                                Size</a></th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=gpuBrand&order=${order == "DESC" ? "ASC" : "DESC"}">Graphic</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=pc&col=price&order=${order == "DESC" ? "ASC" : "DESC"}">Price</a>
+                            </th>
                             <c:if test="${!allList}">
                                 <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=pc"/>">Add</a>
                                 </th>
@@ -117,9 +133,15 @@
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
-                            <th>Brand</th>
-                            <th>Number of Cores</th>
-                            <th>Frequency</th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=cpu&col=brand&order=${order == "DESC" ? "ASC" : "DESC"}">Brand</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=cpu&col=cores&order=${order == "DESC" ? "ASC" : "DESC"}">Number
+                                of Cores</a></th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=cpu&col=frequency&order=${order == "DESC" ? "ASC" : "DESC"}">Frequency</a>
+                            </th>
                             <c:if test="${!allList}">
                                 <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Add</a>
                                 </th>
@@ -163,8 +185,12 @@
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
-                            <th>Brand</th>
-                            <th>Size</th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=ram&col=brand&order=${order == "DESC" ? "ASC" : "DESC"}">Brand</a>
+                            </th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=ram&col=size&order=${order == "DESC" ? "ASC" : "DESC"}">Size</a>
+                            </th>
                             <c:if test="${!allList}">
                                 <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=ram"/>">Add</a>
                                 </th>
@@ -206,7 +232,9 @@
                     <table class="table">
                         <thead class="tab-header-area">
                         <tr>
-                            <th>Brand</th>
+                            <th><a class="nav-link"
+                                   href="/pclist/list?product=gpu&col=brand&order=${order == "DESC" ? "ASC" : "DESC"}">Brand</a>
+                            </th>
                             <c:if test="${!allList}">
                                 <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Add</a>
                                 </th>

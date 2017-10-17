@@ -21,7 +21,7 @@ public interface CpuDAOLocal {
 
     List<Cpu> get(List<Long> idList);
 
-    List<Cpu> get(String like, String orderBy, long pageSize, long pageIndex);
+    List<Cpu> get(String col, String order, long pageSize, long pageIndex);
 
     List<String> getBrand();
 

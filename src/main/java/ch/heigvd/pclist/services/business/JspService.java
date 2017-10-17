@@ -105,21 +105,28 @@ public class JspService implements JspServiceLocal {
         boolean isAllList = product.isEmpty();
 
         if (isAllList || product.equals("pc")) {
-            objectMap.putAll(productService.get("pc", "", "", pageSize, pageIndex));
+            String col = getString(req, "col", Arrays.asList("brand", "price", "cpuBrand", "cpuCores", "cpuFrequency", "ramBrand", "ramSize", "gpuBrand"));
+            String order = getString(req, "order", Arrays.asList("ASC", "DESC"));
+            objectMap.putAll(productService.get("pc", col, order, pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("cpu")) {
-            String like = getString(req, "like", Arrays.asList("brand LIKE 'Int%'", "cores", "frequency"));
-            String orderBy = getString(req, "orderBy", Arrays.asList("brand", "cores", "frequency", "brand DESC", "cores DESC", "frequency DESC"));
-            objectMap.putAll(productService.get("cpu", like, orderBy, pageSize, pageIndex));
+            //String like = getString(req, "like", Arrays.asList("brand LIKE 'Int%'", "cores", "frequency"));
+            String col = getString(req, "col", Arrays.asList("brand", "cores", "frequency"));
+            String order = getString(req, "order", Arrays.asList("ASC", "DESC"));
+            objectMap.putAll(productService.get("cpu", col, order, pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("ram")) {
-            objectMap.putAll(productService.get("ram", "", "", pageSize, pageIndex));
+            String col = getString(req, "col", Arrays.asList("brand", "size"));
+            String order = getString(req, "order", Arrays.asList("ASC", "DESC"));
+            objectMap.putAll(productService.get("ram", col, order, pageSize, pageIndex));
         }
 
         if (isAllList || product.equals("gpu")) {
-            objectMap.putAll(productService.get("gpu", "", "", pageSize, pageIndex));
+            String col = getString(req, "col", Arrays.asList("brand"));
+            String order = getString(req, "order", Arrays.asList("ASC", "DESC"));
+            objectMap.putAll(productService.get("gpu", col, order, pageSize, pageIndex));
         }
 
         req.setAttribute("allList", isAllList);
@@ -127,6 +134,15 @@ public class JspService implements JspServiceLocal {
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
             req.setAttribute(entry.getKey(), entry.getValue());
         }
+    }
+
+    @Override
+    public void setOrder(HttpServletRequest req) {
+        String order = req.getParameter("order");
+        if (order == null) {
+            order = "DESC";
+        }
+        req.setAttribute("order", order);
     }
 
     @Override

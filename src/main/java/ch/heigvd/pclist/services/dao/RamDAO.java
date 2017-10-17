@@ -72,14 +72,14 @@ public class RamDAO implements RamDAOLocal {
     }
 
     @Override
-    public List<Ram> get(String like, String orderBy, long pageSize, long pageIndex) {
+    public List<Ram> get(String col, String order, long pageSize, long pageIndex) {
         List<Ram> ramList = new ArrayList<>();
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("SELECT * ")
                 .append("FROM ram ")
-                .append(like.isEmpty() ? "" : "WHERE " + like + " ")
-                .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
+                //.append(like.isEmpty() ? "" : "WHERE " + like + " ")
+                .append(order.isEmpty() || col.isEmpty() ? "" : "ORDER BY " + col + " " + order + " ")
                 .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
 
         try {

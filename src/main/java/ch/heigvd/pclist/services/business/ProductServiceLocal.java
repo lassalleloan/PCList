@@ -28,7 +28,7 @@ public interface ProductServiceLocal {
 
     Map<String, Object> get(String product, long id);
 
-    Map<String, Object> get(String product, String like, String orderBy, long pageSize, long pageIndex);
+    Map<String, Object> get(String product, String col, String order, long pageSize, long pageIndex);
 
     Map<String, Object> getBrand(String product);
 

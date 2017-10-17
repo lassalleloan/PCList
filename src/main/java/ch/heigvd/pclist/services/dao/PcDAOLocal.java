@@ -21,7 +21,7 @@ public interface PcDAOLocal {
 
     List<Pc> get(List<Long> idList);
 
-    List<Pc> get(String like, String orderBy, long pageSize, long pageIndex);
+    List<Pc> get(String col, String order, long pageSize, long pageIndex);
 
     List<String> getBrand();
 

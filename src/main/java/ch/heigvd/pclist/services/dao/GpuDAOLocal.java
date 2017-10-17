@@ -21,7 +21,7 @@ public interface GpuDAOLocal {
 
     List<Gpu> get(List<Long> idList);
 
-    List<Gpu> get(String like, String orderBy, long pageSize, long pageIndex);
+    List<Gpu> get(String col, String order, long pageSize, long pageIndex);
 
     List<String> getBrand();
 

@@ -57,6 +57,8 @@ public interface JspServiceLocal {
 
     void setList(HttpServletRequest req);
 
+    void setOrder(HttpServletRequest req);
+
     void setInformationMessage(HttpServletRequest req, String informationMessage);
 
     void setPageLinks(HttpServletRequest req);
