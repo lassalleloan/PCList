@@ -114,7 +114,7 @@ public class PcDAO implements PcDAOLocal {
     }
 
     @Override
-    public List<Pc> get(String col, String order, long pageSize, long pageIndex) {
+    public List<Pc> get(String like, String orderBy, long pageSize, long pageIndex) {
         List<Pc> pcList = new ArrayList<>();
 
         StringBuilder sqlQuery = new StringBuilder()
@@ -134,8 +134,8 @@ public class PcDAO implements PcDAOLocal {
                 .append("INNER JOIN cpu AS c ON p.idCpu = c.idCpu ")
                 .append("INNER JOIN ram AS r ON p.idRam = r.idRam ")
                 .append("INNER JOIN gpu AS g ON p.idGpu = g.idGpu ")
-                //.append(like.isEmpty() ? "" : "WHERE " + like + " ")
-                .append(order.isEmpty() || col.isEmpty() ? "" : "ORDER BY " + col + " " + order + " ")
+                .append(like.isEmpty() ? "" : "WHERE " + like + " ")
+                .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
                 .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
 
         try {

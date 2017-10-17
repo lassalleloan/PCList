@@ -21,7 +21,7 @@ public interface RamDAOLocal {
 
     List<Ram> get(List<Long> idList);
 
-    List<Ram> get(String col, String order, long pageSize, long pageIndex);
+    List<Ram> get(String like, String orderBy, long pageSize, long pageIndex);
 
     List<String> getBrand();
 

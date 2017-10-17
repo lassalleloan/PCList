@@ -71,14 +71,14 @@ public class GpuDAO implements GpuDAOLocal {
     }
 
     @Override
-    public List<Gpu> get(String col, String order, long pageSize, long pageIndex) {
+    public List<Gpu> get(String like, String orderBy, long pageSize, long pageIndex) {
         List<Gpu> gpuList = new ArrayList<>();
 
         StringBuilder sqlQuery = new StringBuilder()
                 .append("SELECT * ")
                 .append("FROM gpu ")
-                // .append(like.isEmpty() ? "" : "WHERE " + like + " ")
-                .append(order.isEmpty() || col.isEmpty() ? "" : "ORDER BY " + col + " " + order + " ")
+                .append(like.isEmpty() ? "" : "WHERE " + like + " ")
+                .append(orderBy.isEmpty() ? "" : "ORDER BY " + orderBy + " ")
                 .append(pageSize <= 0 ? "" : "LIMIT ? OFFSET ?;");
 
         try {
