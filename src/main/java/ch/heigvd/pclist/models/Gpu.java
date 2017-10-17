@@ -1,5 +1,8 @@
 package ch.heigvd.pclist.models;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Models a graphic
  *
@@ -8,6 +11,8 @@ package ch.heigvd.pclist.models;
  * @since 13.09.2017
  */
 public class Gpu {
+
+    public static List<String> FIELD_LIST = Arrays.asList("brand");
 
     private long idGpu;
     private String brand;

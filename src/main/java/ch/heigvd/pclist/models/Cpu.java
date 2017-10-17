@@ -1,5 +1,8 @@
 package ch.heigvd.pclist.models;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Models a processor
  *
@@ -8,6 +11,8 @@ package ch.heigvd.pclist.models;
  * @since 13.09.2017
  */
 public class Cpu {
+
+    public static List<String> FIELD_LIST = Arrays.asList("brand", "cores", "frequency");
 
     private long idCpu;
     private String brand;
