@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class Ram {
 
+    /**
+     * All fields of ram
+     */
     public static List<String> FIELD_LIST = Arrays.asList("brand", "size");
 
     private long idRam;
@@ -24,30 +27,65 @@ public class Ram {
         this.size = size;
     }
 
+    /**
+     * Gets ID of ram
+     *
+     * @return ID of ram
+     */
     public long getIdRam() {
         return idRam;
     }
 
+    /**
+     * Sets ID of ram
+     *
+     * @param idRam ID of ram
+     */
     public void setIdRam(long idRam) {
         this.idRam = idRam;
     }
 
+    /**
+     * Gets brand of ram
+     *
+     * @return brand of ram
+     */
     public String getBrand() {
         return brand;
     }
 
+    /**
+     * Sets brand of ram
+     *
+     * @param brand brand of ram
+     */
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
+    /**
+     * Gets size of ram
+     *
+     * @return size of ram
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Sets size of ram
+     *
+     * @param size size of ram
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
+    /**
+     * Gets representation json of ram
+     *
+     * @return representation json of ram
+     */
     @Override
     public String toString() {
         return "Ram{" +
