@@ -306,7 +306,6 @@
                             <td colspan="5">
                                 <label>
                                     <select onchange="changePageSize(this.value)">
-                                        <option value="" selected disabled hidden>${pageSize}</option>
                                         <option value="10">10</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
