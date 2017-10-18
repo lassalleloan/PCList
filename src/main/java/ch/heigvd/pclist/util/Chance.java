@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Generate random values
+ * Generates random values
  *
  * @author Loan Lassalle (loan.lassalle@heig-vd.ch)
  * @author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
@@ -18,6 +18,9 @@ import java.util.List;
  */
 public class Chance {
 
+    /**
+     * Values used to generate random things
+     */
     private static final List<String> cpuBrands = Arrays.asList("AMD", "Intel");
     private static final List<Integer> cpuNbCores = Arrays.asList(1, 2, 4, 6, 8, 10, 12);
     private static final List<String> gpuBrands = Arrays.asList("AMD", "Asus", "ATI", "EVGA", "Gigabyte", "MSI", "NVIDIA", "XFX");
@@ -26,9 +29,9 @@ public class Chance {
     private static final List<Integer> ramSize = Arrays.asList(2, 4, 8, 16, 32, 64);
 
     /**
-     * Basic random generator for list of cpu
+     * Generates a list of random cpu
      *
-     * @return a random list of cpu
+     * @return a random list of random cpu
      */
     public static List<Cpu> randomCpu(long maximum) {
         List<Cpu> cpuList = new ArrayList<>();
@@ -41,7 +44,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for cpu
+     * Generates a random cpu
      *
      * @return a random cpu
      */
@@ -50,7 +53,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for cpu brand
+     * Generates a random cpu brand
      *
      * @return a random cpu brand
      */
@@ -59,7 +62,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for cpu number cores
+     * Generates a random cpu number cores
      *
      * @return a random cpu number cores
      */
@@ -68,7 +71,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for cpu frequency
+     * Generates a random cpu frequency
      *
      * @return a random cpu frequency
      */
@@ -77,9 +80,9 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for list of gpu
+     * Generates a random list of random gpu
      *
-     * @return a random list of gpu
+     * @return a random list of random gpu
      */
     public static List<Gpu> randomGpu(long maximum) {
         List<Gpu> gpuList = new ArrayList<>();
@@ -92,7 +95,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for gpu
+     * Generates a random gpu
      *
      * @return a random gpu
      */
@@ -101,7 +104,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for gpu brands
+     * Generates a random gpu brands
      *
      * @return a random gpu brands
      */
@@ -110,9 +113,9 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for list of pc
+     * Generates a list of random pc
      *
-     * @return a random list of pc
+     * @return a random list of random pc
      */
     public static List<Pc> randomPc(long maximum) {
         List<Pc> pcList = new ArrayList<>();
@@ -125,7 +128,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for pc
+     * Generates a random pc
      *
      * @return a random pc
      */
@@ -134,7 +137,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for pc brand
+     * Generates a random pc brand
      *
      * @return a random pc brand
      */
@@ -143,7 +146,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for pc size
+     * Generates a random pc size
      *
      * @return a random pc price
      */
@@ -152,9 +155,9 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for list of ram
+     * Generates a list of random ram
      *
-     * @return a random list of ram
+     * @return a random list of random ram
      */
     public static List<Ram> randomRam(long maximum) {
         List<Ram> ramList = new ArrayList<>();
@@ -167,7 +170,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for ram
+     * Generates a random ram
      *
      * @return a random ram
      */
@@ -176,7 +179,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for ram brand
+     * Generates a random ram brand
      *
      * @return a random ram brand
      */
@@ -185,7 +188,7 @@ public class Chance {
     }
 
     /**
-     * Basic random generator for ram size
+     * Generates a random ram size
      *
      * @return a random ram size
      */
