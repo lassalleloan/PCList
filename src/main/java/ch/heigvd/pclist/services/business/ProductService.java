@@ -259,25 +259,25 @@ public class ProductService implements ProductServiceLocal {
     }
 
     @Override
-    public Map<String, Object> get(String product, String col, String order, long pageSize, long pageIndex) {
+    public Map<String, Object> get(String product, String like, String orderBy, long pageSize, long pageIndex) {
 
         Map<String, Object> objectMap = new HashMap<>();
 
         switch (product) {
             case "pc":
-                objectMap.put("pcList", pcDAO.get(col, order, pageSize, pageIndex));
+                objectMap.put("pcList", pcDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "cpu":
-                objectMap.put("cpuList", cpuDAO.get(col, order, pageSize, pageIndex));
+                objectMap.put("cpuList", cpuDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "ram":
-                objectMap.put("ramList", ramDAO.get(col, order, pageSize, pageIndex));
+                objectMap.put("ramList", ramDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
 
             case "gpu":
-                objectMap.put("gpuList", gpuDAO.get(col, order, pageSize, pageIndex));
+                objectMap.put("gpuList", gpuDAO.get(like, orderBy, pageSize, pageIndex));
                 break;
         }
 
