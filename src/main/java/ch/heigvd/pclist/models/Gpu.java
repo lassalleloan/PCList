@@ -1,6 +1,6 @@
 package ch.heigvd.pclist.models;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Gpu {
 
-    public static List<String> FIELD_LIST = Arrays.asList("brand");
+    public static List<String> FIELD_LIST = Collections.singletonList("brand");
 
     private long idGpu;
     private String brand;
