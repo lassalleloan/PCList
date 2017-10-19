@@ -65,7 +65,7 @@
                         </thead>
                         <tr>
                             <td><label><input name="productGenerated" type="number" step="1" value="1000000" min="1"
-                                              max="123456789" required></label></td>
+                                              max="1234567" required></label></td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Generate random"></td>
