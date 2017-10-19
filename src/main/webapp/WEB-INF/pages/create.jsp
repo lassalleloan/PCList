@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto">
-                <table class="table">
+                <table class="table" id="menu">
                     <thead class="tab-header-area">
                     <tr>
                         <th><a class="nav-link" href="<c:url value="/list"/>">All</a></th>
@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="<c:url value="/list?product=pc"/>"><h3>PC</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=pc#menu"/>"><h3>PC</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -132,7 +132,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="<c:url value="/list?product=cpu"/>"><h3>Processor</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=cpu#menu"/>"><h3>Processor</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -173,7 +173,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="<c:url value="/list?product=ram"/>"><h3>Memory</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=ram#menu"/>"><h3>Memory</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">
@@ -210,7 +210,7 @@
         <div class="container">
             <div class="row">
                 <div class="mx-auto">
-                    <a class="nav-link" href="<c:url value="/list?product=gpu"/>"><h3>Graphic</h3></a>
+                    <a class="nav-link" href="<c:url value="/list?product=gpu#menu"/>"><h3>Graphic</h3></a>
                     <form method="post">
                         <table class="table">
                             <thead class="tab-header-area">

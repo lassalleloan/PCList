@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto">
-                <table class="table">
+                <table class="table" id="menu">
                     <thead class="tab-header-area">
                     <tr>
                         <th><a class="nav-link" href="<c:url value="/list"/>">All</a></th>
@@ -60,35 +60,36 @@
                 <div class="mx-auto">
                     <a class="nav-link" href="<c:url value="/list?product=pc"/>"><h3>PC</h3></a>
                     <br>
-                    <table class="table">
+                    <table class="table" id="table">
                         <thead class="tab-header-area">
                         <tr>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Brand</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Brand</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Processor</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Processor</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuCores&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Number
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuCores&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Number
                                 of Cores</a></th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuFrequency&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Frequency</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cpuFrequency&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Frequency</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=ramBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Memory</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=ramBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Memory</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=ramSize&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Memory
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=ramSize&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Memory
                                 Size</a></th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=gpuBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Graphic</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=gpuBrand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Graphic</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=price&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Price</a>
+                                   href="<c:url value="/list?product=pc&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=price&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Price</a>
                             </th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=pc"/>">Add</a>
+                                <th colspan="2"><a class="nav-link"
+                                                   href="<c:url value="/create?product=pc#menu"/>">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -105,8 +106,9 @@
                                 <td>${pc.price}.-</td>
                                 <c:if test="${!allList}">
                                     <td><a class="nav-link"
-                                           href="<c:url value="/edit?product=pc&id=${pc.idPc}"/>">Edit</a></td>
-                                    <td><a class="nav-link" href="<c:url value="/delete?product=pc&id=${pc.idPc}"/>">Delete</a>
+                                           href="<c:url value="/edit?product=pc&id=${pc.idPc}#menu"/>">Edit</a></td>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/delete?product=pc&id=${pc.idPc}#menu"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -131,20 +133,21 @@
                 <div class="mx-auto">
                     <a class="nav-link" href="<c:url value="/list?product=cpu"/>"><h3>Processor</h3></a>
                     <br>
-                    <table class="table">
+                    <table class="table" id="table">
                         <thead class="tab-header-area">
                         <tr>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Brand</a>
+                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Brand</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cores&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Number
+                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=cores&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Number
                                 of Cores</a></th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=frequency&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Frequency</a>
+                                   href="<c:url value="/list?product=cpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=frequency&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Frequency</a>
                             </th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=cpu"/>">Add</a>
+                                <th colspan="2"><a class="nav-link"
+                                                   href="<c:url value="/create?product=cpu#menu"/>">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -155,10 +158,11 @@
                                 <td>${cpu.cores}</td>
                                 <td>${cpu.frequency}GHz</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="<c:url value="/edit?product=cpu&id=${cpu.idCpu}"/>">Edit</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/edit?product=cpu&id=${cpu.idCpu}#menu"/>">Edit</a>
                                     </td>
                                     <td><a class="nav-link"
-                                           href="<c:url value="/delete?product=cpu&id=${cpu.idCpu}"/>">Delete</a>
+                                           href="<c:url value="/delete?product=cpu&id=${cpu.idCpu}#menu"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -183,17 +187,18 @@
                 <div class="mx-auto">
                     <a class="nav-link" href="<c:url value="/list?product=ram"/>"><h3>Memory</h3></a>
                     <br>
-                    <table class="table">
+                    <table class="table" id="table">
                         <thead class="tab-header-area">
                         <tr>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=ram&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Brand</a>
+                                   href="<c:url value="/list?product=ram&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Brand</a>
                             </th>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=ram&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=size&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Size</a>
+                                   href="<c:url value="/list?product=ram&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=size&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Size</a>
                             </th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=ram"/>">Add</a>
+                                <th colspan="2"><a class="nav-link"
+                                                   href="<c:url value="/create?product=ram#menu"/>">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -203,9 +208,11 @@
                                 <td>${ram.brand}</td>
                                 <td>${ram.size}GB</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="<c:url value="/edit?product=ram&id=${ram.idRam}"/>">Edit</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/edit?product=ram&id=${ram.idRam}#menu"/>">Edit</a>
                                     </td>
-                                    <td><a class="nav-link" href="<c:url value="/delete?product=ram&id=${ram.idRam}"/>">Delete</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/delete?product=ram&id=${ram.idRam}#menu"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -230,14 +237,15 @@
                 <div class="mx-auto">
                     <a class="nav-link" href="<c:url value="/list?product=gpu"/>"><h3>Graphic</h3></a>
                     <br>
-                    <table class="table">
+                    <table class="table" id="table">
                         <thead class="tab-header-area">
                         <tr>
                             <th><a class="nav-link"
-                                   href="<c:url value="/list?product=gpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}"/>">Brand</a>
+                                   href="<c:url value="/list?product=gpu&pageSize=${pageSize}&pageIndex=${pageIndex}&orderBy=brand&direction=${direction == 'DESC' ? 'ASC' : 'DESC'}#table"/>">Brand</a>
                             </th>
                             <c:if test="${!allList}">
-                                <th colspan="2"><a class="nav-link" href="<c:url value="/create?product=gpu"/>">Add</a>
+                                <th colspan="2"><a class="nav-link"
+                                                   href="<c:url value="/create?product=gpu#menu"/>">Add</a>
                                 </th>
                             </c:if>
                         </tr>
@@ -246,9 +254,11 @@
                             <tr>
                                 <td>${gpu.brand}</td>
                                 <c:if test="${!allList}">
-                                    <td><a class="nav-link" href="<c:url value="/edit?product=gpu&id=${gpu.idGpu}"/>">Edit</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/edit?product=gpu&id=${gpu.idGpu}#menu"/>">Edit</a>
                                     </td>
-                                    <td><a class="nav-link" href="<c:url value="/delete?product=gpu&id=${gpu.idGpu}"/>">Delete</a>
+                                    <td><a class="nav-link"
+                                           href="<c:url value="/delete?product=gpu&id=${gpu.idGpu}#menu"/>">Delete</a>
                                     </td>
                                 </c:if>
                             </tr>
@@ -276,14 +286,14 @@
                             <td>
                                 <c:if test="${pageIndex > 0}">
                                     <a class="nav-link"
-                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=0&orderBy=${orderBy}&direction=${direction}"/>">
+                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=0&orderBy=${orderBy}&direction=${direction}#table"/>">
                                         << </a>
                                 </c:if>
                             </td>
                             <td>
                                 <c:if test="${pageIndex > 0}">
                                     <a class="nav-link"
-                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageIndex - 1}&orderBy=${orderBy}&direction=${direction}"/>">
+                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageIndex - 1}&orderBy=${orderBy}&direction=${direction}#table"/>">
                                         < </a>
                                 </c:if>
                             </td>
@@ -291,14 +301,14 @@
                             <td>
                                 <c:if test="${pageIndex + 1 < pageCount}">
                                     <a class="nav-link"
-                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageIndex + 1}&orderBy=${orderBy}&direction=${direction}"/>">
+                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageIndex + 1}&orderBy=${orderBy}&direction=${direction}#table"/>">
                                         > </a>
                                 </c:if>
                             </td>
                             <td>
                                 <c:if test="${pageIndex + 1 < pageCount}">
                                     <a class="nav-link"
-                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageCount - 1}&orderBy=${orderBy}&direction=${direction}"/>">
+                                       href="<c:url value="/list?product=${product}&pageSize=${pageSize}&pageIndex=${pageCount - 1}&orderBy=${orderBy}&direction=${direction}#table"/>">
                                         >> </a>
                                 </c:if>
                             </td>
@@ -328,7 +338,7 @@
 
 <script>
     function changePageSize(pageSize) {
-        location.href = "/pclist/list?product=${product}&pageSize=" + pageSize + "&pageIndex=0&orderBy=${orderBy}&direction=${direction}";
+        location.href = "/pclist/list?product=${product}&pageSize=" + pageSize + "&pageIndex=0&orderBy=${orderBy}&direction=${direction}#table";
     }
 </script>
 

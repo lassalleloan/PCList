@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="mx-auto">
-                <table class="table">
+                <table class="table" id="menu">
                     <thead class="tab-header-area">
                     <tr>
                         <th><a class="nav-link" href="<c:url value="/configuration?product=pc"/>">PC</a></th>
