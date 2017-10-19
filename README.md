@@ -34,7 +34,6 @@ JBoss Wildfly -> http://localhost:9090/pclist (apps) and http://192.168.99.100:9
 
 Or for phpmyadmin:
 
-<id="caca">
 ```
 [Windows]
 http://192.168.99.100:6060(-> root/adminpw)
