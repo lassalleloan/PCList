@@ -3,6 +3,7 @@
  - author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  - since 13.09.2017
  --%>
+
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->

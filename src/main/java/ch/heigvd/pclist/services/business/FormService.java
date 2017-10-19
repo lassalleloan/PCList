@@ -19,11 +19,13 @@ public class FormService implements FormServiceLocal {
 
     @Override
     public boolean isConfigurationError(HttpServletRequest req) {
-        return jspService.getUnsignedLong(req, "productGenerated") <= 0;
+        long productGenerated = jspService.getUnsignedLong(req, "productGenerated");
+        return productGenerated <= 0 || productGenerated > 123456789;
     }
 
     @Override
     public boolean isCreateError(HttpServletRequest req) {
+        final int lengthMax = 45;
         boolean isError = false;
 
         String product = jspService.getProduct(req);
@@ -36,7 +38,7 @@ public class FormService implements FormServiceLocal {
                 long idRam = jspService.getUnsignedLong(req, "idRam");
                 long idGpu = jspService.getUnsignedLong(req, "idGpu");
 
-                isError = pcBrand.isEmpty() || pcBrand.charAt(0) == ' ' || pcPrice <= 0
+                isError = pcBrand.isEmpty() || pcBrand.charAt(0) == ' ' || pcBrand.length() > lengthMax || pcPrice <= 0
                         || idCpu <= 0 || idRam <= 0 || idGpu <= 0;
                 break;
 
@@ -45,20 +47,22 @@ public class FormService implements FormServiceLocal {
                 int cpuCores = jspService.getUnsignedInteger(req, "cpuCores");
                 double cpuFrequency = jspService.getUnsignedDouble(req, "cpuFrequency");
 
-                isError = cpuBrand.isEmpty() || cpuBrand.charAt(0) == ' ' || cpuCores <= 0 || cpuFrequency <= 0;
+                isError = cpuBrand.isEmpty() || cpuBrand.charAt(0) == ' ' || cpuBrand.length() > lengthMax
+                        || cpuCores <= 0 || cpuFrequency <= 0;
                 break;
 
             case "ram":
                 String ramBrand = req.getParameter("ramBrand");
                 int ramSize = jspService.getUnsignedInteger(req, "ramSize");
 
-                isError = ramBrand.isEmpty() || ramBrand.charAt(0) == ' ' || ramSize <= 0;
+                isError = ramBrand.isEmpty() || ramBrand.charAt(0) == ' ' || ramBrand.length() > lengthMax
+                        || ramSize <= 0;
                 break;
 
             case "gpu":
                 String gpuBrand = req.getParameter("gpuBrand");
 
-                isError = gpuBrand.isEmpty() || gpuBrand.charAt(0) == ' ';
+                isError = gpuBrand.isEmpty() || gpuBrand.charAt(0) == ' ' || gpuBrand.length() > lengthMax;
                 break;
         }
 

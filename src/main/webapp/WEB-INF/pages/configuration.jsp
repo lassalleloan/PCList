@@ -3,6 +3,7 @@
  - author Jérémie Zanone (jeremie.zanone@heig-vd.ch)
  - since 13.09.2017
  --%>
+
 <%@include file="includes/header.jsp" %>
 
 <!-- Page Header -->
@@ -64,7 +65,7 @@
                         </thead>
                         <tr>
                             <td><label><input name="productGenerated" type="number" step="1" value="1000000" min="1"
-                                              required></label></td>
+                                              max="123456789" required></label></td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Generate random"></td>
