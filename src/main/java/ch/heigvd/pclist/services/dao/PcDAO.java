@@ -43,7 +43,8 @@ public class PcDAO implements PcDAOLocal {
 
     @Override
     public boolean isExist(long id) {
-        return !get(Collections.singletonList(id)).isEmpty();
+        long idMax = count();
+        return idMax > 0 && id > 0 && id <= idMax;
     }
 
     @Override
@@ -245,6 +246,44 @@ public class PcDAO implements PcDAOLocal {
                 .append("(`idPc`, `brand`, `price`, `idCpu`, `idRam`, `idGpu`) VALUES ")
                 .append("(DEFAULT, ?, ?, ?, ?, ?);");
 
+        List<Cpu> cpuList = new ArrayList<>();
+        List<Ram> ramList = new ArrayList<>();
+        List<Gpu> gpuList = new ArrayList<>();
+
+        long cpuCount = cpuDAO.count();
+        long ramCount = ramDAO.count();
+        long gpuCount = gpuDAO.count();
+
+        for (Pc pc : pcList) {
+            Cpu cpu = pc.getCpu();
+
+            if (!cpuDAO.isExist(cpu.getIdCpu())) {
+                cpu.setIdCpu(++cpuCount);
+            }
+
+            cpuList.add(cpu);
+
+            Ram ram = pc.getRam();
+
+            if (!ramDAO.isExist(ram.getIdRam())) {
+                ram.setIdRam(++ramCount);
+            }
+
+            ramList.add(ram);
+
+            Gpu gpu = pc.getGpu();
+
+            if (!gpuDAO.isExist(gpu.getIdGpu())) {
+                gpu.setIdGpu(++gpuCount);
+            }
+
+            gpuList.add(gpu);
+        }
+
+        cpuDAO.set(cpuList);
+        ramDAO.set(ramList);
+        gpuDAO.set(gpuList);
+
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
@@ -252,27 +291,9 @@ public class PcDAO implements PcDAOLocal {
             for (Pc pc : pcList) {
                 preparedStatement.setString(1, pc.getBrand());
                 preparedStatement.setDouble(2, pc.getPrice());
-
-                Cpu cpu = pc.getCpu();
-                if (!cpuDAO.isExist(cpu.getIdCpu())) {
-                    cpuDAO.set(cpu);
-                    cpu.setIdCpu(cpuDAO.count());
-                }
-                preparedStatement.setLong(3, cpu.getIdCpu());
-
-                Ram ram = pc.getRam();
-                if (!ramDAO.isExist(ram.getIdRam())) {
-                    ramDAO.set(ram);
-                    ram.setIdRam(ramDAO.count());
-                }
-                preparedStatement.setLong(4, ram.getIdRam());
-
-                Gpu gpu = pc.getGpu();
-                if (!gpuDAO.isExist(gpu.getIdGpu())) {
-                    gpuDAO.set(gpu);
-                    gpu.setIdGpu(gpuDAO.count());
-                }
-                preparedStatement.setLong(5, gpu.getIdGpu());
+                preparedStatement.setLong(3, pc.getCpu().getIdCpu());
+                preparedStatement.setLong(4, pc.getRam().getIdRam());
+                preparedStatement.setLong(5, pc.getGpu().getIdGpu());
                 preparedStatement.addBatch();
             }
 

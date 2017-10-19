@@ -30,7 +30,8 @@ public class CpuDAO implements CpuDAOLocal {
 
     @Override
     public boolean isExist(long id) {
-        return !get(Collections.singletonList(id)).isEmpty();
+        long idMax = count();
+        return idMax > 0 && id > 0 && id <= idMax;
     }
 
     @Override

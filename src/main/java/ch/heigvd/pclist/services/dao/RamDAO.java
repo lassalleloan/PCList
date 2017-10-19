@@ -30,7 +30,8 @@ public class RamDAO implements RamDAOLocal {
 
     @Override
     public boolean isExist(long id) {
-        return !get(Collections.singletonList(id)).isEmpty();
+        long idMax = count();
+        return idMax > 0 && id > 0 && id <= idMax;
     }
 
     public Ram get(long id) {
