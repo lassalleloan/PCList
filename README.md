@@ -13,10 +13,10 @@ This goal of this repo id to develop a multi-tiered application, allowing the us
 
 ## Quick start
 
-Assuming that you have installed **docker** and **docker-compose** on your machine and cloned the repo, move to the `topology-amt` directory and fire up docker-compose to start the 3 app servers:
+Assuming that you have installed **docker** and **docker-compose** on your machine and cloned the repo, move to the `topology` directory and fire up docker-compose to start the 3 app servers:
 
 ```
-cd topology-amt
+cd topology
 docker-compose up --build
 ```
 
@@ -60,6 +60,7 @@ Once on the WEB-app contained in a nice web template (cf. Quick start) here is a
 
 - **CAN**
   - generate a list of random PCs and of its components (1 PC list and 3 components lists).
+  - generate a large amount of PCs components.
   - add a new PC and its components.
   - delete a PC and its components.
   - update a PC and its components.
