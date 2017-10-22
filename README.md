@@ -5,7 +5,7 @@ Authors: Jérémie Zanone & Loan Lassalle
 
 ## Introduction
 
-This goal of this repo is to develop a multi-tiered application, allowing the user to manage a large “list of Things”. Things should be stored in a database. In our case things are PCs like the title of this file mention it.
+The goal of this repo is to develop a multi-tiered application, allowing the user to manage a large “list of Things”. Things should be stored in a database. In our case things are PCs like the title of this file mention it.
 
 **Constraints**
 - Use MVC on the server side. Do not implement a single-page app with AJAX.
