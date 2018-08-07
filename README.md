@@ -1,7 +1,7 @@
 # AMT :: Bootcamp Project :: PCList
 
 Authors: Jérémie Zanone & Loan Lassalle
----
+***
 
 ## Introduction
 
