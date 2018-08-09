@@ -1,4 +1,4 @@
-# AMT :: Bootcamp Project :: PCList
+# PCList :: A multi-tiered architecture JavaEE project
 
 Authors: Jérémie Zanone & Loan Lassalle
 ***
