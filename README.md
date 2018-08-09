@@ -59,19 +59,19 @@ Have a look at this [Youtube playlist](https://www.youtube.com/playlist?list=PLf
 Once on the WEB-app contained in a nice web template (cf. Quick start) here is a list of what you can and can't do with our application:
 
 - **CAN**
-  - generate a list of random PCs and of its components (1 PC list and 3 components lists).
-  - generate a large amount of PCs components.
-  - add a new PC and its components.
-  - delete a PC and its components.
-  - update a PC and its components.
-  - use the pagination controls to browse through the lists.
-  - use the pagination controls to choose the amount of things displayed on the page.
-  - sort the lists by clicking on the column headers.
-  - see a red validation messages after an update or a deletion.
+  - Generate a list of random PCs and of its components (1 PC list and 3 components lists).
+  - Generate a large amount of PCs components.
+  - Add a new PC and its components.
+  - Delete a PC and its components.
+  - Update a PC and its components.
+  - Use the pagination controls to browse through the lists.
+  - Use the pagination controls to choose the amount of things displayed on the page.
+  - Sort the lists by clicking on the column headers.
+  - See a red validation messages after an update or a deletion.
 
 - **CAN'T**
 
-  - generate a large amount of PC because in order to proceed we need to create the same amount of CPU, RAM and GPU which take a lot of resource to JDBC. Furthermore we don't use asynchronous treatment.
+  - Generate a large amount of PC because in order to proceed we need to create the same amount of CPU, RAM and GPU which take a lot of resource to JDBC. Furthermore we don't use asynchronous treatment.
 
 
 ## Modifying the code
@@ -82,7 +82,7 @@ If you want to look at the code of the apps and change it, you have to regenerat
 
 There are different ways to deploy .war files.
 
-* use the web console
-* copy of the .war file in a special directory monitored by the server (in our case ```images/wildfly/data/pclist.war```). Very interesting when combined with Docker (autodeploy).
+* Use the web console
+* Copy of the .war file in a special directory monitored by the server (in our case ```images/wildfly/data/pclist.war```). Very interesting when combined with Docker (autodeploy).
 
 Since you goal is to make it possible to start your entire project with a single command (`docker-compose up`), you will probably want to use the last one.
